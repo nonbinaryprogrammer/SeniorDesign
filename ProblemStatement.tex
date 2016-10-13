@@ -49,30 +49,59 @@ solved by launching raw materials and parts and constructing the structure on or
 The International Space Station is currently evaluating possible solutions to this problem. They are 
 investigating the efficacy of 3D printing parts on orbit and of performing repairs with the help of 
 a large robotic arm. The arm on the ISS has limited functionality because of its size.
- It has the ability to move astronauts around the outside of the ISS but is not capable of the detailed maneuvers that would be required for it performing repairs itself.
+ It has the ability to move astronauts around the outside of the ISS but is not capable of the detailed
+maneuvers that would be required for it performing repairs itself.
 
 
 \section{Proposed Solution}
-The Hephaestus payload shall be an assembly containing a mechanical arm capable of performing intricate maneuvers.
+The Hephaestus payload shall be an assembly containing a mechanical arm capable of performing
+intricate maneuvers.
 This project is a proof of concept for construction and repair on orbit using a mechanical arm. 
 The ability to perform detailed maneuvers using an arm is critical for construction on orbit because
-it replaces the current need for a spacewalk to perform the same task, saving time and money and decreasing risk.
+it replaces the current need for a spacewalk to perform the same task, saving time and money and
+decreasing risk.
 
 \subsection{RockSat-X Platform for Proof of Concept}
+The RockSat-X Platform will be used for this demonstration because of the low barriers to entry and
+the future opportunities it will provide OSU for research and study in space.
+It is far more cost effective and less error prone to use an already existing rocketry platform for
+this demonstration than to attempt to build a rocket dedicated to only the Hephaestus mission.
+RockSat-X provides a standardized and consistent platform for building experiments to send into space.
+The Hephaestus team only needs to build a payload that meets the design specifications set forth by
+RockSat-X to successfully deploy that payload into LEO.
+The RockSat-X platform provides 10 cannisters that each contain telemetry and power hookups.
+Each cannister may accommodate 1 or 2 experiments.
+Additionally, if the Hephaestus mission is a success, it will provide more opportunities for space
+research such as CubeSat missions.
 \subsection{Mechanical Arm For Construction On Orbit}
 The Hephaestus project attempts to prove that a mechanical arm is a viable solution for construction on orbit.
 This is accomplished by launching a prototype of a small autonomous robotic arm as a RockSat-X payload.
 The arm will execute a series of maneuvers to make contact with pre-defined targets on the rocket.
-The maneuvers will be observed using the telemetry from sensors and motors on the arm and a video camera mounted on the payload.
+The maneuvers will be observed using the telemetry from sensors and motors on the arm and a video
+camera mounted on the payload.
 The arm will be controlled using a micro-controller and motors that will allow it to make precise movements.
-The deployment and movement of the arm will determine if a mechanical arm is a viable solution to performing construction and repairs during flight.
+The deployment and movement of the arm will determine if a mechanical arm is a viable solution to
+performing construction and repairs during flight.
 \subsection{Software Solution for Arm Control and Telemetry}
-(needs to be added)
+The Software for the Hephaestus payload will collect telemetry data, store the video feed from the
+camera, and control the arm assembly body motors.
+The Software will be responsible for recording every input it receives, output it sends, as well other
+important information. The Software will transmit that information to the ground station via the
+telemetry hookups.
+Additionally, the Software must handle sharing of the telemetry hookups with the neighboring RockSat-X
+cannister. 
+The Software will also be responsible for controlling the movement of the arm assembly body. 
+Finally, the Hephaestus Software must store the output from the video camera into a persistent storage
+location.
+
 \section{Metrics For Success}
 \subsection{Mission Success Criteria}
-The mission will be considered a success if the arm is able to complete its task of contacting the targets on the rocket. We will know if it was successful from the data received from the sensors and the video recorded of the robotic arm.
+The mission will be considered a success if the arm is able to complete its task of contacting the targets on the rocket. We will know if it was
+successful from the data received from the sensors and the video recorded of the robotic arm.
 \subsection{Software Success Criteria}
-The software will be considered a success if it is able to accurately move and control the robotic to touch its designated targets and deploy the arm at the correct time. Software will also need to capture and transmit the data gathered via the sensors.  
+The software will be considered a success if it is able to accurately move and control the robotic to touch its designated targets and deploy
+the arm at the correct time. Software will also need to capture and transmit the data gathered via the sensors.  
 \subsection{Evaluation of Success Criteria}
-Providing that the data we gather is accurate to what is captured on the video, we can confirm our data capturing software performed well. The video capture will also show whether the arm ejected from its case and extended to touch the targets.
+Providing that the data we gather is accurate to what is captured on the video, we can confirm our data capturing software performed well.
+The video capture will also show whether the arm ejected from its case and extended to touch the targets.
 \end{document}
