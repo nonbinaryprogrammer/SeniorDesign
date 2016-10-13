@@ -2,6 +2,7 @@
 
 \usepackage{geometry}
 \usepackage{hyperref}
+\newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
 \geometry{textheight=8.5in, textwidth=6in}
 
 \title{Problem Statement For RockSat-X Payload - Hephaestus}
@@ -24,6 +25,12 @@ the progress of the flight. The software shall be responsible for deploying and 
 assembly body. Hephaestus will be successful if the arm performs the given motions and if the motions
  are recorded by the on-board video camera and telemetry data.
 \end{abstract}
+
+\begin{bottompar}
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\end{bottompar}
 
 \clearpage
 
@@ -72,7 +79,7 @@ RockSat-X to successfully deploy that payload into LEO.
 The RockSat-X platform provides 10 cannisters that each contain telemetry and power hookups.
 Each cannister may accommodate 1 or 2 experiments.
 Additionally, if the Hephaestus mission is a success, it will provide more opportunities for space
-research such as CubeSat missions.
+research such as CubeSat missions through the Space Grant Consortium.
 \subsection{Mechanical Arm For Construction On Orbit}
 The Hephaestus project attempts to prove that a mechanical arm is a viable solution for construction on orbit.
 This is accomplished by launching a prototype of a small autonomous robotic arm as a RockSat-X payload.
@@ -96,12 +103,47 @@ location.
 
 \section{Metrics For Success}
 \subsection{Mission Success Criteria}
-The mission will be considered a success if the arm is able to complete its task of contacting the targets on the rocket. We will know if it was
-successful from the data received from the sensors and the video recorded of the robotic arm.
+The success of the Hephaestus mission shall be evaluated based on two success
+landmarks. These landmarks are the minimum success criteria and the maximum
+success criteria. The minimum success criteria defines the minimum task that we
+could accomplish and still consider the mission to be successful while the
+maximum mission success criteria describes the tasks that would make a fully
+successful mission.
+\subsubsection{Minimum Mission Success Criteria}
+\begin{enumerate}
+  \item The arm assembly body shall deploy and a video sweep is successfully
+    recorded.
+  \item The arm assembly body shall be fully retracted after data collection.
+\end{enumerate}
+\subsubsection{Maximum Mission Success Criteria}
+\begin{enumerate}
+  \item The arm assembly body shall deploy and a video sweep is successfully
+    recorded.
+  \item The arm shall make contact with predetermined targets around the
+    payload.
+  \item The camera shall record all instances of contact between the arm and the
+    targets.
+  \item The arm assembly body shall be fully retracted after data collection.
+\end{enumerate}
 \subsection{Software Success Criteria}
-The software will be considered a success if it is able to accurately move and control the robotic to touch its designated targets and deploy
-the arm at the correct time. Software will also need to capture and transmit the data gathered via the sensors.  
+The software can be successful without the mission being successful. For example
+in the drastic case where the rocket is destroyed on launch, our software could
+still be successful if it met all of the following requirements prior to the
+flight.
+\begin{enumerate}
+  \item The software shall deploy the arm assembly body and perform a video sweep.
+  \item Test points shall be generated and stored.
+  \item The movements to reach each generated point shall be generated.
+  \item The arm shall perform the generated tasks and record the motions using
+    the video camera and telemetry channels.
+  \item The software shall retract the arm assembly body.
+\end{enumerate}
 \subsection{Evaluation of Success Criteria}
-Providing that the data we gather is accurate to what is captured on the video, we can confirm our data capturing software performed well.
-The video capture will also show whether the arm ejected from its case and extended to touch the targets.
+The mission will be considered successful if the success criteria have been
+varifiably met. This means that in order for the mission to be fully successful,
+the arm must deploy, perform its motions and retract as well as record all
+motions using the video camera and telemetry. We will use the recorded video and
+the telemetry data of motor motion and pressure sensors to determine whether the
+arm has performed all tasks. Using that data and the benchmarks described in
+this document we will determine the level of success of the Hephaestus mission.
 \end{document}
