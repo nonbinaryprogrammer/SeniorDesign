@@ -59,6 +59,7 @@ a large robotic arm. The arm on the ISS has limited functionality because of its
  It has the ability to move astronauts around the outside of the ISS but is not capable of the detailed
 maneuvers that would be required for it performing repairs itself.
 
+Software limitations are directly related to the limitations of constructing all equipment on earth, prior to launch. Writing code that is robust enough to handle all of the potential situations that can occur in space requires years of planning and foresight. Software that is able to maintain itself is currently not possible, but software that is able to make repairs on hardware autonomously, while difficult, is reasonable.
 
 \section{Proposed Solution}
 The Hephaestus payload shall be an assembly containing a mechanical arm capable of performing
@@ -97,7 +98,7 @@ important information. The Software will transmit that information to the ground
 telemetry hookups.
 Additionally, the Software must handle sharing of the telemetry hookups with the neighboring RockSat-X
 cannister. 
-The Software will also be responsible for controlling the movement of the arm assembly body. 
+The Software will also be responsible for controlling the movement of the arm assembly body. To do this, we can load the body with the Atmel software framework which provides drivers and libraries to glue together the pieces of a software design using Atmel devices. Our electrical engineers will be using an Atmega 128 Microcontroller, so our software must be compliant with their device.
 Finally, the Hephaestus Software must store the output from the video camera into a persistent storage
 location.
 
