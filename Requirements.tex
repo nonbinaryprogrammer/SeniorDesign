@@ -94,7 +94,7 @@ The success of the mission shall be evaluated by means of video recordings recov
 This is the highest priority level. In order for the software system to be considered complete and ready for launch, all requirements of this level must be met.
 The completion of only Priority 1 requirements marks the completion of Minimum Mission Success criteria, as defined in section 1.4.
 \subsubsection{Priority 2}
-Requirements of priority 2 are not required for the release of the software system.
+Requirements of Priority 2 are not required for the release of the software system.
 Not completing these requirements must not present a risk to mission success.
 The completion of these requirements and successful performance on orbit marks completion of part of the Maximum Success Criteria, as defined in section 1.4.
 \subsubsection{Priority 3}
@@ -117,8 +117,12 @@ Completion of all priority 3 requirements and those of higher priority, with suc
 
 \section{Non Functional Requirements}
 \subsection{Performance}
+The system shall perform efficiently. The maximum response service time should be long enough for the robotic arm to move from one target to another. The system should have a maximum throughput that allows for processing of input arguments about the arm's actions and processing for the telemetry data output. Resource usage should be limited to account for the storing of telemetry data. Power consumption must be limited to 28V.
 \subsection{Security}
+The system shall be secure. Since it is a closed system, the device will be programmed such that it cannot be accessed remotely and will only output sanitized data.
 \subsection{Telemetry}
+The system will perform telemetry. The data will be transmitted with a delay of up to 10 seconds.
+
 
 
 \end{document}
