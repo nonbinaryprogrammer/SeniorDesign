@@ -54,25 +54,30 @@ Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
 \section{Introduction}
 \subsection{Purpose of Document}
 
-\begin{wrapfigure}{o}{-1\textwidth}
-\centering
+\begin{center}
+\begin{wrapfigure}{o}{0.5\textwidth}
 \includegraphics[scale=.25]{logo}
 %\caption{Some text as a caption}
 \end{wrapfigure}
+\end{center}
 
 This document shall describe in detail the Hephaestus RockSat-X payload.
-It specifies the software behavior of the payload.
+It shall specify the software behavior of the payload.
 This document will not discuss the specific implementations of the hardware or the software.
 It will specify the behavior by describing the Functional and Non Functional requirements of the software.
-This document will be updated throughout the project.
+This document will be updated throughout the project and should be considered a living document.
+
 \subsection{Overview of Document}
 This document will first cover the functional requirements of the project, then the non functional requirements.
 The Functional Requirements will include descriptions of the main behavior, target generation, movement, operation modes, and telemetry.
 Each of these topics will include descriptions of the behavioral requirements for each.
 The Non Functional requirements will cover the performance, security, and telemetry.
 Each of the non functional topics covered will include the requirements for the quality of each of the topics.
+
 \subsection{Overview of Payload}
-The Hephaestus RockSat-X payload shall perform the following operations:
+The Hephaestus RockSat-X payload is a deployable rocketry payload that will fly on the 2016 RockSat-X launch.
+The payload's main function is to provide a proof of concept for delicate construction in a space environment.
+The Hephaestus payload shall perform the following operations:
 \begin{itemize}
 \item{Remain retracted with power off for duration of launch}
 \item{Power on at apogee}
@@ -86,6 +91,19 @@ The Hephaestus RockSat-X payload shall perform the following operations:
 \item{Retract arm assembly body}
 \item{Power off}
 \end{itemize}
+
+\subsection{Overview of Physical Payload}
+While this document focuses on the software of the Hephaestus payload, the project also includes hardware
+ and electrical systems. 
+Understanding the physical appearance of the payload will help with understanding the software system. 
+As such, the following diagram should serve as a reference for the physical appearance of the payload.
+\begin{center}
+\begin{wrapfigure}
+\includegraphics[scale=.25]{img2}
+\caption{Model of Hephaestus Payload}
+\end{wrapfigure}
+\end{center}
+
 \subsection{Mission Success Criteria}
 The following criteria determine if the Hephaestus mission will be considered successful post-flight.
 The minimum mission success criteria represent the lowest criteria to be met in order for the mission to be considered successful.
@@ -93,11 +111,13 @@ If the minimum mission success criteria are not met, then the mission may not be
 The maximum success criteria define the highest goals for the mission.
 Fulfilling any or all of these criteria, in addition to the minimum success criteria, would constitute a highly successful mission.
 The success of the mission shall be evaluated by means of video recordings recovered post-flight and telemetry data received during the flight.
+
 \subsubsection{Minimum Mission Success Criteria}
 \begin{itemize}
 \item{The arm assembly body shall deploy and a video sweep is successfully recorded.}
 \item{The arm assembly body shall be fully retracted after data collection.}
 \end{itemize}
+
 \subsubsection{Maximum Mission Success Criteria}
 \begin{itemize}
 \item{The arm assembly body shall deploy and a video sweep is successfully recorded.}
@@ -105,35 +125,46 @@ The success of the mission shall be evaluated by means of video recordings recov
 \item{The camera shall record all instances of contact between the arm and the targets.}
 \item{The arm assembly body shall be fully retracted after data collection.}
 \end{itemize}
+
 \subsection{Requirements Apportioning}
+
 \subsubsection{Priority 1}
 This is the highest priority level. In order for the software system to be considered complete and ready for launch, all requirements of this level must be met.
 The completion of only Priority 1 requirements marks the completion of Minimum Mission Success criteria, as defined in section 1.4.
+
 \subsubsection{Priority 2}
 Requirements of Priority 2 are not required for the release of the software system.
 Not completing these requirements must not present a risk to mission success.
 The completion of these requirements and successful performance on orbit marks completion of part of the Maximum Success Criteria, as defined in section 1.4.
+
 \subsubsection{Priority 3}
 Requirements of Priority 3 are not required for the release of the software system.
 Not completing these requirements must not present a risk to mission success.
 Completion of all priority 3 requirements and those of higher priority, with successful performance on orbit, marks the completion of the Maximum Mission Success Criteria, as defined in section 1.4.
 
 \section{Functional Requirements}
+
 \subsection{Main Behavior}
 \textbf{Priority 1:}
-The software shall control the movement of the arm assembly body to make contact with the outside of the rocket
+The software shall control the movement of the arm assembly body to make contact with the payload base
 at locations generated by the Software (section 2.2). 
 
 \subsection{Target Generation}
 \textbf{Priority 1:}
-The software shall generate points with a radius, angle, and height. 
+The software shall generate points to be used in testing the Hephaestus arm.
+The points will constitute the total test of the arm, and should therefore include points
+representative of standard and edge cases.
+The points shall be generated in polar form, including an angle from normal, a radius, and a height. 
 The angle shall be in the range of 0 and 359 degrees.
-The angle shall be measured from normal.
-The normal angle shall be defined as the direction of payload deployment.
+An angle of zero degrees shall be in the direction of payload deployment.
+The radius shall be the distance from the arm's attachment to the base to the generated point.
+The height of the point, for the purpose of target generation, shall be constant.
+However the points will always be stored in a triple of angle from normal (\[\theta\]), radius (\[r\]), and height (\[h\]).
 These points shall be used as targets for the arm body.
 
 \subsection{Movement}
 The software shall control the movement of the arm body assembly. 
+The position of the tip of the arm shall be tracked in the coordinate notation described in section 2.2 above.
 
 \textbf{Priority 1:}
 The software shall rotate the arm body assembly in a full 360 degrees.
