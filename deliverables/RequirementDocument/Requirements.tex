@@ -53,14 +53,6 @@ Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
 
 \section{Introduction}
 \subsection{Purpose of Document}
-
-\begin{center}
-\begin{wrapfigure}{o}{0.5\textwidth}
-\includegraphics[scale=.25]{logo}
-%\caption{Some text as a caption}
-\end{wrapfigure}
-\end{center}
-
 This document shall describe in detail the Hephaestus RockSat-X payload.
 It shall specify the software behavior of the payload.
 This document will not discuss the specific implementations of the hardware or the software.
@@ -96,13 +88,11 @@ The Hephaestus payload shall perform the following operations:
 While this document focuses on the software of the Hephaestus payload, the project also includes hardware
  and electrical systems. 
 Understanding the physical appearance of the payload will help with understanding the software system. 
-As such, the following diagram should serve as a reference for the physical appearance of the payload.
-\begin{center}
-\begin{wrapfigure}
-\includegraphics[scale=.25]{img2}
+As such, Figure 1 should serve as a reference for the physical appearance of the payload.
+\begin{figure}
+\includegraphics[scale=.5]{img2}
 \caption{Model of Hephaestus Payload}
-\end{wrapfigure}
-\end{center}
+\end{figure}
 
 \subsection{Mission Success Criteria}
 The following criteria determine if the Hephaestus mission will be considered successful post-flight.
@@ -159,7 +149,7 @@ The angle shall be in the range of 0 and 359 degrees.
 An angle of zero degrees shall be in the direction of payload deployment.
 The radius shall be the distance from the arm's attachment to the base to the generated point.
 The height of the point, for the purpose of target generation, shall be constant.
-However the points will always be stored in a triple of angle from normal (\[\theta\]), radius (\[r\]), and height (\[h\]).
+However the points will always be stored in a triple of angle from normal (\(\theta\)), radius (\(r\)), and height (\(h\)).
 These points shall be used as targets for the arm body.
 
 \subsection{Movement}
