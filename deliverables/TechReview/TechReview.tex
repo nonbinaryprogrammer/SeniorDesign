@@ -8,7 +8,7 @@
 \geometry{textheight=8.5in, textwidth=6in}
 \newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
 
-\title{Requirements For RockSat-X Payload - Hephaestus}
+\title{Technical Review And Implementation Plan For RockSat-X Payload - Hephaestus}
 \author{Helena~Bales, Amber~Horvath, and Michael~Humphrey\\ \\ CS461 - Fall 2016}
 
 \parindent = 0.0 in
@@ -19,11 +19,12 @@
 
 \begin{abstract}
 The Oregon State University RockSat-X team shall be name Hephaestus.
-The requirements for the hardware, software, and programmatic development of Hephaestus shall be outlined in the following document.
+The possible methods for implementing our project requirements shall be outlined in this document.
 The mission requires that the payload, an autonomous robotic arm, perform a series of motions to locate predetermined targets.
 The hardware shall be capable of performing the motions to reach the targets.
 The software shall determine the targets and send the commands to the hardware to execute the motion.
 The combination of the hardware controlled by the software shall demonstrate Hephaestus's ability to construct small parts on orbit.
+This document will focus on the implementation of the software, but shall include necessary project context including hardware.
 \end{abstract}
 
 \begin{bottompar}
@@ -52,6 +53,41 @@ Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
 \clearpage
 
 \section{Introduction}
+\subsection{Document Overview}
+This is the Technical Review And Implementation Plan for the Hephaestus project.
+This document shall investigate possible methods of implementing our project software requirements.
+The nine general requirements investigated below were identified as project requirements in our Requirements document.
+This document will focus on the "how" of our requirements implementation.
+\subsection{Project Overview}
+The Hephaestus project is a Capstone Senior Design project for Oregon State University's 2016/2017 Senior Design class (CS461-CS463).
+The CS senior design project is one part of the overall Hephaestus project.
+In addition to the CS team, there is one team of Electrical Engineers and two teams of Mechanical Engineers working on this project through other senior design classes.
+The Hephaestus payload is a rocketry payload developed as part of the 2016/2017 RockSat-X program.
+The RockSat-X program is a year long program where groups of students develop rocketry payloads with the help of the Colorado Space Grant Consortium and Wallops Flight Facility.
+The term "rocketry payload" refers to an experiment inside a section of the rocket.
+Each section of the rocket is called a can, and is a standard space that we can fill with an experiment.
+The Hephaestus payload shall take up half a can and shall be mounted on a standard base plate provided by Wallops.
+We, as the Hephaestus team, will create the hardware and software for the payload, then integrate it into the rocket before launch.
+
+\subsubsection{Project Phases}
+The project shall include several phases. The first is the design phase.
+The design phase shall last all of Fall 2016 term at OSU.
+In the design phase, we shall design the robotics, electronics, materials, and software.
+The design phase shall include presentations to the RockSat-X program, where there will review our designs.
+Following the design phase will be the implementation phase.
+In the implementation phase we shall last through June 2017.
+This phase shall include testing of the payload.
+We will perform testing both at OSU and at Wallops.
+At OSU we will be testing the payload functionality.
+At Wallops, we will be testing the structural integrity of the payload, as well as its resistance to vibrations, heat, and cold.
+Following the implementation phase will be the integration phase.
+This phase will occur at Wallops in July.
+This is the point at which our base plate will be integrated into the rocket as a whole, along with the other participating teams.
+The final phase will be launch. Launch will occur in Summer of 2017.
+The rocket shall be launched from Wallops Flight Facility.
+During the flight we shall send telemetry to the ground station at Wallops.
+The payload shall perform the experiment once it reaches appogee.
+The payload will hopefully be recovered post-flight.
 
 \section{Technologies}
 \subsection{Tech 1}
@@ -68,5 +104,11 @@ The three options being considered for transmitting telemetry are
 \subsection{Data Visualization}
 
 \section{Conclusion}
+\section{Appendix}
+\subsection{Glossary}
+\subsection{Payload Modes of Operation}
+\subsection{Model of Payload Hardware}
+\subsection{Payload Wiring Diagram}
+\subsection{References}
 
 \end{document}
