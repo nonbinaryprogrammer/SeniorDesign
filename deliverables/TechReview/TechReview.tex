@@ -1,12 +1,26 @@
 \documentclass[letterpaper,10pt]{article}
 
 \usepackage{geometry}
+\usepackage{glossaries}
 \usepackage{hyperref}
 \usepackage[pdftex]{graphicx}
 \usepackage{tikz}
 \usepackage{wrapfig}
 \geometry{textheight=8.5in, textwidth=6in}
 \newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
+
+\makeglossaries
+\newglossaryentry{payload}{
+name=payload,
+description={A subsection of a rocket that is not essential to the rocket's operation. A payload is placed in a can, mounted on a standard base plate. A payload completes some specific task.}
+}
+
+\newglossaryentry{can}{
+name=can,
+description={A can is a segment of the rocket in which payloads can be placed. A can constitutes a standard length of rocket, defined by the RockSat-X program.}
+}
+
+\newacrony{OSULabel}{OSU}{Oregon State University}
 
 \title{Technical Review And Implementation Plan For RockSat-X Payload - Hephaestus}
 \author{Helena~Bales, Amber~Horvath, and Michael~Humphrey\\ \\ CS461 - Fall 2016}
@@ -104,8 +118,8 @@ The three options being considered for transmitting telemetry are
 \subsection{Data Visualization}
 
 \section{Conclusion}
+\section{Glossary}
 \section{Appendix}
-\subsection{Glossary}
 \subsection{Payload Modes of Operation}
 \subsection{Model of Payload Hardware}
 \subsection{Payload Wiring Diagram}
