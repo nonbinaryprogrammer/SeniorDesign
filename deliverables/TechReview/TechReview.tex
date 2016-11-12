@@ -10,17 +10,7 @@
 \newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
 
 \makeglossaries
-\newglossaryentry{payload}{
-name=payload,
-description={A subsection of a rocket that is not essential to the rocket's operation. A payload is placed in a can, mounted on a standard base plate. A payload completes some specific task.}
-}
-
-\newglossaryentry{can}{
-name=can,
-description={A can is a segment of the rocket in which payloads can be placed. A can constitutes a standard length of rocket, defined by the RockSat-X program.}
-}
-
-\newacronym{OSULabel}{OSU}{Oregon State University}
+\input{Glossary}
 
 \title{Technical Review And Implementation Plan For RockSat-X Payload - Hephaestus}
 \author{Helena~Bales, Amber~Horvath, and Michael~Humphrey\\ \\ CS461 - Fall 2016}
@@ -32,7 +22,7 @@ description={A can is a segment of the rocket in which payloads can be placed. A
 \maketitle
 
 \begin{abstract}
-The Oregon State University RockSat-X team shall be name Hephaestus.
+The \gls{OSU} RockSat-X team shall be name Hephaestus.
 The possible methods for implementing our project requirements shall be outlined in this document.
 The mission requires that the payload, an autonomous robotic arm, perform a series of motions to locate predetermined targets.
 The hardware shall be capable of performing the motions to reach the targets.
@@ -72,29 +62,114 @@ This is the Technical Review And Implementation Plan for the Hephaestus project.
 This document shall investigate possible methods of implementing our project software requirements.
 The nine general requirements investigated below were identified as project requirements in our Requirements document.
 This document will focus on the "how" of our requirements implementation.
+\subsection{Role Breakdown}
+Each CS Senior Design team member shall be responsible for insuring the completion of the three items
+from the requirements document that are assigned to them below.
+\subsubsection{Helena Bales}
+\begin{enumerate}
+\item{Target Generation}
+\item{Arm Movement}
+\item{Arm Position Tracking}
+\end{enumerate}
+\subsubsection{Amber Horvath}
+\begin{enumerate}
+\item{Emergency Payload Expulsion}
+\item{Program Modes of Operation}
+\item{Target Success Sensors}
+\end{enumerate}
+\subsubsection{Michael Humphrey}
+\begin{enumerate}
+\item{Telemetry}
+\item{Video Camera}
+\item{Data Visualization and Processing}
+\end{enumerate}
+
 \section{Technologies}
-\subsection{Tech 1}
-\subsection{Tech 2}
-\subsection{Tech 3}
+\subsection{Target Generation}
+\subsubsection{Requirement Overview}
+The software shall generate points to be used in testing the Hephaestus arm.
+The points will constitute the total test of the arm, and should therefore include points
+representative of standard and edge cases.
+These points shall be used as targets for the arm body.
+\subsubsection{Proposed Solutions}
+\begin{enumerate}
+\item{
+\textbf{The points shall be generated in 3-D polar form}, including an angle from normal, a radius, 
+and a height. 
+The angle shall be in the range of 0 and 359 degrees.
+An angle of zero degrees shall be in the direction of payload deployment.
+The radius shall be the distance from the arm's attachment to the base to the generated point.
+The height of the point, for the purpose of target generation, shall be constant.
+However the points will always be stored in a triple of angle from normal (\(\theta\)), radius (\(r\)), and height (\(h\)).
+}
+\item{
+\textbf{The points shall be generated in 3-D Cartesian form}, including \(x\) position to the right 
+or left of the \(y-axis\), the \(y\) position above or below the \(x-axis\), and the height, \(h\), 
+above the \(xy-plane\).
+Let the \(y-axis\) be the direction that the payload deploys from the can.
+Let the \(x-axis\) be the perpendicular to the \(y-axis\) at the point where the arm is mounted 
+to the rotating plate. 
+Let \(h\) be the height above the \(xy-plane\), where the arm is attached to the rotating plate.
+}
+\item{
+\textbf{The points shall be generated in 2-D Polar coordinates}, where the implementation is the 
+same as described in the 3-D Polar coordinate section, with the exception of \(h\).
+In this case, there shall be no \(h\).
+The position can be represented in 2-D Polar coordinates on the plane of the base plate.
+For the purpose of compatability with the position of the arm, the height could be assumed to be 0.
+}
+\end{enumerate}
+
+\subsection{Arm Movement}
+\subsubsection{Requirement Overview}
+The software shall control the movement of the arm body assembly. 
+The position of the tip of the arm shall be tracked in the coordinate notation described in section 2.2 above.
+The software shall rotate the arm body assembly in a full 360 degrees.
+The software shall additionally control the movement the height of the arm body assembly.
+The arm should descend and touch the baseplate of the payload at any rotation.
+
+TODO ADD MORE
+\subsubsection{Proposed Solutions}
+
+\subsection{Arm Position Tracking}
+\subsubsection{Requirement Overview}
+The position of the arm shall be tracked using the same coordinate system described in the Target Generation requirement.
+The position of the arm shall be calculated using the known start position and the rotation of the motors.
+The starting position shall be known due to a calibration point that will allow for a reset at any time.
+Resetting in this way will allow for flexibility between resetting for maximum operation time with only tolerably small error defined by the Non Functional Requirements.
+\subsubsection{Proposed Solutions}
+
 \subsection{Tech 4}
+\subsubsection{Requirement Overview}
+\subsubsection{Proposed Solutions}
 \subsection{Tech 5}
+\subsubsection{Requirement Overview}
+\subsubsection{Proposed Solutions}
 \subsection{Tech 6}
+\subsubsection{Requirement Overview}
+\subsubsection{Proposed Solutions}
 \subsection{Telemetry}
+\subsubsection{Requirement Overview}
+\subsubsection{Proposed Solutions}
 The three options being considered for transmitting telemetry are
-1. a custom-built solution for our own needs, 2. Open MCT developed by NASA for space-specific missions, and 
-3. 
+\begin{enumerate}
+\item{A custom-built solution for our own needs}
+\item{Open MCT developed by NASA for space-specific missions}
+\item{TODO} 
+\end{enumerate}
+
 \subsection{Video Handling}
+\subsubsection{Requirement Overview}
+\subsubsection{Proposed Solutions}
+
 \subsection{Data Visualization}
+\subsubsection{Requirement Overview}
+\subsubsection{Proposed Solutions}
 
 \section{Conclusion}
 \section{Glossary}
 
 \section{Appendix}
 \input{Appendix}
-
-\subsection{Payload Modes of Operation}
-\subsection{Model of Payload Hardware}
-\subsection{Payload Wiring Diagram}
-\subsection{References}
 
 \end{document}

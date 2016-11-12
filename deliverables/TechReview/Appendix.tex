@@ -38,7 +38,7 @@ The payload will hopefully be recovered post-flight.
 \subsection{Software State Diagram}
 \input{state_diagram}
 \begin{center}
-Diagram of software states of operation and transition between states.
+Diagram of software states of operation and transition between states [2].
 
 Transitions between states occur as numbered:
 
@@ -53,10 +53,11 @@ Transitions between states occur as numbered:
 \item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket.}
 \item{\textbf{Error: Payload is still deployed.} The software shall remain in Safety mode until the payload is either retracted correctly, retracted fully with the arm in the open position, or ejected safely from the rocket. Safety mode shall first try to correctly retract the arm, then retract with the arm open, then repeat attempting ejection until the payload is ejected.}
 \end{enumerate}
+\end{center}
 
 \subsection{Model of Payload Hardware}
 \subsection{Payload Wiring Diagram}
 \subsection{References}
+[1] TODO Who made the Logo for us?
+[2] H. Bales and M. Humphrey, "Diagram of Software Modes of Operation," 2016. [Online]. Available: Hephaestus Requirements Document.
 
-\end{document}
-\end{center}
