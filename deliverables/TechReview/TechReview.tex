@@ -10,11 +10,8 @@
 \newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
 
 \makeglossaries
-<<<<<<< bb709f9fb1a1ca8287180dbd26a2d52b23755868
 \input{Glossary}
-=======
 \loadglsentries[main]{glossary}
->>>>>>> Refractored glossary and filled out two thirds of the telemetry section
 
 \title{Technical Review And Implementation Plan For RockSat-X Payload - Hephaestus}
 \author{Helena~Bales, Amber~Horvath, and Michael~Humphrey\\ \\ CS461 - Fall 2016}
@@ -66,7 +63,6 @@ This is the Technical Review And Implementation Plan for the Hephaestus project.
 This document shall investigate possible methods of implementing our project software requirements.
 The nine general requirements investigated below were identified as project requirements in our Requirements document.
 This document will focus on the "how" of our requirements implementation.
-<<<<<<< bb709f9fb1a1ca8287180dbd26a2d52b23755868
 \subsection{Role Breakdown}
 Each CS Senior Design team member shall be responsible for insuring the completion of the three items
 from the requirements document that are assigned to them below.
@@ -88,38 +84,6 @@ from the requirements document that are assigned to them below.
 \item{Video Camera}
 \item{Data Visualization and Processing}
 \end{enumerate}
-=======
-\subsection{Project Overview}
-The Hephaestus project is a Capstone Senior Design project for Oregon State University's 2016/2017 Senior Design class (CS461-CS463).
-The CS senior design project is one part of the overall Hephaestus project.
-In addition to the CS team, there is one team of Electrical Engineers and two teams of Mechanical Engineers working on this project through other senior design classes.
-The Hephaestus \gls{payload} is a rocketry \gls{payload} developed as part of the 2016/2017 RockSat-X program.
-The RockSat-X program is a year long program where groups of students develop rocketry payloads with the help of the Colorado Space Grant Consortium and Wallops Flight Facility.
-The term "rocketry payload" refers to an experiment inside a section of the rocket.
-Each section of the rocket is called a can, and is a standard space that we can fill with an experiment.
-The Hephaestus payload shall take up half a can and shall be mounted on a standard base plate provided by Wallops.
-We, as the Hephaestus team, will create the hardware and software for the payload, then integrate it into the rocket before launch.
-
-\subsubsection{Project Phases}
-The project shall include several phases. The first is the design phase.
-The design phase shall last all of Fall 2016 term at OSU.
-In the design phase, we shall design the robotics, electronics, materials, and software.
-The design phase shall include presentations to the RockSat-X program, where there will review our designs.
-Following the design phase will be the implementation phase.
-In the implementation phase we shall last through June 2017.
-This phase shall include testing of the payload.
-We will perform testing both at OSU and at Wallops.
-At OSU we will be testing the payload functionality.
-At Wallops, we will be testing the structural integrity of the payload, as well as its resistance to vibrations, heat, and cold.
-Following the implementation phase will be the integration phase.
-This phase will occur at Wallops in July.
-This is the point at which our base plate will be integrated into the rocket as a whole, along with the other participating teams.
-The final phase will be launch. Launch will occur in Summer of 2017.
-The rocket shall be launched from Wallops Flight Facility.
-During the flight we shall send telemetry to the ground station at Wallops.
-The payload shall perform the experiment once it reaches appogee.
-The payload will hopefully be recovered post-flight.
->>>>>>> Refractored glossary and filled out two thirds of the telemetry section
 
 \section{Technologies}
 \subsection{Target Generation}
@@ -227,12 +191,41 @@ Transitions between states occur as numbered:
 \subsubsection{Requirement Overview}
 \subsubsection{Proposed Solutions}
 The three options being considered for transmitting telemetry are
-<<<<<<< bb709f9fb1a1ca8287180dbd26a2d52b23755868
 \begin{enumerate}
-\item{A custom-built solution for our own needs}
+\item{
+\textbf{A custom-built solution for our own needs}.
+The custom-built solution is the least appealing. It would require the most amount of work to develop and maintain by the developers.
+The advantage of a custom-built solution is that it can be tailored to the requirements of our system, making it extremely to use.
+However, the benefit is offset by the huge amount of work upfront it would require to develop and test the solution.
+Since the developers would be coding up this solution themselves, it would require a lot of testing to ensure a reliable solution.
+The hand-written test cases cannot guarantee the reliability of the solution, 
+especially given the relative inexperience of the developers with writing code for this platform.
+Therefore one can expect to have relatively unreliable code and encounter lots of bugs.
+Compatibility would not be a problem with this solution because the code would be custom-made for the hardware.
+However, documentation would non-existent because the developers would be writing the code themselves.
+The only documentation that would be relevant would be from other projects that have written telemetry code for spacecraft.
+However, most of that documentation would be internal to the organizations building the spacecraft,
+most likely wouldn't be helpful.
+}
 \item{Open MCT developed by NASA for space-specific missions}
-\item{TODO} 
+\item{
+\textbf{PSAS Packet Serializer developed by \gls{psas}.}
+PSAS Packet Serializer is a student aerospace engineering project developed by \gls{psas} at \gls{psu}. 
+The project seeks to create a standard way to encode data for telemetry transmission between various components
+and the ground station.
+This solution would be very easy to use because of its simple interface.
+Only one line is required to both encode and decode data.
+This solution is also extremely reliable since it has been used in several flights by the \gls{psu} team.
+The solution is also well-documented.
+There is an entire website dedicated to documenting the simple \gls{api}.
+However, the major problem with this solution is compatibility.
+The solution is implemented in Python, whereas the code for the \gls{payload} is restricted to C.
+It is not feasible to run the Python implementation on the microcontroller in C,
+but it may be possible to \gls{port} the code to C.
+This would require a lot of unpleasant work on the developers' part.
+}
 \end{enumerate}
+The best option for now appears to be adopting Open MCT for the purposes of this mission.
 \subsection{Video Camera}
 \subsubsection{Requirement Overview}
 \subsubsection{Proposed Solutions}
@@ -241,10 +234,6 @@ The three options being considered for transmitting telemetry are
 \subsubsection{Proposed Solutions}
 
 \section{Conclusion}
-\section{Glossary}
-=======
-1. a custom-built solution for our own needs, 2. Open MCT developed by NASA for space-specific missions, and 
-3. PSAS Packet Serializer developed by \gls{psas}.
 The goal for this technology is to let the developers quickly and easily relay data to the ground station.
 
 The criteria that these technologies will be evaluated on is:
@@ -261,45 +250,9 @@ The developers should be able to quickly and easily locate supporting documentat
 The chosen solution should be compatible with the architecture of the \gls{payload}.
 \end{itemize}
 
-The custom-built solution is the least appealing. It would require the most amount of work to develop and maintain by the developers.
-The advantage of a custom-built solution is that it can be tailored to the requirements of our system, making it extremely to use.
-However, the benefit is offset by the huge amount of work upfront it would require to develop and test the solution.
-Since the developers would be coding up this solution themselves, it would require a lot of testing to ensure a reliable solution.
-The hand-written test cases cannot guarantee the reliability of the solution, 
-especially given the relative inexperience of the developers with writing code for this platform.
-Therefore one can expect to have relatively unreliable code and encounter lots of bugs.
-Compatibility would not be a problem with this solution because the code would be custom-made for the hardware.
-However, documentation would non-existent because the developers would be writing the code themselves.
-The only documentation that would be relevant would be from other projects that have written telemetry code for spacecraft.
-However, most of that documentation would be internal to the organizations building the spacecraft,
-most likely wouldn't be helpful.
-
-Open MCT
-
-PSAS Packet Serializer is a student aerospace engineering project developed by \gls{psas} at \gls{psu}. 
-The project seeks to create a standard way to encode data for telemetry transmission between various components
-and the ground station.
-This solution would be very easy to use because of its simple interface.
-Only one line is required to both encode and decode data.
-This solution is also extremely reliable since it has been used in several flights by the \gls{psu} team.
-The solution is also well-documented.
-There is an entire website dedicated to documenting the simple \gls{api}.
-However, the major problem with this solution is compatibility.
-The solution is implemented in Python, whereas the code for the \gls{payload} is restricted to C.
-It is not feasible to run the Python implementation on the microcontroller in C,
-but it may be possible to \gls{port} the code to C.
-This would require a lot of unpleasant work on the developers' part.
-
-The best option for now appears to be adopting Open MCT for the purposes of this mission.
-
-\subsection{Video Handling}
-\subsection{Data Visualization}
-
-\section{Conclusion}
 \section{Glossary}
 \glsaddall
 \printglossaries
->>>>>>> Refractored glossary and filled out two thirds of the telemetry section
 
 \section{Appendix}
 \input{Appendix}
