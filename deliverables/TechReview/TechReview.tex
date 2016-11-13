@@ -10,7 +10,7 @@
 \newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
 
 \makeglossaries
-\input{Glossary}
+%\input{Glossary}
 \loadglsentries[main]{glossary}
 
 \title{Technical Review And Implementation Plan For RockSat-X Payload - Hephaestus}
@@ -23,7 +23,7 @@
 \maketitle
 
 \begin{abstract}
-The \gls{OSU} RockSat-X team shall be name Hephaestus.
+The \gls{osu} RockSat-X team shall be name Hephaestus.
 The possible methods for implementing our project requirements shall be outlined in this document.
 The mission requires that the \gls{payload}, an autonomous robotic arm, perform a series of motions to locate predetermined targets.
 The hardware shall be capable of performing the motions to reach the targets.
@@ -117,7 +117,7 @@ Let \(h\) be the height above the \(xy-plane\), where the arm is attached to the
 same as described in the 3-D Polar coordinate section, with the exception of \(h\).
 In this case, there shall be no \(h\).
 The position can be represented in 2-D Polar coordinates on the plane of the base plate.
-For the purpose of compatability with the position of the arm, the height could be assumed to be 0.
+For the purpose of compatibility with the position of the arm, the height could be assumed to be 0.
 }
 \end{enumerate}
 
@@ -161,7 +161,7 @@ If the experiment fails, it shall return to observation mode.
 If observation mode fails, it shall return to idle.
 Once the experiment time has been exhausted, the payload shall shut down.
 If it shuts down correctly, everything will poweroff. If not, the payload shall attempt to retract 
-again, or expell the payload from the rocket.
+again, or expel the payload from the rocket.
 \subsubsection{Proposed Solutions}
 \input{state_diagram}
 \begin{center}
@@ -207,7 +207,11 @@ The only documentation that would be relevant would be from other projects that 
 However, most of that documentation would be internal to the organizations building the spacecraft,
 most likely wouldn't be helpful.
 }
-\item{Open MCT developed by NASA for space-specific missions}
+
+\item{
+\textbf{Open MCT developed by NASA for space-specific missions}
+}
+
 \item{
 \textbf{PSAS Packet Serializer developed by \gls{psas}.}
 PSAS Packet Serializer is a student aerospace engineering project developed by \gls{psas} at \gls{psu}. 
