@@ -187,8 +187,28 @@ Transitions between states occur as numbered:
 \subsection{Target Success Sensors}
 \subsubsection{Requirement Overview}
 \subsubsection{Proposed Solutions}
+
 \subsection{Telemetry}
 \subsubsection{Requirement Overview}
+The software shall report via telemetry all the target points it generates,
+as defined in section 2.1.
+The software shall also report which code branch it takes to facilitate debugging and
+post-mortem analysis, if necessary.
+
+The criteria that these technologies will be evaluated on is:
+\begin{itemize}
+\item Ease of use.
+The chosen solution should let the developers focus on writing code and not encoding data for telemetry transmission.
+Ideally, sending data through one of the telemetry ports should be no more than one line of code. 
+\item Reliability.
+The chosen solution should be able to relay 100\% of transmitted data to the ground station without corrupting or losing any of it.
+\item Documentation.
+The chosen solution should be well documented.
+The developers should be able to quickly and easily locate supporting documentation for using the technology.
+\item Compatibility.
+The chosen solution should be compatible with the architecture of the \gls{payload}.
+\end{itemize}
+
 \subsubsection{Proposed Solutions}
 The three options being considered for transmitting telemetry are
 \begin{enumerate}
@@ -234,26 +254,57 @@ The best option for now appears to be adopting Open MCT for the purposes of this
 
 \subsection{Video Handling}
 \subsubsection{Requirement Overview}
+The software shall be responsible for controlling the camera output.
 \subsubsection{Proposed Solutions}
+The three options being considered for controlling the camera are:
+\begin{enumerate}
+\item{
+\textbf{Enabling and disabling third-party camera.}
+}
+
+\item{
+\textbf{Enabling/disabling on-board camera, and storing video output.}
+}
+
+\item{
+\textbf{Option 3.}
+}
+\end{enumerate}
 
 \subsection{Data Visualization and Processing}
 \subsubsection{Requirement Overview}
-\subsubsection{Proposed Solutions}
+After the mission completes, the software shall provide visualizations for the collected data.
 
-\section{Conclusion}
 The criteria that these technologies will be evaluated on is:
 \begin{itemize}
-\item Ease of use.
-The chosen solution should let the developers focus on writing code and not encoding data for telemetry transmission.
-Ideally, sending data through one of the telemetry ports should be no more than one line of code. 
-\item Reliability.
-The chosen solution should be able to relay 100\% of transmitted data to the ground station without corrupting or losing any of it.
+\item Cross-platform compatibility.
+The chosen solution should be able to run across any of the major computing platforms.
+
+\item Range and variety of visualization methods.
+The chosen solution should have a large variety of different visualization methods.
+
 \item Documentation.
 The chosen solution should be well documented.
 The developers should be able to quickly and easily locate supporting documentation for using the technology.
-\item Compatibility.
-The chosen solution should be compatible with the architecture of the \gls{payload}.
 \end{itemize}
+
+\subsubsection{Proposed Solutions}
+The three options being considered for visualizing the data are:
+\begin{enumerate}
+\item{
+\textbf{Python and Matplotlib.}
+}
+
+\item{
+\textbf{Enabling/disabling on-board camera, and storing video output.}
+}
+
+\item{
+\textbf{Option 3.}
+}
+\end{enumerate}
+
+\section{Conclusion}
 
 \section{Glossary}
 \glsaddall
