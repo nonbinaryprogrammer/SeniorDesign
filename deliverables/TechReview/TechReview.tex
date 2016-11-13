@@ -127,9 +127,18 @@ The position of the tip of the arm shall be tracked in the coordinate notation d
 The software shall rotate the arm body assembly in a full 360 degrees.
 The software shall additionally control the movement the height of the arm body assembly.
 The arm should descend and touch the baseplate of the payload at any rotation.
-
-TODO ADD MORE
 \subsubsection{Proposed Solutions}
+\begin{enumerate}
+\item{
+\textbf{The movement of the arm shall be tracked through the position of the tip of the arm and the 
+movement of the motor}. The position of the tip of the arm shall be stored as decided from the list
+of solutions above. In the case of the selection of solution 3, the position will have an added 
+height. The initial position of the arm shall be defined in advance, and a sensor will be placed at
+that location. From there, the position will be tracked from the movement of the motors.
+The arm will recalibrate by returning to the initial position in order for the error to not increase
+over time.
+}
+\end{enumerate}
 
 \subsection{Arm Position Tracking}
 \subsubsection{Requirement Overview}
@@ -139,13 +148,42 @@ The starting position shall be known due to a calibration point that will allow 
 Resetting in this way will allow for flexibility between resetting for maximum operation time with only tolerably small error defined by the Non Functional Requirements.
 \subsubsection{Proposed Solutions}
 
-\subsection{Tech 4}
+\subsection{Emergency Payload Expulsion}
 \subsubsection{Requirement Overview}
 \subsubsection{Proposed Solutions}
-\subsection{Tech 5}
+\subsection{Program Modes of Operation}
 \subsubsection{Requirement Overview}
+The Software shall have the Modes of Operation necessary to insure the mission success.
+The software shall first deploy the payload, then the arm. Next the software shall activate the 
+camera and perform a video sweep. The software shall then perform the science experiment.
+If the experiment fails, it shall return to observation mode.
+If observation mode fails, it shall return to idle.
+Once the experiment time has been exhausted, the payload shall shut down.
+If it shuts down correctly, everything will poweroff. If not, the payload shall attempt to retract 
+again, or expell the payload from the rocket.
 \subsubsection{Proposed Solutions}
-\subsection{Tech 6}
+\input{state_diagram}
+\begin{center}
+Diagram of software states of operation and transition between states [2].
+
+Transitions between states occur as numbered:
+
+\begin{enumerate}
+\item{\textbf{Appogee is reached.} The software shall activate when the power line goes to high at 28V. Observation mode shall be triggered when the OBC turns on.}
+\item{\textbf{Error: Return to Idle.} If an error is encountered in entering Observation mode, the software shall fallback to Idle mode and retry. An error may occur if the payload fails to deploy correctly or if the camera fails to turn on.}
+\item{\textbf{Payload Assembly and Camera have been deployed.} The software shall enter science mode once the payload assembly and arm have deployed and the camera has performed an observation sweep.}
+\item{\textbf{Error: Return to Observation} The software shall return to observation mode if any error occurs in Science mode. An error may occur in Science mode if the arm fails to operate correctly and must return to default position. An error may also occur if the camera stops working.}
+\item{\textbf{Timer switches to end appogee period.} Once the time period for observation has ended, the timer line will go to low and trigger to Shutdown state. This state can be reached from either Observation or Science mode.}
+\item{\textbf{Accept: Shutdown correctly} If Shutdown occurs correctly, the arm should be closed, the Arm Assembly Body should be retracted, and the OBC should be powered off.}
+\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode.}
+\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket.}
+\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode.}
+\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket.}
+\item{\textbf{Error: Payload is still deployed.} The software shall remain in Safety mode until the payload is either retracted correctly, retracted fully with the arm in the open position, or ejected safely from the rocket. Safety mode shall first try to correctly retract the arm, then retract with the arm open, then repeat attempting ejection until the payload is ejected.}
+\end{enumerate}
+\end{center}
+
+\subsection{Target Success Sensors}
 \subsubsection{Requirement Overview}
 \subsubsection{Proposed Solutions}
 \subsection{Telemetry}
@@ -157,12 +195,10 @@ The three options being considered for transmitting telemetry are
 \item{Open MCT developed by NASA for space-specific missions}
 \item{TODO} 
 \end{enumerate}
-
-\subsection{Video Handling}
+\subsection{Video Camera}
 \subsubsection{Requirement Overview}
 \subsubsection{Proposed Solutions}
-
-\subsection{Data Visualization}
+\subsection{Data Visualization and Processing}
 \subsubsection{Requirement Overview}
 \subsubsection{Proposed Solutions}
 
