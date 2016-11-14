@@ -255,19 +255,56 @@ The best option for now appears to be adopting Open MCT for the purposes of this
 \subsection{Video Handling}
 \subsubsection{Requirement Overview}
 The software shall be responsible for controlling the camera output.
+
+The criteria that these technologies will be evaluated on is:
+\begin{itemize}
+\item \textbf{Reliability.}
+The solution should guarantee that video footage is permanently recorded.
+
+\item \textbf{Ease of use.}
+The solution should be easy to implement and use.
+\end{itemize}
+
 \subsubsection{Proposed Solutions}
 The three options being considered for controlling the camera are:
 \begin{enumerate}
 \item{
 \textbf{Enabling and disabling third-party camera.}
+This solution involves turning on and off a self-contained third-party camera.
+Defining what the camera will be is outside of the scope of the Hephaestus software team.
+The camera used will be decided by the Hephaestus electrical and robotics teams
+based on their design requirements.
+Currently, a GoPro is the most likely to be used for the camera.
+Self-contained shall be defined as a product that can start, stop, and store video
+footage without any outside input.
+The software shall enable video recording at the beginning of the demonstration,
+and stop video recording at the end.
 }
 
 \item{
 \textbf{Enabling/disabling on-board camera, and storing video output.}
+This solution involves turning on and off a video camera, as well as processing and storing the video output.
+Defining what the camera will be is outside of the scope of the Hephaestus software team.
+The camera used will be decided by the Hephaestus electrical and robotics teams
+based on their design requirements.
+The software shall start video recording at the beginning of the demonstration,
+and stop video recording at the end.
+Additionally, the software shall process the output of the video camera and store
+it in a location so that it can be recovered after the rocket returns to earth.
 }
 
 \item{
-\textbf{Option 3.}
+\textbf{Enabling/disabling on-board camera, and transmitting video output through telemetry ports.}
+This solution involves turning on and off a video camera, as well as processing and transmitting the video output though the telemetry ports.
+Defining what the camera will be is outside of the scope of the Hephaestus software team.
+The camera used will be decided by the Hephaestus electrical and robotics teams
+based on their design requirements.
+The software shall start video recording at the beginning of the demonstration,
+and stop video recording at the end.
+Additionally, the software shall process the output of the video camera and transmit
+it through the telemetry ports to the ground station.
+In the event of the rocket not being recovered, the video feed can still be kept
+from the telemetry playback.
 }
 \end{enumerate}
 
