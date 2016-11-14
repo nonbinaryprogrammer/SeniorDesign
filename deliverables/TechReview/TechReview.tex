@@ -274,33 +274,78 @@ The three options being considered for controlling the camera are:
 \subsection{Data Visualization and Processing}
 \subsubsection{Requirement Overview}
 After the mission completes, the software shall provide visualizations for the collected data.
+The software shall be able to show whether the mission success criteria have been met or not.
+If the mission success criteria have not been met, the software shall show how and
+why they have not been met.
 
 The criteria that these technologies will be evaluated on is:
 \begin{itemize}
-\item Cross-platform compatibility.
+\item \textbf{Cross-platform compatibility.}
 The chosen solution should be able to run across any of the major computing platforms.
 
-\item Range and variety of visualization methods.
+\item \textbf{Range and variety of visualization methods.}
 The chosen solution should have a large variety of different visualization methods.
 
-\item Documentation.
+\item \textbf{Documentation.}
 The chosen solution should be well documented.
 The developers should be able to quickly and easily locate supporting documentation for using the technology.
+
+\item \textbf{Developer proficiency.}
+The majority of developers should be able to comfortably develop the visualizations
+without needing to learn any new technologies.
 \end{itemize}
 
 \subsubsection{Proposed Solutions}
 The three options being considered for visualizing the data are:
 \begin{enumerate}
 \item{
-\textbf{Python and Matplotlib.}
+\textbf{Matplotlib.}
+Matplotlib is a plotting library with a Python \gls{api}.
+Matplotlib is written in Python, and will therefore run on all major platforms.
+Matplotlib supports both 2d and 3d graphics, and can render dozens of different
+types of graphs.
+Since Matplotlib is used and supported by thousands of developers, there is ample
+documentation for all aspects of the library.
+All core developers for the Hephaestus mission are familiar with Python.
 }
 
 \item{
-\textbf{Enabling/disabling on-board camera, and storing video output.}
+\textbf{Vis.js}
+Vis.js is a Javascript library for constructing graphs in a browser.
+Since it is rendered in a browser, it is accessible on all platforms with a web browser
+that runs Javascript.
+Vis.js lists 20 different 2d graphs on its website and 13 different 3d graphs, as well
+as other graphs including timelines and networks. 
+Vis.js has less documentation for it on its website, and because it's a smaller library
+there are less third-party resources for learning it online.
+However, there is enough documentation to start using it on its website.
+The \gls{api} is easy enough that there should not be any significant challenges
+because of the lack of documentation.
+Only about half of the Hephaestus development team is familiar with Javascript,
+so that may be an obstacle going forward if this solution is used.
 }
 
 \item{
-\textbf{Option 3.}
+\textbf{Lighting.}
+Lighting provides a unique and flexible way to create graphs.
+Instead of using a library to render graphs, Lighting uses a web server to
+render the graphs.
+Developers can request a server to render a graph, and then retrieve it either via
+a RESTful web \gls{api} or through one of several client libraries.
+Developers can either opt to run their own server, or use one of several public
+servers Lightning has provided for free.
+Because Lighting doesn't restrict what programming language they can use to
+create charts and graphs, the developers are free to choose whatever language
+they are most proficient in.
+Lighting also provides the ultimate level of cross-compatibility among platforms
+because it is completely platform agnostic.
+Since it runs in a server by itself, it can be access by any platform with a TCP/IP stack.
+Lighting lists 15 different graphs it can render by default; with the potential to add
+many more.
+Lighting can be extended to support more kinds of graphs though \gls{npm} modules.
+Lightning provides a variety of documentation sources on its website.
+There isn't an overwhelming abundance of documentation, but it appears to be
+enough to successfully start developing charts and graphs using it.
 }
 \end{enumerate}
 
