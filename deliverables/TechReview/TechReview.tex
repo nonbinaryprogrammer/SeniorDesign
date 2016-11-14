@@ -215,10 +215,35 @@ height of the arm never exceeds the height of our half can.
 
 \subsection{Emergency Payload Expulsion}
 \subsubsection{Requirement Overview}
+The software shall eject the arm upon system failure. 
+System failure in this case is defined as the arm becoming lodged or stuck in a state where it is unable to retract.
+The software will enter Safety mode (defined in section 2.5.2) and attempt to retract the arm. If it is unable to complete this step,
+ the system will continue attempting to eject the arm until ejection is completed
 \subsubsection{Proposed Solutions}
+\begin{enumerate}
+\item{
+\textbf{The software accepts a signal sent from the Shutdown state to the Safety state}
+Upon entering the Shutdown state, the system should succeed in closing the arm, the Arm Assembly Body should be retracted, 
+and the OBC should be powered off. If any of these conditions are not met, a signal should be sent, resulting in a change of state
+from the Shutdown state to the Safety state, where the arm can be ejected.
+}
+\item{
+	\textbf{The software sends a signal to etner Safety state upon any failure to complete an arm-movement task}
+A timer should be implemented to detect whether a certain amount of time has elapsed between the last arm movement and the last 
+request for an arm movement. If arm movement requests are not being met by arm movements, and the system stalls past a certain amount 
+of time, the system should send a signal to enter the Safety state so that the arm can be ejected, as it is most likely caught
+in a bad extended position.
+}
+\item{
+	\textbf{The software shall notify via telemetry that ejection was required}
+In the post-mortem analysis, we will want to know whether an ejection was necessary and what caused the bad state. The system
+shall, upon receiving a signal that ejection is required, send a log description of the current coordinates of the arm, the time 
+elapsed since last arm movement request, and what state the system was in prior to being sent to the Safety state.
+}
+\end{enumerate}
 \subsection{Program Modes of Operation}
 \subsubsection{Requirement Overview}
-The Software shall have the Modes of Operation necessary to insure the mission success.
+The software shall have the Modes of Operation necessary to insure the mission success.
 The software shall first deploy the payload, then the arm. Next the software shall activate the 
 camera and perform a video sweep. The software shall then perform the science experiment.
 If the experiment fails, it shall return to observation mode.
@@ -250,8 +275,39 @@ Transitions between states occur as numbered:
 
 \subsection{Target Success Sensors}
 \subsubsection{Requirement Overview}
+The software shall know whether or not the arm succeeded in touching the targets generated, as described in section 2.1. The sensors
+shall report back whether or not contact was made. This data can be used in post-mortem analysis to determine whether
+certain targets were faulty or whether the range of motion on the arm was faulty.
 \subsubsection{Proposed Solutions}
-
+\begin{enumerate}
+\item{
+	\textbf{The software shall store the coordinates produced during the target generation stage and compare with the targets actually
+	reported after the arm moves}
+The software shall have generated a coordinate (the form yet to be determined) that is sent to the arm to move to that specificied 
+location. Post-movement, the arm can keep determine its movement using the motor and the sensor described in section 2.3. A check for
+equality can be performed between these two points to determine whether the points are equivalent or not. If they are equivalent, the
+movement was successful and resulted in the target being touched. If the equivalency fails, then the arm did not meet its target
+and should be set back to a pre-determined starting position to prevent further target points from being influenced by the margin
+of error. Both a successful target touch and a failed target touch should be stored so as to keep track of the ratio between successful
+and unsuccessful trials.
+}
+\item{
+	\textbf{The software shall evaluate a delta between the point generated and the actual point reported}
+A delta can be determined between the arm movement and the difference between that position and the calibration point, where the 
+calibration point is a stored value. If the delta is 0, then the point generated was correct. If not, then the arm should be set 
+back to a stored location to prevent the margin of error influencing further target generation and touches. Both a successful 
+target touch and a failed target touch should be stored so as to keep track of the ratio between successful
+and unsuccessful trials.
+}
+\item{
+	\textbf{The stored video and telemetry data shall work as an oracle when evaluating our success sensors}
+	This is the least reliable of our methods, as relying on the video capture is risky, along with the less rigorous methodology.
+	However, if all else fails, we can comb over the telemetry data and the stored video capture to determine whether or not the arm
+	succeeded or failed in touching the generated targets by watching the video and comparing it to the telemetry data. We would be 
+	looking for instances where the sensor data captured via telemetry matches with video footage of the arm extending and touching
+	a generated point to see whether the data matches up with the video feed.
+}
+\end{enumerate}
 \subsection{Telemetry}
 \subsubsection{Requirement Overview}
 The software shall report via telemetry all sensor data.
