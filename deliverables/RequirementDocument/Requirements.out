@@ -1,0 +1,30 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Purpose of Document}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Overview of Document}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Overview of Payload}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Overview of Physical Payload}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{Mission Success Criteria}{section.1}% 6
+\BOOKMARK [3][-]{subsubsection.1.5.1}{Minimum Mission Success Criteria}{subsection.1.5}% 7
+\BOOKMARK [3][-]{subsubsection.1.5.2}{Maximum Mission Success Criteria}{subsection.1.5}% 8
+\BOOKMARK [2][-]{subsection.1.6}{Requirements Apportioning}{section.1}% 9
+\BOOKMARK [3][-]{subsubsection.1.6.1}{Priority 1}{subsection.1.6}% 10
+\BOOKMARK [3][-]{subsubsection.1.6.2}{Priority 2}{subsection.1.6}% 11
+\BOOKMARK [3][-]{subsubsection.1.6.3}{Priority 3}{subsection.1.6}% 12
+\BOOKMARK [1][-]{section.2}{Functional Requirements}{}% 13
+\BOOKMARK [2][-]{subsection.2.1}{Main Behavior}{section.2}% 14
+\BOOKMARK [2][-]{subsection.2.2}{Target Generation}{section.2}% 15
+\BOOKMARK [2][-]{subsection.2.3}{Movement}{section.2}% 16
+\BOOKMARK [2][-]{subsection.2.4}{Modes}{section.2}% 17
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Launch}{subsection.2.4}% 18
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Deployment}{subsection.2.4}% 19
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Science}{subsection.2.4}% 20
+\BOOKMARK [3][-]{subsubsection.2.4.4}{Safety}{subsection.2.4}% 21
+\BOOKMARK [3][-]{subsubsection.2.4.5}{Observation}{subsection.2.4}% 22
+\BOOKMARK [3][-]{subsubsection.2.4.6}{Power Off}{subsection.2.4}% 23
+\BOOKMARK [3][-]{subsubsection.2.4.7}{State Diagram}{subsection.2.4}% 24
+\BOOKMARK [2][-]{subsection.2.5}{Telemetry}{section.2}% 25
+\BOOKMARK [1][-]{section.3}{Non Functional Requirements}{}% 26
+\BOOKMARK [2][-]{subsection.3.1}{Performance}{section.3}% 27
+\BOOKMARK [2][-]{subsection.3.2}{Security}{section.3}% 28
+\BOOKMARK [2][-]{subsection.3.3}{Telemetry}{section.3}% 29
+\BOOKMARK [1][-]{section.4}{Gantt Chart}{}% 30
