@@ -28,6 +28,7 @@ The mission requires that the \gls{payload}, an autonomous robotic arm, perform 
 The hardware shall be capable of performing the motions to reach the targets.
 The software shall determine the targets and send the commands to the hardware to execute the motion.
 The combination of the hardware controlled by the software shall demonstrate Hephaestus's ability to construct small parts on orbit.
+This document will focus on the implementation of the software, but shall include necessary project context including hardware.
 \end{abstract}
 
 \begin{bottompar}
@@ -57,6 +58,154 @@ Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
 
 \section{Introduction}
 \subsection{Document Overview}
+\subsubsection{Helena Bales}
+\begin{enumerate}
+\item{Target Generation}
+\item{Arm Movement}
+\item{Arm Position Tracking}
+\end{enumerate}
+\subsubsection{Amber Horvath}
+\begin{enumerate}
+\item{Emergency Payload Expulsion}
+\item{Program Modes of Operation}
+\item{Target Success Sensors}
+\end{enumerate}
+\subsubsection{Michael Humphrey}
+\begin{enumerate}
+\item{Telemetry}
+\item{Video Camera}
+\item{Data Visualization and Processing}
+\end{enumerate}
+
+\section{Technologies}
+\subsection{Target Generation}
+\subsubsection{Requirement Overview}
+The software shall generate points to be used in testing the Hephaestus arm.
+The points will constitute the total test of the arm, and should therefore include points
+representative of standard and edge cases.
+These points shall be used as targets for the arm body.
+\subsubsection{Solution Design}
+
+\subsection{Arm Movement}
+\subsubsection{Requirement Overview}
+The software shall control the movement of the arm body assembly. 
+The position of the tip of the arm shall be tracked in the coordinate notation described in section 2.2 above.
+The software shall rotate the arm body assembly in a full 360 degrees.
+The software shall additionally control the movement the height of the arm body assembly.
+The arm should descend and touch the baseplate of the payload at any rotation.
+\subsubsection{Solution Design}
+
+\subsection{Arm Position Tracking}
+\subsubsection{Requirement Overview}
+The position of the arm shall be tracked using the same coordinate system described in the Target Generation requirement.
+The position of the arm shall be calculated using the known start position and the rotation of the motors.
+\subsubsection{Solution Design}
+
+\subsection{Emergency Payload Expulsion}
+\subsubsection{Requirement Overview}
+The software shall eject the arm upon system failure. 
+System failure in this case is defined as the arm becoming lodged or stuck in a state where it is unable to retract.
+The software will enter Safety mode (defined in section 2.5.2) and attempt to retract the arm. If it is unable to complete this step,
+ the system will continue attempting to eject the arm until ejection is completed
+\subsubsection{Solution Design}
+
+\subsection{Program Modes of Operation}
+\subsubsection{Requirement Overview}
+The software shall have the Modes of Operation necessary to insure the mission success.
+The software shall first deploy the payload, then the arm. Next the software shall activate the 
+camera and perform a video sweep. The software shall then perform the science experiment.
+If the experiment fails, it shall return to observation mode.
+If observation mode fails, it shall return to idle.
+Once the experiment time has been exhausted, the payload shall shut down.
+If it shuts down correctly, everything will poweroff. If not, the payload shall attempt to retract 
+again, or expel the payload from the rocket.
+\subsubsection{Solution Design}
+\input{state_diagram}
+\begin{center}
+Diagram of software states of operation and transition between states [2].
+
+Transitions between states occur as numbered:
+
+\begin{enumerate}
+\item{\textbf{Appogee is reached.} The software shall activate when the power line goes to high at 28V. Observation mode shall be triggered when the OBC turns on.}
+\item{\textbf{Error: Return to Idle.} If an error is encountered in entering Observation mode, the software shall fallback to Idle mode and retry. An error may occur if the payload fails to deploy correctly or if the camera fails to turn on.}
+\item{\textbf{Payload Assembly and Camera have been deployed.} The software shall enter science mode once the payload assembly and arm have deployed and the camera has performed an observation sweep.}
+\item{\textbf{Error: Return to Observation} The software shall return to observation mode if any error occurs in Science mode. An error may occur in Science mode if the arm fails to operate correctly and must return to default position. An error may also occur if the camera stops working.}
+\item{\textbf{Timer switches to end appogee period.} Once the time period for observation has ended, the timer line will go to low and trigger to Shutdown state. This state can be reached from either Observation or Science mode.}
+\item{\textbf{Accept: Shutdown correctly} If Shutdown occurs correctly, the arm should be closed, the Arm Assembly Body should be retracted, and the OBC should be powered off.}
+\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode.}
+\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket.}
+\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode.}
+\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket.}
+\item{\textbf{Error: Payload is still deployed.} The software shall remain in Safety mode until the payload is either retracted correctly, retracted fully with the arm in the open position, or ejected safely from the rocket. Safety mode shall first try to correctly retract the arm, then retract with the arm open, then repeat attempting ejection until the payload is ejected.}
+\end{enumerate}
+\end{center}
+
+\subsection{Target Success Sensors}
+\subsubsection{Requirement Overview}
+The software shall know whether or not the arm succeeded in touching the targets generated, as described in section 2.1. The sensors
+shall report back whether or not contact was made. This data can be used in post-mortem analysis to determine whether
+certain targets were faulty or whether the range of motion on the arm was faulty.
+\subsubsection{Solution Design}
+
+\subsection{Telemetry}
+\subsubsection{Requirement Overview}
+The software shall report via telemetry all sensor data.
+
+The criteria that these technologies will be evaluated on is:
+\begin{itemize}
+\item \textbf{Ease of use.}
+The chosen solution should let the developers focus on writing code and not encoding data for telemetry transmission.
+Ideally, sending data through one of the telemetry ports should be no more than one line of code. 
+\item \textbf{Reliability.}
+The chosen solution should be able to relay 100\% of transmitted data to the ground station without corrupting or losing any of it.
+\item \textbf{Documentation.}
+The chosen solution should be well documented.
+The developers should be able to quickly and easily locate supporting documentation for using the technology.
+\item \textbf{Compatibility.}
+The chosen solution should be compatible with the software and hardware of the \gls{payload}.
+\end{itemize}
+\subsubsection{Solution Design}
+
+\subsection{Video Handling}
+\subsubsection{Requirement Overview}
+The software shall be responsible for controlling the camera output.
+
+The criteria that these technologies will be evaluated on is:
+\begin{itemize}
+\item \textbf{Reliability.}
+The solution should guarantee that video footage is permanently recorded.
+
+\item \textbf{Ease of use.}
+The solution should be easy to implement and use.
+\end{itemize}
+\subsubsection{Solution Design}
+
+\subsection{Data Visualization and Processing}
+\subsubsection{Requirement Overview}
+After the mission completes, the software shall provide visualizations for the collected data.
+The software shall be able to show whether the mission success criteria have been met or not.
+If the mission success criteria have not been met, the software shall show how and
+why they have not been met.
+
+The criteria that these technologies will be evaluated on is:
+\begin{itemize}
+\item \textbf{Cross-platform compatibility.}
+The chosen solution should be able to run across any of the major computing platforms.
+
+\item \textbf{Range and variety of visualization methods.}
+The chosen solution should have a large variety of different visualization methods.
+
+\item \textbf{Documentation.}
+The chosen solution should be well documented.
+The developers should be able to quickly and easily locate supporting documentation for using the technology.
+
+\item \textbf{Developer proficiency.}
+The majority of developers should be able to comfortably develop the visualizations
+without needing to learn any new technologies.
+\end{itemize}
+\subsubsection{Solution Design}
+
 
 \section{Conclusion}
 \section{Glossary}
