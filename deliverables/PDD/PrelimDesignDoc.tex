@@ -1,0 +1,70 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{glossaries}
+\usepackage[pdftex]{graphicx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\geometry{textheight=8.5in, textwidth=6in}
+\newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
+
+\makeglossaries
+\loadglsentries[main]{Glossary}
+
+\title{Preliminary Desing Document For RockSat-X Payload - Hephaestus}
+\author{Helena~Bales, Amber~Horvath, and Michael~Humphrey\\ \\ CS461 - Fall 2016}
+
+\parindent = 0.0 in
+\parskip = 0.1 in
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The \gls{osu} RockSat-X team shall be named Hephaestus.
+The preliminary design of our project shall be outlined in this document.
+The mission requires that the \gls{payload}, an autonomous robotic arm, perform a series of motions to locate predetermined targets.
+The hardware shall be capable of performing the motions to reach the targets.
+The software shall determine the targets and send the commands to the hardware to execute the motion.
+The combination of the hardware controlled by the software shall demonstrate Hephaestus's ability to construct small parts on orbit.
+\end{abstract}
+
+\begin{bottompar}
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+
+
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+
+
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+
+
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+\end{bottompar}
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{Introduction}
+\subsection{Document Overview}
+
+\section{Conclusion}
+\section{Glossary}
+\glsaddall
+\printglossaries
+
+\section{Appendix}
+\input{Appendix}
+
+
+\end{document}
