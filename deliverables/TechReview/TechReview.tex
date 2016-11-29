@@ -228,7 +228,7 @@ and the OBC should be powered off. If any of these conditions are not met, a sig
 from the Shutdown state to the Safety state, where the arm can be ejected.
 }
 \item{
-	\textbf{The software sends a signal to etner Safety state upon any failure to complete an arm-movement task}
+	\textbf{The software sends a signal to enter Safety state upon any failure to complete an arm-movement task}
 A timer should be implemented to detect whether a certain amount of time has elapsed between the last arm movement and the last 
 request for an arm movement. If arm movement requests are not being met by arm movements, and the system stalls past a certain amount 
 of time, the system should send a signal to enter the Safety state so that the arm can be ejected, as it is most likely caught

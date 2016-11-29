@@ -1,0 +1,27 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Purpose of Document}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Overview of Document}{3}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Overview of Payload}{3}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Mission Success Criteria}{3}{subsection.1.4}
+\contentsline {subsubsection}{\numberline {1.4.1}Minimum Mission Success Criteria}{4}{subsubsection.1.4.1}
+\contentsline {subsubsection}{\numberline {1.4.2}Maximum Mission Success Criteria}{4}{subsubsection.1.4.2}
+\contentsline {subsection}{\numberline {1.5}Requirements Apportioning}{4}{subsection.1.5}
+\contentsline {subsubsection}{\numberline {1.5.1}Priority 1}{4}{subsubsection.1.5.1}
+\contentsline {subsubsection}{\numberline {1.5.2}Priority 2}{4}{subsubsection.1.5.2}
+\contentsline {subsubsection}{\numberline {1.5.3}Priority 3}{4}{subsubsection.1.5.3}
+\contentsline {section}{\numberline {2}Functional Requirements}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}Main Behavior}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Target Generation}{5}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Movement}{5}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Modes}{5}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Launch}{5}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Deployment}{5}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}Science}{5}{subsubsection.2.4.3}
+\contentsline {subsubsection}{\numberline {2.4.4}Safety}{5}{subsubsection.2.4.4}
+\contentsline {subsubsection}{\numberline {2.4.5}Observation}{5}{subsubsection.2.4.5}
+\contentsline {subsubsection}{\numberline {2.4.6}Off}{5}{subsubsection.2.4.6}
+\contentsline {subsection}{\numberline {2.5}Telemetry}{5}{subsection.2.5}
+\contentsline {section}{\numberline {3}Non Functional Requirements}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Performance}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Security}{5}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Telemetry}{5}{subsection.3.3}
