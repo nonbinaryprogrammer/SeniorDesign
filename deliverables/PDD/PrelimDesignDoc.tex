@@ -164,21 +164,6 @@ continue attempting to eject the arm until the system detects that the arm is no
 body. The system shall determine this by a pin being set from low to high upon removal of the arm. 
 If the arm is unable to be ejected safely, the arm will be stuck outside the canister and the mission shall be counted
 as a failure.
-\begin{enumerate}
-\item{
-\textbf{The software accepts a signal sent from the Shutdown state to the Safety state}
-If any of these conditions are not met, a signal should be sent, resulting in a change of state
-from the Shutdown state to the Safety state, where the arm can be ejected.
-}
-\item{
-	\textbf{The software sends a signal to etner Safety state upon any failure to complete an arm-movement task}
-
-}
-\item{
-	\textbf{The software shall notify via telemetry that ejection was required}
-
-}
-\end{enumerate}
 
 \subsection{Program Modes of Operation}
 \subsubsection{Requirement Overview}
