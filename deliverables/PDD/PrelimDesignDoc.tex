@@ -152,16 +152,21 @@ The system shall determine the arm is not contracting properly by the amount of 
 contract will require more torque. The system will fire an interrupt signal from the AVR interrupt library, notifying the system to 
 transition to Safety mode. 
 Safety mode will attempt to contract the arm once more by calling the arm movement function. The arm movement function will take a 
-coordinate to move the end of the arm to. 
+coordinate to move the end of the arm to. The arm is equipped with sensors that can determine if the arm is folded or not
+so if the sensors determine that the arm is folded, then safe shutdown should be possible.
+The emergency retracting operation is completed by turning off all the motors in the 
+in the arm except for the motor pushing the whole metal plate the arm is attached to in and out of the payload.
+With those motors turned off, the joints of the arm will be flimsy and can be pulled into the payload by retracting the metal plate.
 In the case of contracting the arm, the tip should point inwards to the center of the canister.
 If it is unable to do so, it shall continue attempting to eject. 
-The system shall initiate the arm ejection sequence by turning on the motor in control of ejecting part of the arm. 
+The system shall initiate the arm ejection sequence by turning on the motor in control of ejecting part of the arm and turning off all
+other motors. 
 The system shall also clean up any memory leaks and ensure all telemetry ports are closed upon sending the data that an 
 emergency ejection was required. In the post-mortem analysis, information regarding the arm's expulsion will be useful. The system
 shall, upon receiving a signal that ejection is required, send a log description of the current polar coordinates of the arm, the time 
 elapsed since last arm movement request, and what state the system was in prior to being sent to the Safety state. The system will 
-continue attempting to eject the arm until the system detects that the arm is no longer attached to the 
-body. The system shall determine this by a pin being set from low to high upon removal of the arm. 
+continue attempting to eject the arm until the system detects that the metal plate has successfully returned into the payload. 
+The system shall determine this by a pin being set from low to high upon entry into the payload. 
 If the arm is unable to be ejected safely, the arm will be stuck outside the canister and the mission shall be counted
 as a failure.
 
@@ -183,16 +188,28 @@ Diagram of software states of operation and transition between states [2].
 Transitions between states occur as numbered:
 
 \begin{enumerate}
-\item{\textbf{Appogee is reached.} The software shall activate when the power line goes to high at 28V. Observation mode shall be triggered when the OBC turns on.}
-\item{\textbf{Error: Return to Idle.} If an error is encountered in entering Observation mode, the software shall fallback to Idle mode and retry. An error may occur if the payload fails to deploy correctly or if the camera fails to turn on.}
-\item{\textbf{Payload Assembly and Camera have been deployed.} The software shall enter science mode once the payload assembly and arm have deployed and the camera has performed an observation sweep.}
-\item{\textbf{Error: Return to Observation} The software shall return to observation mode if any error occurs in Science mode. An error may occur in Science mode if the arm fails to operate correctly and must return to default position. An error may also occur if the camera stops working.}
+\item{\textbf{Appogee is reached.} The software shall activate when the power line goes to high at 28V. Observation mode shall be 
+triggered when the OBC turns on. Observation mode will collect a sweep of the payload with the camera. This mode will ensure that the 
+camera is operational during the more crticial parts of the mission.}
+\item{\textbf{Error: Return to Idle.} If an error is encountered in entering Observation mode, the software shall fallback to Idle 
+mode and retry. An error may occur if the payload fails to deploy correctly or if the camera fails to turn on. The system shall send
+a signal using the AVR interrupt library if the arm is not fully extended, as the arm is equipped with sensors to determine whether
+it is extended or folded. If the camera fails to turn on, the system shall be notified as the telemetry line will be sending empty
+data.}
+\item{\textbf{Payload Assembly and Camera have been deployed.} The software shall enter Science mode once the payload assembly and arm
+ have deployed and the camera has performed an observation sweep. Science mode will consist of the arm touching the sensors in 
+ the payload canister, and collecting data via the telemetry line. The whole mode shall be captured with the camera.}
+\item{\textbf{Error: Return to Observation} The software shall return to observation mode if any error occurs in Science mode. An error may occur in Science mode if the arm fails to operate correctly and must return to default position. An error may also occur if the camera stops working. The system shall know if the arm fails as a timer can keep track of the time between an arm movement request
+and the arm actually completing the movement request. If too much time has elapsed between the request and the movement, the arm may
+be stuck. If the telemetry line stops receiving data from the camera, then the camera has stopped working and the system shall be 
+notified via an interrupt.}
 \item{\textbf{Timer switches to end appogee period.} Once the time period for observation has ended, the timer line will go to low and trigger to Shutdown state. This state can be reached from either Observation or Science mode.}
-\item{\textbf{Accept: Shutdown correctly} If Shutdown occurs correctly, the arm should be closed, the Arm Assembly Body should be retracted, and the OBC should be powered off.}
-\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode.}
-\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket.}
-\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode.}
-\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket.}
+\item{\textbf{Accept: Shutdown correctly} If Shutdown occurs correctly, the arm should be closed, the Arm Assembly Body should be retracted, and the OBC should be powered off. The arm will be have sensors to detect whether its closed or not, which can also
+be used to know whether it has been retracted into the body. Once the system has determined that this criteria has been met, it
+will power off.}
+\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode. An error that could occur is the arm failing to close, the Body failing to retract, or the OBC not powering off. All 
+these situations except for the OBC not powering off are handled through Safety mode.}
+\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode, the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket. The shutdown sequence consists of the arm closing, the Body retracting, and the OBC being powered off.}
 \item{\textbf{Error: Payload is still deployed.} The software shall remain in Safety mode until the payload is either retracted correctly, retracted fully with the arm in the open position, or ejected safely from the rocket. Safety mode shall first try to correctly retract the arm, then retract with the arm open, then repeat attempting ejection until the payload is ejected.}
 \end{enumerate}
 \end{center}
