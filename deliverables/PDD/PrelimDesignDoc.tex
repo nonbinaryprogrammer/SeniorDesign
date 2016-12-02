@@ -2,7 +2,7 @@
 
 \usepackage{geometry}
 \usepackage{hyperref}
-\usepackage{glossaries}
+\usepackage[nopostdot]{glossaries}
 \usepackage[pdftex]{graphicx}
 \usepackage{tikz}
 \usepackage{wrapfig}
@@ -207,95 +207,89 @@ certain targets were faulty or whether the range of motion on the arm was faulty
 \subsubsection{Requirement Overview}
 The software shall report via telemetry all sensor data.
 
-The criteria that these technologies will be evaluated on is:
-\begin{itemize}
-\item \textbf{Ease of use.}
-The chosen solution should let the developers focus on writing code and not encoding data for telemetry transmission.
-Ideally, sending data through one of the telemetry ports should be no more than one line of code. 
-\item \textbf{Reliability.}
-The chosen solution should be able to relay 100\% of transmitted data to the ground station without corrupting or losing any of it.
-\item \textbf{Documentation.}
-The chosen solution should be well documented.
-The developers should be able to quickly and easily locate supporting documentation for using the technology.
-\item \textbf{Compatibility.}
-The chosen solution should be compatible with the software and hardware of the \gls{payload}.
-\end{itemize}
 \subsubsection{Solution Design}
-\textbf{A custom-built solution for our own needs}.
-The custom-built solution is the least appealing. It would require the most amount of work to develop and maintain by the developers.
-The advantage of a custom-built solution is that it can be tailored to the requirements of our system, making it extremely to use.
-However, the benefit is offset by the huge amount of work upfront it would require to develop and test the solution.
-Since the developers would be coding up this solution themselves, it would require a lot of testing to ensure a reliable solution.
-The hand-written test cases cannot guarantee the reliability of the solution, 
-especially given the relative inexperience of the developers with writing code for this platform.
-Therefore one can expect to have relatively unreliable code and encounter lots of bugs.
-Compatibility would not be a problem with this solution because the code would be custom-made for the hardware.
-However, documentation would be non-existent because the developers would be writing the code themselves.
-The only documentation that would be relevant would be from other projects that have written telemetry code for spacecraft.
-However, most of that documentation would be internal to the organizations building the spacecraft,
-most likely wouldn't be helpful.
+The telemetry component is responsible for collecting and sending data through the
+telemetry ports on the \gls{payload}.
 
 \subsection{Video Handling}
 \subsubsection{Requirement Overview}
 The software shall be responsible for controlling the camera output.
 
-The criteria that these technologies will be evaluated on is:
-\begin{itemize}
-\item \textbf{Reliability.}
-The solution should guarantee that video footage is permanently recorded.
-
-\item \textbf{Ease of use.}
-The solution should be easy to implement and use.
-\end{itemize}
 \subsubsection{Solution Design}
-\textbf{Enabling and disabling a third-party camera.}
-This solution involves turning on and off a self-contained third-party camera.
-Defining what the camera will be is outside of the scope of the Hephaestus software team.
-The camera used will be decided by the Hephaestus electrical and robotics teams
-based on their design requirements.
-Currently, a GoPro is the most likely to be used for the camera.
-Self-contained shall be defined as a product that can start, stop, and store video
-footage without any outside input.
-The software shall enable video recording at the beginning of the demonstration,
-and stop video recording at the end.
+The video handling component shall be responsible for capturing video footage of
+the experiment as it runs, and storing the footage for playback at a later time.
+The hardware of this component includes a camera and a device that can read
+and write to an SD card.
+
+The camera shall be a GoPro Hero Black.
+The camera shall be configured in One Button Mode, which means the  camera will
+automatically start recording on power on and stop recording on power off. 
+
+Because heat generated from reentry and water from the ocean landing both have
+a high likelihood of destroying the camera, the footage from the camera shall be
+stored on an SD card in external SD card read/write device. 
+The external SD card device shall be contained in a heat and water resistant enclosure.
+The enclosure for the SD card device shall be designed and created by the Hephaestus Structures team.
+The camera shall write the footage to the external SD card device automatically,
+without any intervention from the payload software. 
+
+When the \gls{ter} line activates, signaling the beginning of the experiment,
+the software shall enable power to the camera.
+The camera shall begin recording footage immediately upon receiving power. 
+Upon completion of the experiment (successful or otherwise) the software shall
+power off the camera. 
+
 
 \subsection{Data Visualization and Processing}
 \subsubsection{Requirement Overview}
-After the mission completes, the software shall provide visualizations for the collected data.
-The software shall be able to show whether the mission success criteria have been met or not.
-If the mission success criteria have not been met, the software shall show how and
-why they have not been met.
+The data visualization and processing component shall provide visualizations
+for the collected data.
+This component shall be able to show whether the mission success criteria have
+been met or not.
+If the mission success criteria have not been met, this component shall show how
+and why they have not been met.
 
-The criteria that these technologies will be evaluated on is:
-\begin{itemize}
-\item \textbf{Cross-platform compatibility.}
-The chosen solution should be able to run across any of the major computing platforms.
-
-\item \textbf{Range and variety of visualization methods.}
-The chosen solution should have a large variety of different visualization methods.
-
-\item \textbf{Documentation.}
-The chosen solution should be well documented.
-The developers should be able to quickly and easily locate supporting documentation for using the technology.
-
-\item \textbf{Developer proficiency.}
-The majority of developers should be able to comfortably develop the visualizations
-without needing to learn any new technologies.
-\end{itemize}
 \subsubsection{Solution Design}
-\textbf{Matplotlib.}
-Matplotlib is a Python plotting and graphing library.
-Matplotlib is written in Python, and will therefore run on all platforms that Python supports.
-Matplotlib supports both 2d and 3d graphics, and can render dozens of different
-types of graphs.
-Since Matplotlib is used and supported by thousands of developers, there is ample
-documentation for all aspects of the library.
-All core developers for the Hephaestus mission are familiar with Python.
+The component shall have a \gls{gui} written in Tkinter with graphs generated by
+\gls{matplotlib}.
+The \gls{gui} shall consist of two graphs and a table.
+Each graph shall be a \gls{plot} with analog data collected from each of two temperature sensors.
+The data from the temperature sensors shall be graphed with respect to time from
+\gls{apogee} and actual temperature, if such a value can be determined.
+In the absense of a method to reliably determine actual temperature from the raw
+sensor data, then the data shall be graphed with respect to the raw value received
+from the sensor, with the graph scaled such that the lowest value recorded shall be
+the minimum y value, and the highest recorded value recorded shall be the maximum y value.
+The table shall consist of the name of each of a series of tests,
+the result of that respective test, and the time that test was completed.
+A result shall be either ``passed'', ``failed'', or ``not completed''.
+A result of ``passed'' shall be colored in green.
+A result of ``failed'' shall be colored in red.
+A result of ``not completed'' shall be colored in gray.
+If the result of a test is ``not completed'', then the time of completion for that test
+may be omitted.
+There shall be a predetermined number of tests.
+The number and nature of tests has yet to be determined.
+The tests shall be designed as a joint effort between the Hephaestus Structures,
+Robotics, Electrical, and Software teams.
+
+It has not been determined if the data shall be processed in a real-time manner
+(i.e. the telemetry data is received by the data processing software as the
+spacecraft software sends it, given a delay) or if the telemetry data will be provided
+by \gls{wff} after the completion of the mission.
+
+If the data will be streamed in a real-time manner, then additionally this component shall:
+\begin{itemize}
+\item Update the \gls{gui} as soon as the data is received.
+\item Continue to process the incoming data, even if an error occurs.
+\item Store the incoming data in a file to be reviewed and \gls{replay}ed later.
+\item Load data from a file and \gls{replay} the telemetry data.
+\item Load data from a file and display a summary of all test results and
+temperature data.
+\end{itemize}
 
 \section{Conclusion}
-\section{Glossary}
-\glsaddall
-\printglossaries
+\printglossary[numberedsection]
 
 \section{Appendix}
 \input{Appendix}
