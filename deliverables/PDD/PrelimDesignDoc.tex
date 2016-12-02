@@ -215,6 +215,7 @@ these situations except for the \gls{OBC} not powering off are handled through S
 \end{center}
 
 \subsection{Target Success Sensors}
+\label{subsec:tests}
 \subsubsection{Requirement Overview}
 The software shall know whether or not the arm succeeded in touching the targets generated, as described in section 2.1. The sensors
 shall report back whether or not contact was made. This data can be used in post-mortem analysis to determine whether
@@ -229,15 +230,45 @@ later be visualized using Python's UI package, TK.
 
 \subsection{Telemetry}
 \subsubsection{Requirement Overview}
-The software shall report via telemetry all sensor data.
+The telemetry component shall report via telemetry all sensor data and test results.
 
 \subsubsection{Solution Design}
 The telemetry component is responsible for collecting and sending data through the
 telemetry ports on the \gls{payload}.
 
+This component shall not be responsible for transmitting data generated from the
+temperature sensors.
+The temperature sensors will be wired directly to an analog telemetry port,
+bypassing the \gls{OBC} altogether.
+
+For each test the software completes (see \hyperref[subsec:tests]{section 
+\ref*{subsec:tests},  Target Success Sensors}) this component shall output the test
+number and the result to the telemetry port.
+A result shall be either ``passed'' or ``failed''.
+There shall be a predetermined number of tests.
+The number and nature of tests has yet to be determined.
+The tests shall be designed as a joint effort between the Hephaestus Structures,
+Robotics, Electrical, and Software teams.
+
+The output shall be encoded as a \gls{binstring} and transmitted via a single parallel
+port pin.
+Each character of the \gls{binstring} shall be transmitted at a rate of no more
+than 5,000 Hz.
+The output shall be formatted as an initialization/timing binary sequence,
+the test number, a separating binary sequence, followed by a single bit indicating
+success or failure, followed by a terminating binary sequence.
+This format shall be repeated for each test case result to be transmitted.
+
+It is unclear if the transmission of the telemetry data will be tagged with the time
+the data was sent.
+If the data is not stored with a timestamp, then this component shall also include
+a time since \gls{apogee} when the test result was obtained.
+The timestamp shall be included in the output preceded by a separating binary
+sequence after the success bit and before the terminating binary sequence. 
+
 \subsection{Video Handling}
 \subsubsection{Requirement Overview}
-The software shall be responsible for controlling the camera output.
+The software shall be responsible for controlling the camera.
 
 \subsubsection{Solution Design}
 The video handling component shall be responsible for capturing video footage of
@@ -251,7 +282,7 @@ automatically start recording on power on and stop recording on power off.
 
 Because heat generated from reentry and water from the ocean landing both have
 a high likelihood of destroying the camera, the footage from the camera shall be
-stored on an SD card in external SD card read/write device. 
+stored on an SD card in an external SD card read/write device. 
 The external SD card device shall be contained in a heat and water resistant enclosure.
 The enclosure for the SD card device shall be designed and created by the Hephaestus Structures team.
 The camera shall write the footage to the external SD card device automatically,
@@ -261,7 +292,9 @@ When the \gls{ter} line activates, signaling the beginning of the experiment,
 the software shall enable power to the camera.
 The camera shall begin recording footage immediately upon receiving power. 
 Upon completion of the experiment (successful or otherwise) the software shall
-power off the camera. 
+power off the camera.
+When the \gls{te1} line activates, the software shall immediately power off the
+camera.
 
 
 \subsection{Data Visualization and Processing}
