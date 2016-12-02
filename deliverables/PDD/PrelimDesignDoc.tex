@@ -142,7 +142,7 @@ The software will enter Safety mode (defined in section 2.5.2) and attempt to re
  the system will continue attempting to eject the arm until ejection is completed
 \subsubsection{Solution Design}
 Upon entering the Shutdown state, the system should succeed in closing the arm, the Arm Assembly Body should be retracted, 
-and the OBC should be powered off. A time shall be implemented to detect whether the arm is stuck. The timer shall determine this by 
+and the \gls{OBC} should be powered off. A time shall be implemented to detect whether the arm is stuck. The timer shall determine this by 
 checking if a certain amount of time has passed between the last arm movement and the last request for an arm movement. 
 If arm movement requests are not being met by arm movements, and the system stalls past a certain amount of time, the system should 
 send a signal to enter the Safety state so that the arm can be ejected, as it is most likely caught in a bad extended position.
@@ -189,7 +189,7 @@ Transitions between states occur as numbered:
 
 \begin{enumerate}
 \item{\textbf{Appogee is reached.} The software shall activate when the power line goes to high at 28V. Observation mode shall be 
-triggered when the OBC turns on. Observation mode will collect a sweep of the payload with the camera. This mode will ensure that the 
+triggered when the \gls{OBC} turns on. Observation mode will collect a sweep of the payload with the camera. This mode will ensure that the 
 camera is operational during the more crticial parts of the mission.}
 \item{\textbf{Error: Return to Idle.} If an error is encountered in entering Observation mode, the software shall fallback to Idle 
 mode and retry. An error may occur if the payload fails to deploy correctly or if the camera fails to turn on. The system shall send
@@ -204,12 +204,12 @@ and the arm actually completing the movement request. If too much time has elaps
 be stuck. If the telemetry line stops receiving data from the camera, then the camera has stopped working and the system shall be 
 notified via an interrupt.}
 \item{\textbf{Timer switches to end appogee period.} Once the time period for observation has ended, the timer line will go to low and trigger to Shutdown state. This state can be reached from either Observation or Science mode.}
-\item{\textbf{Accept: Shutdown correctly} If Shutdown occurs correctly, the arm should be closed, the Arm Assembly Body should be retracted, and the OBC should be powered off. The arm will be have sensors to detect whether its closed or not, which can also
+\item{\textbf{Accept: Shutdown correctly} If Shutdown occurs correctly, the arm should be closed, the Arm Assembly Body should be retracted, and the \gls{OBC} should be powered off. The arm will be have sensors to detect whether its closed or not, which can also
 be used to know whether it has been retracted into the body. Once the system has determined that this criteria has been met, it
 will power off.}
-\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode. An error that could occur is the arm failing to close, the Body failing to retract, or the OBC not powering off. All 
-these situations except for the OBC not powering off are handled through Safety mode.}
-\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode, the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket. The shutdown sequence consists of the arm closing, the Body retracting, and the OBC being powered off.}
+\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode. An error that could occur is the arm failing to close, the Body failing to retract, or the \gls{OBC} not powering off. All 
+these situations except for the \gls{OBC} not powering off are handled through Safety mode.}
+\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode, the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket. The shutdown sequence consists of the arm closing, the Body retracting, and the \gls{OBC} being powered off.}
 \item{\textbf{Error: Payload is still deployed.} The software shall remain in Safety mode until the payload is either retracted correctly, retracted fully with the arm in the open position, or ejected safely from the rocket. Safety mode shall first try to correctly retract the arm, then retract with the arm open, then repeat attempting ejection until the payload is ejected.}
 \end{enumerate}
 \end{center}
@@ -220,6 +220,12 @@ The software shall know whether or not the arm succeeded in touching the targets
 shall report back whether or not contact was made. This data can be used in post-mortem analysis to determine whether
 certain targets were faulty or whether the range of motion on the arm was faulty.
 \subsubsection{Solution Design}
+The payload shall be equipped with pre-placed sensors that the arm shall make contact with. The arm shall have generated targets
+as described in section 2.1. These coordinates shall be stored within the system and used as inputs for the function controlling
+the arms' movements, with the target position being where the tip of the arm should be located. The arm shall exert force to touch
+the sensor, and the sensor shall go high if contact is made. The sensors high or low signal shall be sent via the telemetry
+line. If the arm gets stuck during this process, it will enter Safety mode, as described in section 2.5. The telemetry data shall
+later be visualized using Python's UI package, TK. 
 
 \subsection{Telemetry}
 \subsubsection{Requirement Overview}
@@ -311,6 +317,9 @@ documentation for all aspects of the library.
 All core developers for the Hephaestus mission are familiar with Python.
 
 \section{Conclusion}
+This concludes the preliminary design of our project. Further questions or concerns can be addressed to the authors of this document.
+This document may be subject to changes in the future as more design constraints are found, or designs are found to not work the way
+they were intended upon the creation of this document. The document shall be updated accordingly to account for these changes.
 \section{Glossary}
 \glsaddall
 \printglossaries
