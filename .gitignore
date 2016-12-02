@@ -1,1 +1,9 @@
 *.synctex.gz
+*.aux
+*.glg
+*.glo
+*.gls
+*.ist
+*.log
+*.out
+*.toc
