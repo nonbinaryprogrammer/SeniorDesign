@@ -1,0 +1,25 @@
+Notes
+
+How to tell if the arm has been fully retracted - Amber
+    Calibration - When arm closes, sensor says "closed"
+	Failsafe - Activate mode when TE-1 is on
+
+
+How to move the arm? - Amber
+  Talk to electrical
+
+
+
+
+What format is the telemetry data we get back? Streamed or buffered?\
+  Ask Allison
+
+
+What exactly should be sent through the telemetry ports
+  Pass/Fail actions
+  Set number of tests
+  No temp sensors (other than powering them)
+
+
+Winter term schedule?
+
