@@ -1,0 +1,30 @@
+\ifglsentryexists{(}{}%
+{%
+\gls@defglossaryentry{(}%
+{%
+name={O},%
+sort={O},%
+type={main},%
+first={n (O)},%
+firstplural={ns(Os)},%
+text={O},%
+plural={Os},%
+description={n},%
+descriptionplural={n\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={n},%
+longplural={ns},%
+short={O},%
+shortplural={Os},%
+counter={page},%
+parent={},%
+%
+}%
+}%
