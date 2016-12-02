@@ -159,6 +159,15 @@ Using this method will allow for the extra condition that point \(p_{m2}\) shoul
  of the can.
 Constrain rotation to not go all the way around.
 
+The position of the arm will be verified after the flight by using visual confirmation from the video 
+camera. The purpose of tracking the position of the arm is to verify the accuracy of the arm on orbit. 
+Since this will determine our ability to determine mission success, it is important that we have several 
+methods of verifying out results. This design allows us to know where we want to be by storing the values
+ of \(p\), the position of the tip of the arm, that occur during the motion of the arm. We can also know 
+where we are compared to where we started by storing the motion applied by the motors. We can know where 
+we actually are through the triggering of sensors. Finally, we can verify the sensor data using the video
+ camera.
+
 \subsection{Emergency Payload Expulsion}
 \subsubsection{Requirement Overview}
 The software shall eject the arm upon system failure. 
