@@ -91,15 +91,61 @@ experiments.
 
 \subsection{Target Generation}
 \subsubsection{Description}
+Target points shall be generated in 3D Polar form. These points shall include an 
+angle, radius, and height. The angle shall be measured from the normal vector, 
+defined as the direction of payload deployment from the rocket body. The radius 
+shall be measured in centimeters from the center of the mount point of the 
+Hephaestus arm to the arm assembly body. The height shall be measured in 
+centimeters above the arm assembly body platform.
+
+The target points shall be the points that the Hephaestus arm attempts to touch 
+during the experiment. These points will constitute the total on-orbit test of
+the Hephaestus arm and shall therefore be representative of the range of motion
+of the Hephaestus arm.
+
 \subsubsection{Requirements to be Tested}
+\begin{enumerate}
+\item{The targets generated are within the range of motion of the arm.}
+\item{The targets are generated in 3D polar form.}
+\item{The set of target generated is representative of the arm's abilities.}
+\end{enumerate}
 
 \subsection{Arm Position Tracking}
 \subsubsection{Description}
+The position of the arm shall be tracked and stored in 3D Polar Coordinates, as
+described above. The position of the arm following a motion will be calculated
+using the initial position of the arm and reverse kinematics. This means that
+the position will be calculated using the motion of the motors.
+
+The position of the arm shall be reset periodically in order to limity the 
+propagation of error over the course of the flight. This will be accomplished by
+returning to the initial position and resetting the position values to zero. The
+frequency with which the position is reset shall be determined by experiment.
+The position of the arm shall be denoted \(p\) and shall represent the location
+of the tip of the arm.
+
 \subsubsection{Requirements to be Tested}
+\begin{enumerate}
+\item{Determine the rate of deterioration of position accuracy as a function of
+time, number of operations performed, and distance traveled.}
+\item{Determine the accuracy of the arm's location at a point.}
+\item{Determine the accuracy of the calculation of the arm's current location by
+reverse kinematics.}
+\end{enumerate}
 
 \subsection{Arm Movement}
 \subsubsection{Description}
+The motions performed by the arm shall constitute the arm's functionality. The
+movement of the arm shall be determined by finding the most efficient path from
+\(p_{current}\) and \(p_{target}\). The efficiency of the path shall be
+determined by minimizing the rotation of the motors. The position of the arm
+shall be tracked as described in the previous subsection.
 \subsubsection{Requirements to be Tested}
+\begin{enumerate}
+\item{The path generated is the most efficient (as defined above) path.}
+\item{The arm follows the path defined in (1).}
+\item{The arm accurately moves to the target point.}
+\end{enumerate}
 
 \section{Tests}
 
