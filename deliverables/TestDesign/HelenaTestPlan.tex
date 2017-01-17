@@ -1,0 +1,143 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage[nopostdot]{glossaries}
+\usepackage[pdftex]{graphicx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\geometry{textheight=8.5in, textwidth=6in}
+\newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
+
+\makeglossaries
+\loadglsentries[main]{Glossary}
+
+\title{Software Subsystem Test Design For RockSat-X Payload - Hephaestus}
+\author{Helena~Bales\\ \\ CS461 - Fall 2016}
+
+\parindent = 0.0 in
+\parskip = 0.1 in
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The \gls{osu} RockSat-X payload Hephaestus is a proof of concept for the 
+construction of physical structures in space using a robotic arm. 
+This document shall describe the experiments that will be used to test three of 
+the functional requirements of the Hephaestus payload described in previous 
+documents and reviewed briefly in this document.
+
+The purpose of these experiements is to discover bugs in the software prior to 
+system integration into the RockSat-X rocket. The experiments shall be performed 
+throughout the implementation and integration phases of the payload development. 
+The experiments shall constitute one third of the module tests and shall cover 
+the requirements for target generation, arm movement, and arm position tracking.
+\end{abstract}
+
+\begin{bottompar}
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+
+
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+
+
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+
+
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+\end{bottompar}
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{Introduction}
+This document is an initial design of the experiments that will be conducted in 
+order the test the modules of the Hephaestus payload. The purpose of performing 
+these tests is to discover bugs in the Software Subsystem prior to integration 
+of the software with the hardware and electrical subsystems in the Hephaestus 
+payload and to the integration of the payload with the 2017 RockSat-X rocket. 
+
+These experiments will constitute the module tests to be performed throughout 
+the implementation and integration phases of the Hephaestus project. Data shall 
+be collected from these experiements, which will provide a guide for fixing bugs 
+and insuring that the payload operates within our desired parameters. 
+
+System and integration tests shall be performed to supplement these unit tests. 
+In addition to these unit tests, unit tests shall be developed and performed for 
+the six other functional requirements defined in the Technical Review Document.
+
+\subsection{Document Overview}
+This document includes an overview of the three functional requirements that
+will be tested. These requirements include target generation, arm movements, and 
+arm position tracking. The requirements were defined in the Technical Review 
+and Requirements Overview documents. They will be covered again in this
+document. Additionally, this document will describe the experiments that will be 
+performed as tests. These descriptions will include the experiment's purpose, 
+pre-conditions, post-conditions, tools required, method, and data. Finally, this 
+document will include the inputs that will be used as test cases for the 
+experiments.
+
+\section{Requirements Review}
+
+\subsection{Target Generation}
+\subsubsection{Description}
+\subsubsection{Requirements to be Tested}
+
+\subsection{Arm Position Tracking}
+\subsubsection{Description}
+\subsubsection{Requirements to be Tested}
+
+\subsection{Arm Movement}
+\subsubsection{Description}
+\subsubsection{Requirements to be Tested}
+
+\section{Tests}
+
+\subsection{Experiment 1: Accuracy of Stored Position at a Point}
+\subsubsection{Purpose}
+\subsubsection{Pre-Conditions}
+\subsubsection{Post-Conditions}
+\subsubsection{Tools}
+\subsubsection{Method}
+\subsubsection{Data}
+
+\subsection{Experiment 2: Deterioration of Position Accuracy Over Course of Flight}
+\subsubsection{Purpose}
+\subsubsection{Pre-Conditions}
+\subsubsection{Post-Conditions}
+\subsubsection{Tools}
+\subsubsection{Method}
+\subsubsection{Data}
+
+\subsection{Experiment 3: Validation of Path Efficiency}
+\subsubsection{Purpose}
+\subsubsection{Pre-Conditions}
+\subsubsection{Post-Conditions}
+\subsubsection{Tools}
+\subsubsection{Method}
+\subsubsection{Data}
+
+\subsection{Experiment 4: }
+\subsubsection{Purpose}
+\subsubsection{Pre-Conditions}
+\subsubsection{Post-Conditions}
+\subsubsection{Tools}
+\subsubsection{Method}
+\subsubsection{Data}
+
+\section{Test Inputs}
+\subsection{Input Requirements}
+\subsection{Test Input Sets}
+
+\section{Conclusion}
+\end{document}
