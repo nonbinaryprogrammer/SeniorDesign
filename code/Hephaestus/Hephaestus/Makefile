@@ -2,9 +2,9 @@ SHELL           = /bin/bash
 
 PRG             = test
 
-OBJS            = $(PRG).o RSXAVRD.o
+OBJS            = $(PRG).o RSXAVRD.o ff.o diskio.o
 
-SRCS            = $(PRG).c RSXAVRD.c
+SRCS            = $(PRG).c RSXAVRD.c ff.c diskio.c
 
 MCU_TARGET     = atmega64
 #MCU_TARGET     = atmega128
@@ -40,16 +40,16 @@ $(PRG).elf: $(OBJS)
 #prevent confusion with any file named "clean"
 #the dash "-" prevents rm from erroring out with file not found
 .PHONY	: clean
-clean: 
+clean:
 	-rm -rf $(PRG).o $(PRG).elf $(PRG).lst $(PRG).map $(PRG).srec $(PRG)*.bin
-	-rm -rf $(PRG)_eeprom.srec $(PRG)_eeprom*.bin $(PRG)_eeprom.hex $(PRG).hex 
+	-rm -rf $(PRG)_eeprom.srec $(PRG)_eeprom*.bin $(PRG)_eeprom.hex $(PRG).hex
 	-rm -rf $(PRG).d
 
 #clean entire directory
 all_clean:
 	rm -rf *.o *.elf *.lst *.map *.srec *.bin *.hex *.d
 
-#Here is the pattern rule to generate a file of dependencies (i.e., a makefile) 
+#Here is the pattern rule to generate a file of dependencies (i.e., a makefile)
 #called `name.d' from a C source file +called `name.c':
 %.d: %.c
 	@set -e; rm -f $@; \
@@ -63,10 +63,10 @@ include $(SRCS:.c=.d)
 #setup for usb programmer
 program: $(PRG).hex
 #	chmod 644 $(PRG).hex only needed for redhat
-#	avrdude -p $(PROGRAMMER_TARGET) -c usbasp -e -U flash:w:$(PRG).hex 
+#	avrdude -p $(PROGRAMMER_TARGET) -c usbasp -e -U flash:w:$(PRG).hex
 	avrdude -p $(PROGRAMMER_TARGET) -c usbasp -e -U flash:w:$(PRG).hex \
                                                      -U eeprom:w:$(PRG)_eeprom.hex
-#	avrdude -p $(PROGRAMMER_TARGET) -c osuisp2 -e -U flash:w:$(PRG).hex 
+#	avrdude -p $(PROGRAMMER_TARGET) -c osuisp2 -e -U flash:w:$(PRG).hex
 
 lst:  $(PRG).lst
 
