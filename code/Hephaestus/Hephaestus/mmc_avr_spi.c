@@ -16,12 +16,14 @@
 #include "mmc_avr.h"
 
 /* Peripheral controls (Platform dependent) */
-#define CS_LOW()		To be filled	/* Set MMC_CS = low */
-#define	CS_HIGH()		To be filled	/* Set MMC_CS = high */
-#define MMC_CD			To be filled	/* Test if card detected.   yes:true, no:false, default:true */
-#define MMC_WP			To be filled	/* Test if write protected. yes:true, no:false, default:false */
-#define	FCLK_SLOW()		To be filled	/* Set SPI slow clock (100-400kHz) */
-#define	FCLK_FAST()		To be filled	/* Set SPI fast clock (20MHz max) */
+#define CS_LOW()		//To be filled	/* Set MMC_CS = low */
+#define	CS_HIGH()		//To be filled	/* Set MMC_CS = high */
+#define MMC_CD			1	/* FILL THESE IN LATER WITH REAL TESTS - Test if card detected.
+yes:true, no:false, default:true */
+#define MMC_WP			0   /* FILL THESE IN LATER WITH REAL TESTS - Test if write protected. 
+yes:true, no:false, default:false */
+#define	FCLK_SLOW()		//To be filled	/* Set SPI slow clock (100-400kHz) */
+#define	FCLK_FAST()		//To be filled	/* Set SPI fast clock (20MHz max) */
 
 
 /*--------------------------------------------------------------------------
@@ -76,15 +78,15 @@ static
 void power_on (void)
 {
 	/* Trun socket power on and wait for 10ms+ (nothing to do if no power controls) */
-	To be filled
+//	To be filled
 
 
 	/* Configure MOSI/MISO/SCLK/CS pins */
-	To be filled
+//	To be filled
 
 
 	/* Enable SPI module in SPI mode 0 */
-	To be filled
+//	To be filled
 }
 
 
@@ -92,15 +94,15 @@ static
 void power_off (void)
 {
 	/* Disable SPI function */
-	To be filled
+//	To be filled
 
 
 	/* De-configure MOSI/MISO/SCLK/CS pins (set hi-z) */
-	To be filled
+//	To be filled
 
 
 	/* Trun socket power off (nothing to do if no power controls) */
-	To be filled
+//	To be filled
 }
 
 
@@ -643,12 +645,12 @@ void mmc_disk_timerproc (void)
 
 	s = Stat;
 
-	if (MMC_WP)				/* Write protected */
+	if(MMC_WP)				/* Write protected */
 		s |= STA_PROTECT;
 	else					/* Write enabled */
 		s &= ~STA_PROTECT;
 
-	if (MMC_CD)				/* Card inserted */
+	if(MMC_CD)				/* Card inserted */
 		s &= ~STA_NODISK;
 	else					/* Socket empty */
 		s |= (STA_NODISK | STA_NOINIT);

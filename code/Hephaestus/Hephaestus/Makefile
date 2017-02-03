@@ -2,9 +2,9 @@ SHELL           = /bin/bash
 
 PRG             = test
 
-OBJS            = $(PRG).o RSXAVRD.o ff.o diskio.o
+OBJS            = $(PRG).o RSXAVRD.o ff.o diskio.o mmc_avr_spi.o
 
-SRCS            = $(PRG).c RSXAVRD.c ff.c diskio.c
+SRCS            = $(PRG).c RSXAVRD.c ff.c diskio.c mmc_avr_spi.c
 
 MCU_TARGET     = atmega64
 #MCU_TARGET     = atmega128
