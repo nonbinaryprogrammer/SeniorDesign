@@ -13,7 +13,7 @@
 \loadglsentries[main]{Glossary}
 
 \title{Preliminary Design Document For RockSat-X Payload - Hephaestus}
-\author{Helena~Bales, Amber~Horvath, and Michael~Humphrey\\ \\ CS461 - Fall 2016}
+\author{Helena~Bales, Amber~Horvath, and Michael~Humphrey\\ \\ CS461 - Winter 2017}
 
 \parindent = 0.0 in
 \parskip = 0.1 in
@@ -263,8 +263,9 @@ line. If the arm gets stuck during this process, it will enter Safety mode, as d
 later be visualized using Python's UI package, TK. 
 
 \subsection{Telemetry}
+\textbf{Author:} Michael Humphrey
 \subsubsection{Requirement Overview}
-The telemetry component shall report via telemetry all sensor data and test results.
+The telemetry component shall report via telemetry all error codes and test results.
 
 \subsubsection{Solution Design}
 The telemetry component is responsible for collecting and sending data through the
@@ -275,63 +276,43 @@ temperature sensors.
 The temperature sensors will be wired directly to an analog telemetry port,
 bypassing the \gls{OBC} altogether.
 
-For each test the software completes (see \hyperref[subsec:tests]{section 
-\ref*{subsec:tests},  Target Success Sensors}) this component shall output the test
-number and the result to the telemetry port.
-A result shall be either ``passed'' or ``failed''.
-There shall be a predetermined number of tests.
-The number and nature of tests has yet to be determined.
+For each test the software successfully completes (see \hyperref[subsec:tests]{section 
+\ref*{subsec:tests},  Target Success Sensors}) this component shall output a code
+representing the test number to the telemetry port.
+There shall be two tests; one for each touch point on the \gls{payload}.
 The tests shall be designed as a joint effort between the Hephaestus Structures,
 Robotics, Electrical, and Software teams.
 
-The output shall be encoded as a \gls{binstring} and transmitted via a single parallel
-port pin.
-Each character of the \gls{binstring} shall be transmitted at a rate of no more
-than 5,000 Hz.
-The output shall be formatted as an initialization/timing binary sequence,
-the test number, a separating binary sequence, followed by a single bit indicating
-success or failure, followed by a terminating binary sequence.
-This format shall be repeated for each test case result to be transmitted.
+The output shall be encoded as a four character \gls{binstring} and transmitted
+simultaneously via a four parallel port pins.
+The \gls{binstring} shall be transmitted at a rate of no more than 5,000 Hz.
+There shall be a delay of no less than .2 milliseconds between transmissions
+of codes.
+When no code is being actively transmitted, the telemetry shall output a code
+of `0000' to the telemetry pins.
 
-It is unclear if the transmission of the telemetry data will be tagged with the time
-the data was sent.
-If the data is not stored with a timestamp, then this component shall also include
-a time since \gls{apogee} when the test result was obtained.
-The timestamp shall be included in the output preceded by a separating binary
-sequence after the success bit and before the terminating binary sequence. 
+In addition to transmitting codes via the telemetry lines, the software shall also
+store a log file with timestamps on an onboard SD card.
+The log file shall consist of a series of lines of text, consisting of a timestamp
+and a description.
+The timestamp shall be the number of tenths of milliseconds since the \gls{OBC}
+powered on.
+The description shall be a sequence of \gls{ASCII} characters of arbitrary length,
+and terminated with a carriage return character.
 
 \subsection{Video Handling}
+\textbf{Author:} Michael Humphrey
 \subsubsection{Requirement Overview}
-The software shall be responsible for controlling the camera.
+Video footage of the \gls{payload}'s operations shall be recorded and saved to the
+SD card.
 
 \subsubsection{Solution Design}
-The video handling component shall be responsible for capturing video footage of
-the experiment as it runs, and storing the footage for playback at a later time.
-The hardware of this component includes a camera and a device that can read
-and write to an SD card.
-
-The camera shall be a GoPro Hero Black.
-The camera shall be configured in One Button Mode, which means the  camera will
-automatically start recording on power on and stop recording on power off. 
-
-Because heat generated from reentry and water from the ocean landing both have
-a high likelihood of destroying the camera, the footage from the camera shall be
-stored on an SD card in an external SD card read/write device. 
-The external SD card device shall be contained in a heat and water resistant enclosure.
-The enclosure for the SD card device shall be designed and created by the Hephaestus Structures team.
-The camera shall write the footage to the external SD card device automatically,
-without any intervention from the payload software. 
-
-When the \gls{ter} line activates, signaling the beginning of the experiment,
-the software shall enable power to the camera.
-The camera shall begin recording footage immediately upon receiving power. 
-Upon completion of the experiment (successful or otherwise) the software shall
-power off the camera.
-When the \gls{te1} line activates, the software shall immediately power off the
-camera.
-
+The Hephaestus Electrical Engineering team shall design the payload such that the 
+camera will power on and off at the appropriate times, as well as save footage to
+the SD card. 
 
 \subsection{Data Visualization and Processing}
+\textbf{Author:} Michael Humphrey
 \subsubsection{Requirement Overview}
 The data visualization and processing component shall provide visualizations
 for the collected data.
@@ -343,44 +324,33 @@ and why they have not been met.
 \subsubsection{Solution Design}
 The component shall have a \gls{gui} written in Tkinter with graphs generated by
 \gls{matplotlib}.
-The \gls{gui} shall consist of two graphs and a table.
+The \gls{gui} shall consist of two graphs, a table, and a timeline.
 Each graph shall be a \gls{plot} with analog data collected from each of two temperature sensors.
 The data from the temperature sensors shall be graphed with respect to time from
 \gls{apogee} and actual temperature, if such a value can be determined.
-In the absense of a method to reliably determine actual temperature from the raw
+In the absence of a method to reliably determine actual temperature from the raw
 sensor data, then the data shall be graphed with respect to the raw value received
 from the sensor, with the graph scaled such that the lowest value recorded shall be
 the minimum y value, and the highest recorded value recorded shall be the maximum y value.
+The user shall be able to scale the graphs to view portions of the data as they see fit.
 The table shall consist of the name of each of a series of tests,
 the result of that respective test, and the time that test was completed.
 A result shall be either ``passed'', ``failed'', or ``not completed''.
 A result of ``passed'' shall be colored in green.
 A result of ``failed'' shall be colored in red.
-A result of ``not completed'' shall be colored in gray.
+A result of ``not completed'' shall be colored in yellow.
 If the result of a test is ``not completed'', then the time of completion for that test
 may be omitted.
-There shall be a predetermined number of tests.
-The number and nature of tests has yet to be determined.
+There shall be two total tests.
+The tests shall be for if the \gls{payload} can successfully touch each touch point sensor.
 The tests shall be designed as a joint effort between the Hephaestus Structures,
 Robotics, Electrical, and Software teams.
+The timeline shall be a visualization with time on the y axis, with significant events
+marked at various positions along the axis, according to when that event happened.
 
-It has not been determined if the data shall be processed in a real-time manner
-(i.e. the telemetry data is received by the data processing software as the
-spacecraft software sends it, given a delay) or if the telemetry data will be provided
-by \gls{wff} after the completion of the mission.
-
-If the data will be streamed in a real-time manner, then additionally this component shall:
-\begin{itemize}
-\item Update the \gls{gui} as soon as the data is received.
-\item Continue to process the incoming data, even if an error occurs.
-\item Store the incoming data in a file to be reviewed and \gls{replay}ed later.
-\item Load data from a file and \gls{replay} the telemetry data.
-\item Load data from a file and display a summary of all test results and
-temperature data.
-\end{itemize}
 
 \section{Conclusion}
-This concludes the preliminary design of our project. Further questions or concerns can be addressed to the authors of this document.
+This concludes the design of our project. Further questions or concerns can be addressed to the authors of this document.
 This document may be subject to changes in the future as more design constraints are found, or designs are found to not work the way
 they were intended upon the creation of this document. The document shall be updated accordingly to account for these changes.
 
