@@ -215,7 +215,7 @@ Once the experiment time has been exhausted, the payload shall shut down.
 If it shuts down correctly, everything will poweroff. If not, the payload shall attempt to retract 
 again, or expel the payload from the rocket.
 \subsubsection{Solution Design}
-\input{state_diagram}
+\input{state_diagram2}
 \begin{center}
 Diagram of software states of operation and transition between states [2].
 
@@ -238,13 +238,14 @@ and the arm actually completing the movement request. If too much time has elaps
 be stuck. If the telemetry line stops receiving data from the camera, then the camera has stopped working and the system shall be 
 notified via an interrupt.}
 \item{\textbf{Timer switches to end appogee period.} Once the time period for observation has ended, the timer line will go to low and trigger to Shutdown state. This state can be reached from either Observation or Science mode.}
+\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode. An error that could occur is the arm failing to close, the Body failing to retract, or the \gls{OBC} not powering off. All 
+these situations except for the \gls{OBC} not powering off are handled through Safety mode.}
+\item{\textbf{Retry: Re-attempt to retract the arm.} Attempted to resolve any errors and retry retracting the arm.}
 \item{\textbf{Accept: Shutdown correctly} If Shutdown occurs correctly, the arm should be closed, the Arm Assembly Body should be retracted, and the \gls{OBC} should be powered off. The arm will be have sensors to detect whether its closed or not, which can also
 be used to know whether it has been retracted into the body. Once the system has determined that this criteria has been met, it
 will power off.}
-\item{\textbf{Error: Shutdown not completed successfully.} If an error occurs in the shutdown sequence, the software shall enter Safety mode. An error that could occur is the arm failing to close, the Body failing to retract, or the \gls{OBC} not powering off. All 
-these situations except for the \gls{OBC} not powering off are handled through Safety mode.}
-\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode, the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket. The shutdown sequence consists of the arm closing, the Body retracting, and the \gls{OBC} being powered off.}
 \item{\textbf{Error: Payload is still deployed.} The software shall remain in Safety mode until the payload is either retracted correctly, retracted fully with the arm in the open position, or ejected safely from the rocket. Safety mode shall first try to correctly retract the arm, then retract with the arm open, then repeat attempting ejection until the payload is ejected.}
+\item{\textbf{Payload is Shutdown correctly.} If the payload is Shutdown through Safety mode, shutdown can be completed. In Safety mode, the payload was either shut down correctly, retracted fully into the can with the arm open, or the arm was expelled safely from the rocket. The shutdown sequence consists of the arm closing, the Body retracting, and the \gls{OBC} being powered off.}
 \end{enumerate}
 \end{center}
 
