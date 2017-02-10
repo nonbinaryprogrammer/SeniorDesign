@@ -16,14 +16,14 @@
 #include "mmc_avr.h"
 
 /* Peripheral controls (Platform dependent) */
-#define CS_LOW()		//To be filled	/* Set MMC_CS = low */
-#define	CS_HIGH()		//To be filled	/* Set MMC_CS = high */
+#define CS_LOW()	(PORTB &= ~(0x01)) 		//To be filled	/* Set MMC_CS = low */
+#define	CS_HIGH()	(PORTB |= 0x01)		//To be filled	/* Set MMC_CS = high */
 #define MMC_CD			1	/* FILL THESE IN LATER WITH REAL TESTS - Test if card detected.
 yes:true, no:false, default:true */
 #define MMC_WP			0   /* FILL THESE IN LATER WITH REAL TESTS - Test if write protected. 
 yes:true, no:false, default:false */
-#define	FCLK_SLOW()		//To be filled	/* Set SPI slow clock (100-400kHz) */
-#define	FCLK_FAST()		//To be filled	/* Set SPI fast clock (20MHz max) */
+#define	FCLK_SLOW()	(SPCR |= (1<<SPR1)); (SPSR &= ~(1<<SPI2X));	/* Set SPI slow clock (100-400kHz) */
+#define	FCLK_FAST()	(SPCR &= ~(1<<SPR1)); (SPSR |= (1<<SPI2X));	//To be filled	/* Set SPI fast clock (20MHz max) */
 
 
 /*--------------------------------------------------------------------------
@@ -77,16 +77,15 @@ BYTE CardType;			/* Card type flags (b0:MMC, b1:SDv1, b2:SDv2, b3:Block addressi
 static
 void power_on (void)
 {
-	/* Trun socket power on and wait for 10ms+ (nothing to do if no power controls) */
-//	To be filled
-
+	/* Turn socket power on and wait for 10ms+ (nothing to do if no power controls) */
+	// N/a for our design
 
 	/* Configure MOSI/MISO/SCLK/CS pins */
-//	To be filled
-
+	DDRB |= 0x0F;
 
 	/* Enable SPI module in SPI mode 0 */
-//	To be filled
+	//Enable AVR SPI as Master, SCK as Fosc/64 = 250kHz, SPI mode 0
+	SPCR = (1<<SPE | 1<<MSTR | 1<<SPR1);
 }
 
 
@@ -94,15 +93,13 @@ static
 void power_off (void)
 {
 	/* Disable SPI function */
-//	To be filled
-
+	SPCR &= ~(1<<SPE | 1<<MSTR | 1<<SPR1);
 
 	/* De-configure MOSI/MISO/SCLK/CS pins (set hi-z) */
-//	To be filled
+	DDRB &= ~(0x0F);
 
-
-	/* Trun socket power off (nothing to do if no power controls) */
-//	To be filled
+	/* Turn socket power off (nothing to do if no power controls) */
+	// N/a for our design
 }
 
 
