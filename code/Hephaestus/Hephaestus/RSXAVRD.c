@@ -1,14 +1,15 @@
 /* Designer: Jonathan Hardman
  * Filename: RSXAVRD.c
- * Version: 1.0
- * Date: 01/20/17
+ * Version: 1.1
+ * Date: 01/31/17
  * Description: AVR ATmega64 I/O Drivers for RS-X Project
 */
 
 /********Libraries********/
 #include <avr/io.h>
-//#include <avr/interrupt.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
+#include "RSXAVRD.h"
 
 /*********Motor Driver Config*********/
 #define MOTOR_EN_DDR &DDRF
@@ -38,11 +39,75 @@
 #define MOT4_DIR_PIN 4
 #define MOT5_DIR_PIN 5
 
-/***********************************Motor Driver Functions***********************************/
-void init_motors(){
+#define MOT0_CALIB_INT 0
+#define MOT1_CALIB_INT 1
+#define MOT2_CALIB_INT 2
+#define MOT3_CALIB_INT 3
+#define MOT4_CALIB_INT 4
+#define RSX_TE0_INT 5
+#define RSX_TE1_INT 6
+
+volatile uint8_t calibration = 0x00;
+volatile uint8_t timer_event0_flg = 0x00;
+volatile uint8_t timer_event1_flg = 0x00;
+
+/*********Interrupts*********/
+
+ISR(INT0_vect){
+	calibration |= 0x01;
+}
+ISR(INT1_vect){
+	calibration |= 0x02;
+}
+ISR(INT2_vect){
+	calibration |= 0x04;
+}
+ISR(INT3_vect){
+	calibration |= 0x08;
+}
+ISR(INT4_vect){
+	calibration |= 0x10;
+}
+ISR(INT5_vect){
+	timer_event0_flg = 0x01;
+}
+ISR(INT6_vect){
+	timer_event1_flg = 0x01;
+	/* Or do something else here */
+}
+
+/***********************************General***********************************/
+void AVR_init(){
 	*MOTOR_EN_DDR |= (1<<MOT0_EN_PIN | 1<<MOT1_EN_PIN | 1<<MOT2_EN_PIN | 1<<MOT3_EN_PIN | 1<<MOT4_EN_PIN | 1<<MOT5_EN_PIN);
 	*MOTOR_DIR_DDR |= (1<<MOT0_DIR_PIN | 1<<MOT1_DIR_PIN | 1<<MOT2_DIR_PIN | 1<<MOT3_DIR_PIN | 1<<MOT4_DIR_PIN | 1<<MOT5_DIR_PIN);
 	*MOTOR_STEP_DDR |= (1<<MOT0_STEP_PIN | 1<<MOT1_STEP_PIN | 1<<MOT2_STEP_PIN | 1<<MOT3_STEP_PIN | 1<<MOT4_STEP_PIN | 1<<MOT5_STEP_PIN);
+	EICRA |= (1<<ISC31 | 1<<ISC30 | 1<<ISC21 | 1<<ISC20 | 1<<ISC11 | 1<<ISC10 | 1<<ISC01 | 1<<ISC00);
+	EICRB |= (1<<ISC71 | 1<<ISC70 | 1<<ISC61 | 1<<ISC60 | 1<<ISC51 | 1<<ISC50 | 1<<ISC41 | 1<<ISC40);
+	
+}
+
+void timer_event_enable(uint8_t event, uint8_t flag){
+	cli();
+	uint8_t eventID [2] = {RSX_TE0_INT, RSX_TE1_INT};
+	if(flag == 0x01)
+		EIMSK |= (1<<eventID[event]);
+	else{
+		EIMSK &= (1<<eventID[event]);
+		timer_event0_flg = 0x00;
+		timer_event1_flg = 0x00;
+	}
+	sei();
+}
+
+/***********************************Motor Driver Functions***********************************/
+void calibration_enable(uint8_t motor, unit8_t flag){
+	uint8_t motorCBID[6] = {MOT0_CALIB_INT, MOT1_CALIB_INT, MOT2_CALIB_INT, MOT3_CALIB_INT, MOT4_CALIB_INT};
+	cli();
+	if(flag == 0x01)
+		EIMSK |= (1<<motorCBID[motor]);
+	else
+		EIMSK &= (1<<motorCBID[motor]);	
+	sei();
 }
 
 void motor_pwr(uint8_t motor, uint8_t flag){
@@ -63,15 +128,19 @@ void motor_dir(uint8_t motor, uint8_t dir){
 		*MOTOR_DIR_PORT &= ~(1<<motorDIRID[motor]);
 }
 
-void step_motor(uint8_t motor, uint16_t steps, uint16_t speed){
+void motor_step(uint8_t motor, uint16_t steps, uint16_t speed){
 	uint16_t i,j,k;
 	uint8_t motorSTEPID[6] = {MOT0_STEP_PIN, MOT1_STEP_PIN, MOT2_STEP_PIN, MOT3_STEP_PIN, MOT4_STEP_PIN, MOT5_STEP_PIN};
 	speed = -99*(speed)+10000;
-	for(i=0;i<2;i++){
-		for (j=0;j<steps;j++){
+	steps = 2*steps;
+	for (j=0;j<steps;j++){
+		if(calibration == 0x00){
 			*MOTOR_STEP_PORT ^= (1<<motorSTEPID[motor]);
 			for (k=0;k<speed;k++)
 				_delay_us(1);
+		}else{
+			*MOTOR_STEP_PORT &= (1<<motorSTEPID[motor]);
+			break;
 		}
 	}
 }

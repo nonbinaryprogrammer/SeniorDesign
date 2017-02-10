@@ -1,13 +1,20 @@
 /* Designer: Jonathan Hardman
  * Filename: RSXAVRD.h
- * Version: 1.0
- * Date: 01/20/17
+ * Version: 1.1
+ * Date: 01/31/17
  * Description: AVR ATmega64 I/O Drivers for RS-X Project
 */
 
+/**********************General**********************/
+//Sets up microcontroller I/O properties, run before everything.
+void AVR_init(void);
+
+//Enable or Disable Timer Event Interrupt flags, event: 0 or 1, flag: 1=On, 0=Off
+void timer_event_enable(uint8_t event, uint8_t flag);
+
 /*******************Motor Control*******************/
-//Run this before doing anything with motors or else...
-void init_motors(void);
+//Turn on/off for motor selected, motor: 0-4, flag: 1=On 0=Off 
+void calibration_enable(uint8_t motor, uint8_t flag);
 
 //Turns on/off motor selected, motor: 0-5, flag: 1=On 0=Off
 void motor_pwr(uint8_t motor, uint8_t flag);
@@ -16,7 +23,7 @@ void motor_pwr(uint8_t motor, uint8_t flag);
 void motor_dir(uint8_t motor, uint8_t dir);
 
 //Steps the motor at a given speed, motor: 0-5, steps: <65535, speed: 0-100
-void step_motor(uint8_t motor, uint16_t steps, uint16_t speed);
+void motor_step(uint8_t motor, uint16_t steps, uint16_t speed);
 
 /******************Parallel Lines******************/
 //Sends lower 4bits provided for ms amount of milliseconds
