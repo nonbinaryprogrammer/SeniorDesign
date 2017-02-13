@@ -13,9 +13,10 @@ extern uint8_t timer_event1_flg;
 
 int main() {
 	AVR_init(); //Setup system
+	timer_counter_enable(0x01);
 	
 	timer_event_enable(0x00,0x01); //Turn on the Timer Event 0 Interrupt
-	while(timer_event_flg == 0x00){} //idle until signal to start
+	while(timer_event0_flg == 0x00){} //idle until signal to start
 	timer_event_enable(0x00,0x00); //Once done waiting, turn off interrupt to reset state
 	
 	//time to do stuff
