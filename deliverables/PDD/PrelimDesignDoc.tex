@@ -13,7 +13,7 @@
 \loadglsentries[main]{Glossary}
 
 \title{Preliminary Design Document For RockSat-X Payload - Hephaestus}
-\author{Helena~Bales, Amber~Horvath, and Michael~Humphrey\\ \\ CS461 - Winter 2017}
+\author{Helena~Bales, Amber~Horvath, and Michael~Humphrey\\ \\ CS462 - Winter 2017}
 
 \parindent = 0.0 in
 \parskip = 0.1 in
@@ -169,17 +169,15 @@ we actually are through the triggering of sensors. Finally, we can verify the se
  camera.
 
 \subsection{Emergency Payload Expulsion}
+\textbf{Author:} Amber Horvath
 \subsubsection{Requirement Overview}
 The software shall eject the arm upon system failure. 
 System failure in this case is defined as the arm becoming lodged or stuck in a state where it is unable to retract.
 The software will enter Safety mode (defined in section 2.5.2) and attempt to retract the arm. If it is unable to complete this step,
- the system will continue attempting to eject the arm until ejection is completed
+ the system will continue attempting to eject the arm until ejection is completed.
 \subsubsection{Solution Design}
 Upon entering the Shutdown state, the system should succeed in closing the arm, the Arm Assembly Body should be retracted, 
-and the \gls{OBC} should be powered off. A time shall be implemented to detect whether the arm is stuck. The timer shall determine this by 
-checking if a certain amount of time has passed between the last arm movement and the last request for an arm movement. 
-If arm movement requests are not being met by arm movements, and the system stalls past a certain amount of time, the system should 
-send a signal to enter the Safety state so that the arm can be ejected, as it is most likely caught in a bad extended position.
+and the \gls{OBC} should be powered off. 
 The system shall determine shutdown was not completed correctly (as seen in state 7 defined in section 2.5.2) by determining that one 
 of these requirements was not met.
 The system shall determine the arm is not contracting properly by the amount of torque that the motor is applying, as failure to 
@@ -189,7 +187,7 @@ Safety mode will attempt to contract the arm once more by calling the arm moveme
 coordinate to move the end of the arm to. The arm is equipped with sensors that can determine if the arm is folded or not
 so if the sensors determine that the arm is folded, then safe shutdown should be possible.
 The emergency retracting operation is completed by turning off all the motors in the 
-in the arm except for the motor pushing the whole metal plate the arm is attached to in and out of the payload.
+ arm except for the motor pushing the whole metal plate the arm is attached to in and out of the payload.
 With those motors turned off, the joints of the arm will be flimsy and can be pulled into the payload by retracting the metal plate.
 In the case of contracting the arm, the tip should point inwards to the center of the canister.
 If it is unable to do so, it shall continue attempting to eject. 
@@ -205,6 +203,7 @@ If the arm is unable to be ejected safely, the arm will be stuck outside the can
 as a failure.
 
 \subsection{Program Modes of Operation}
+\textbf{Author:} Amber Horvath
 \subsubsection{Requirement Overview}
 The software shall have the Modes of Operation necessary to insure the mission success.
 The software shall first deploy the payload, then the arm. Next the software shall activate the 
@@ -250,6 +249,7 @@ will power off.}
 \end{center}
 
 \subsection{Target Success Sensors}
+\textbf{Author:} Amber Horvath
 \label{subsec:tests}
 \subsubsection{Requirement Overview}
 The software shall know whether or not the arm succeeded in touching the targets generated, as described in section 2.1. The sensors
@@ -260,7 +260,7 @@ The payload shall be equipped with pre-placed sensors that the arm shall make co
 as described in section 2.1. These coordinates shall be stored within the system and used as inputs for the function controlling
 the arms' movements, with the target position being where the tip of the arm should be located. The arm shall exert force to touch
 the sensor, and the sensor shall go high if contact is made. The sensors high or low signal shall be sent via the telemetry
-line. If the arm gets stuck during this process, it will enter Safety mode, as described in section 2.5. The telemetry data shall
+line and written to our SD card. If the arm gets stuck during this process, it will enter Safety mode, as described in section 2.5. The telemetry data shall
 later be visualized using Python's UI package, TK. 
 
 \subsection{Telemetry}
