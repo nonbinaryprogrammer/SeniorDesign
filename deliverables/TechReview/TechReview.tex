@@ -158,6 +158,21 @@ The motors, labeled \(m1\), and \(m2\), shall be responsible for moving the arm 
  height. The position of the arm, \(p\), and the target position \(t_{n}\), shall be stored in the 
 manner described in the section titled Arm Position Tracking.
 }
+
+\item{
+\textbf{The movement of the arm shall follow a path through a 4-degree of freedom (dof) configuration
+space.} The path of the arm shall be generated using the A* pathfinding algorithm. The configuration 
+space shall be in \(I\!R\)^4. Valid points in the configuration space will be represented by a 0, 
+while invalid points will be represented by a 1. A point in the configuration space represents the 
+angles at which the four arm actuators are bent. In this way, the position of the arm can be uniquely
+ represented. An area in the configuration space maps to a single point in real space.
+
+In order to move from one point to the next, a path will be generated using A* from the starting position to the final position. The final position will be converted from Real Space to the C-Space using 
+Inverse Kinematics. Once the path has been generated, the arm will be moved through the path from the 
+initial configuration through the list of configurations given by the path. In moving from one 
+configuration to the next, the motors will be rotated to the new configuration starting at the base of
+the arm towards the tip of the arm.
+}
 \end{enumerate}
 
 \begin{center}
