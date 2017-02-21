@@ -1,0 +1,119 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage[nopostdot]{glossaries}
+\usepackage[pdftex]{graphicx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\geometry{textheight=8.5in, textwidth=6in}
+\newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
+
+\makeglossaries
+\loadglsentries[main]{Glossary}
+
+\title{Progress Report For RockSat-X Payload - Hephaestus}
+\author{Helena~Bales, Amber~Horvath, and Michael~Humphrey\\ \\ CS461 - Fall 2016}
+
+\parindent = 0.0 in
+\parskip = 0.1 in
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The \gls{osu} RockSat-X team shall be named Hephaestus.
+The progress of our project shall be outlined in this document.
+The mission requires that the \gls{payload}, an autonomous robotic arm, perform a series of motions to locate predetermined targets.
+The hardware shall be capable of performing the motions to reach the targets.
+The software shall determine the targets and send the commands to the hardware to execute the motion.
+The combination of the hardware controlled by the software shall demonstrate Hephaestus's ability to construct small parts on orbit.
+\end{abstract}
+
+\begin{center}
+\includegraphics[scale=.3]{logo}
+
+Hephaestus Mission Logo
+\end{center}
+
+\begin{bottompar}
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+
+
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+
+
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+
+
+Approved By
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+\end{bottompar}
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{Introduction}
+The Hephaestus Payload is a rocketry \gls{payload} that will fly onboard the 2016-2017 RockSat-X rocket. 
+The rocket will be launched from Wallops Flight Facility filled with
+student-made \glspl{payload}. 
+The Hephaestus \gls{payload} will be made up of a \gls{deployable} arm and a video camera. The arm will perform 
+a series of motions that will be recorded by the video camera and sensors. Following the experiment, the 
+arm will retract back into the rocket. The Hephaestus mission will be Oregon State University's first 
+space mission and will prove not only our ability to develop a space-ready
+\gls{payload}, but also the 
+viability of construction in space using a robotic arm.
+
+\subsection{Document Overview}
+This document will serve as a progress update following Fall term of 2016. At the time of writing, we 
+have worked on the Hephaestus \gls{payload} for ten weeks. This document will include an overview of the 
+project goals and purpose, our work so far, the problems we have encountered, and a retrospective.
+
+\section{Project Overview}
+\subsection{Project Purpose}
+The Oregon State University RockSat-X team will demonstrate that an autonomous robotic arm can locate predetermined
+ targets around the \gls{payload} under microgravity conditions by using precise movements. 
+The technical actions performed by this demonstration will illustrate a proof of concept for creating assemblies, 
+autonomous repairs, and performing experiments in space.
+\subsection{Mission Success Criteria}
+The Oregon State University RockSat-X team will demonstrate that an autonomous robotic arm can locate predetermined targets around the 
+\gls{payload} under microgravity conditions by using precise movements. The technical actions performed by this demonstration will illustrate 
+a proof of concept for creating assemblies, autonomous repairs, and performing experiments in space. 
+The mission objectives are to deploy a robotic \gls{payload} capable of moving with four axes of freedom; deploy a Camera with a single axis 
+of freedom;
+enact a series of pre-scripted movements by the arm including contact with stationary sensors;
+coordinate the Camera to track arm movements and record demonstration; and
+store sensor data for when arm is at rest, and when it comes into contact with station sensors.
+\section{Current Progress}
+\subsection{Helena Balse}
+\input{Helena}
+\subsection{Amber Horvath}
+\input{AmberProgressUpdate}
+\subsection{Michael Humphrey}
+\input{michael-progress-update}
+\section{Retrospective}
+\input{retrospective}
+
+\section{Conclusion}
+The Hephaestus \gls{payload} will be Oregon State University's first space mission. 
+It will prove the viability of construction in space using a mechanical arm 
+capable of detailed maneuvers. The project is currently on schedule, with a 
+launch in Summer of 2017. We have designed the software system to be applied to 
+the hardware designed by the Mechanical Engineering teams and the Electrical 
+Engineering team. During the course of this term, we encountered several 
+problems, all of which we overcame through communication and time management. 
+Following the completion of this term, the Hephaestus team will begin 
+construction of the \gls{payload} and develoment of the software.
+
+
+\clearpage
+\printglossary[numberedsection]
+\end{document}
