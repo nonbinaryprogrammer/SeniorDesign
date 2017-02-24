@@ -1,30 +1,44 @@
-\subsubsection{Week 3}
+\subsubsection{Week 1}
 \begin{itemize}
 \item{
 \textbf{Progress}
 
-This week I made significant strides in the design of our project. I wrote part of the Project Definition assignment. I started the Project Description with a description of the problem, broken down into the requirements of the RockSat-X program and the \gls{payload} that we decided on for the project. In order for our senior design project to be successful, we have to build the \gls{payload}, meet the RockSat-X project requirements (such as testing, documentation, and design reviews), and meet the capstone class requirements. Our \gls{payload} idea is a mechanical arm, and as a project it is capable of meeting all the requirements.
+I made no progress over winter break, other than actually managing to take a vacation. I am very proud of myself.
 
-While the Project Definition document met our capstone class requirements for the week, there were also RockSat-X requirements to be met this week. The RockSat-X CoDR (Conceptual Design Review) was this week. As a large group (including two teams of ME's, one team of EE's, and the CS team) we developed the CoDR powerpoint that was presented yesterday to RockSat-X. This document included all of our conceptual \gls{payload} designs thus far, and was our first time presenting our designs to the RockSat-X group. Following that presentation, in order to meet the RockSat-X requirements, we took a group photo.
+Since the start of week 1, I met with the Software Team to discuss the schedule that we will have for the term. We decided that we would have an hour long meeting on Mondays after our TA meeting and an hour long meeting with the whole Hephaestus team on Thursdays at 6pm. We have not yet had a Monday meeting because the past two mondays have been cancelled due to weather and MLK Day.
 
-In addition to the RockSat-X requirements and the capstone class requirements,
-we met the \gls{payload} requirements by meeting with Nancy Squires to discuss
-the project, get approval of the Project Definition assignment, and discuss
-starting an official Space Lab at \gls{osu}. The CoDR presentation is available here: 
-
-https://github.com/balesh2/SeniorDesign/blob/master/presentations/CoDR-Hephaestus.pdf
+We accomplished some tasks for week 1, which includes adding more content to the System Architecture for the Software Subsystem. In addition to this planning I began development of the test cases that will be used to test the Software Subsystem. Specifically, I am focusing on developing experiments to test the three functional requirements that I was assigned last term. 
 }
 
 \item{
 \textbf{Plans}
 
-The next week will be focusing on the development of documents for Senior Design class as well as for the RockSat-X project. Specifically, we will be revising the Project Description document and begin the Requirements Document. We will also be continuing the design process for the \gls{payload} with the other teams.
+The plan for next week is to finish up the architecture diagram and the test cases and beginning the implementation phase of the project. We need to have a prototype completed and tested by mid February, so we are planning on implementing for three weeks then testing.
 }
 
 \item{
 \textbf{Problems}
 
-None.
+My biggest problem is that I do not have a working computer right now. I have been trying to fix my computer but it has just been a time sink so far. I don't have a solution to this problem.
+}
+\end{itemize}
+
+\subsubsection{Week 3}
+\begin{itemize}
+\item{
+\textbf{Progress}
+
+This week we started really diving into the motion planning in the Pathing and Automation cross-functional team. I checked out books from the library to help with research into motion planning for robotics, robotics in space, and inverse kinematics.
+}
+\item{
+\textbf{Plans}
+
+Over the next weeks I will be doing research into the issues of path planning and motion tracking on earth and in space.
+}
+\item{
+\textbf{Problems}
+
+I still don't have a working computer with which to do the research.
 }
 \end{itemize}
 
@@ -33,17 +47,17 @@ None.
 \item{
 \textbf{Progress}
 
-This week I was at the Grace Hopper Celebration of Women in Computing. I did not do any work directly on the RockSat-X project, but I did talk to many people about Computer Science and space exploration.
+This week was continuing research into the pathing and automation portion of the software. I have found that the A* algorithm for pathfinding within a configuration space will be a good solution. Additionally, we will be breaking up the arm into its individual links in order to move the arm to a valid configuration. Essentially, we will start at the base of the arm and move that first, then move up the arm to the next link and move that.
 }
 \item{
 \textbf{Plans}
 
-Next week will be focusing on the development of the requirements document for Senior Design and PDR presentation. The PDR presentation is coming up and will require us to compile a powerpoint about our design, practice presenting it, and presenting it for the RockSat-X program.
+The next week will be finishing up the research phase for pathing and automation and starting implementations. We will be starting with building the Configuration Space.
 }
 \item{
 \textbf{Problems}
 
-I encountered a significant obstacle to completing work this week. I did not have internet access at Grace Hopper, so I was unable to work on the project or create an update.
+We still haven't figured out a good way to build a C-Space.
 }
 \end{itemize}
 
@@ -52,17 +66,17 @@ I encountered a significant obstacle to completing work this week. I did not hav
 \item{
 \textbf{Progress}
 
-This week was focused on developing the requirements document for Hephaestus and revising the Project Description document. The revision of the Project Description document was turned in on Wednesday after adding more of a focus on the software side of the project. The first draft of the requirements document will be turned in by the end of the day today. I focused on creating the outline of the document and writing the introduction. The introduction establishes a purpose and description of the document, an overview of the mission description, the mission success criteria, and the priorities for the requirements. The rest of the document describes the functional and non functional requirements that we have established for the software that controls the Hephaestus \gls{payload}.
+		This week was focusing on figuring out how to build the configuration space (C-Space) in which to perform the path-finding algorithm for the arm's motion. We found that the C-Space need to be in \(R^4\) because we have 4 degrees of freedom in the arm. We also know that for each possible configuration of the arms' motors, we need to know if the configuration is valid in order to map the C-Space. This week we are also starting on the slide for STR.
 }
 \item{
 \textbf{Plans}
 
-The next week will focus on creating a solid final draft of the Requirements Document and presenting PDR. That will require meeting as a group to practice presenting PDR and meeting as a group to present PDR.
+The next week will focus on finalizing the slides for STR. Our STR presentation will be at 6am on Friday of week 6. In addition to STR, the Pathing and Automation and Software groups will be meeting with Dr. Smart during week 6 to discuss methods for building the configuration space.
 }
 \item{
 \textbf{Problems}
 
-Availability has been a problem this week. It has been a challenge to fit all of the large group meetings into my schedule and still have time to catch up on homework after Grace Hopper and work.
+I am blocked from progressing further with the code for motion planning because we do not yet know enough about the C-Space and how to build it. This should be resolved next week after meeting with Dr. Smart.
 }
 \end{itemize}
 
@@ -71,118 +85,17 @@ Availability has been a problem this week. It has been a challenge to fit all of
 \item{
 \textbf{Progress}
 
-This week, work focused on the development of the Requirements Document for Senior Design and finalizing the PDR presentation for RockSat-X. I mainly focused on the Requirements Document, and did significant work on the structure and content of that document. We turned in a draft first, then flushed it out to a final document that was turned in on Friday of Week 6. I focused on the functional requirements, introduction, and structure of the paper. For the PDR presentation, we had to develop requirements and a plan to meet the requirements. There was a lot of overlap in content between PDR and the Requirements Documents, which was ideal for finishing both of these big documents in the same week. In preparation for this presentation, we had one meeting where we all went over content and one where we practiced the presentation. The final presentation for PDR (Preliminary Design Review) was at 7am on Thursday of week 6. Finally, I revised the README for this repository, so that it was more informative regarding the structure, contents, and context of this repository.
+This week involved finishing the presentation for STR, a all-team social event, presenting STR, and meeting with Dr. Smart. The meeting with Dr. Smart was on Monday and provided a lot of useful information for pathfinding and automation. We discussed methods for creating the Configuration Space. Dr. Smart explained the ways in which we should limit the payload to keep the configuration space as a plane in R4. We also discussed the best way to generate the configuration space. The options that we discussed were calculating it mathematically using Inverse Kinematics, running a simulation in solid works, or physically moving the arm to valid configurations and mapping those. Each of these methods has benefits and drawbacks. STR occured on friday. In preparation we created the slides throughout the week. On thursday, at our all-team meeting, we went through all the slides in preparation for the presentation on Friday at 6am. The presentation went very well on Friday. The project reviewer said that she was excited to see our project and that our presentation and progress were both very good. The all-team social was at the All-Team meeting on Thursday after we finished all relevant business. We ordered pizza and played board games. The Software team was divided between the two teams with Michael and I against Amber. Amber's team won the first two rounds, but Michael and I brought in a win in the last round. All in all, it was an effective evening of work and team bonding.
 }
 \item{
 \textbf{Plans}
 
-Next week will focus on finalizing major design choices and developing the technical review. The design choices that need to be finalized include the method for assigning test points and the operational modes of the arm.
+The next week will focus on creating and recording our presentation for the Senior Design class. We will be working on the presentation on Tuesday, finishing it on Wednesday in order to record the video on Wednesday or Thursday. We will finish the project with editing and posting the video on Thursday and Friday to have it done by Friday. I will also be updating the design documents from last term to reflect the changes we have made. I do not expect there to be significant changes, however there may be some slight modifications to the pathfinding and automation section to reflect what Dr. Smart taught us this week.
 }
 \item{
 \textbf{Problems}
 
-None.
+The motors have arrived, so I am no longer blocked on progressing in the code. Following the completion of the presentation for CS462, I will be able to dive into the pathfinding code.
 }
 \end{itemize}
 
-\subsubsection{Week 7}
-\begin{itemize}
-\item{
-\textbf{Progress}
-
-This week we are developing the Technical Review Document for Senior Design. As such, we have divided the requirements up between the three of us as follows:
-
-\textbf{Amber Horvath:}
-
-    Emergency Expelling of Payload
-
-    Program Modes of Operation
-
-    Target Success Sensors
-
-\textbf{Helena Bales:}
-
-    Target Generation
-
-    Movement of arm
-
-    Arm position tracking
-
-\textbf{Michael Humphrey:}
-
-    Telemetry
-
-    Video Camera
-
-    Data visualization and processing
-
-Each of us shall be responsible for insuring the completion of their assigned tasks. We will focus on our assigned tasks for the tech review. This week has focused on defining and assigning the requirements to each of us. We have also finalized some design choices, specifically in the modes of operations, emergency procedures, and arm target generation.
-}
-\item{
-\textbf{Plans}
-
-Next week we will complete and turn in the tech review on Monday of Week 8. Before that date we will be finishing that document. After the completion of the tech review we will be going back through past documents and including all suggestions we have received as feedback throughout the course. We will be doing this to prepare for the final document to be turned in on December 4th. We will also be preparing our designs and requirements for our big RockSat-X review during weeks 10 or 11.
-}
-\item{
-\textbf{Problems}
-
-We mainly are encountering the issue that we have too many assignments due on or before Monday of Week 8.
-}
-\end{itemize}
-
-\subsubsection{Week 8}
-\begin{itemize}
-\item{
-\textbf{Progress}
-
-This week we finalized and turned in the technical review document. Preparing this document required meeting as a group to talk about potential solutions, then documenting the solutions that we came up with. This week we also talked to the Electrical Engineering group to make sure that our plans were consistent and that we would be able to work together on the software/hardware interface in the future.
-}
-\item{
-\textbf{Plans}
-
-Next week we plan on starting the Design Document and the presentation for the end of the term and our CDR presentation with RockSat-X.
-}
-\item{
-\textbf{Problems}
-
-I have been experiencing technical issues with my computers, so that is something that I will need to resolve before I can seriously start working on the Design Document.
-}
-\end{itemize}
-
-\subsubsection{Week 9}
-\begin{itemize}
-\item{
-\textbf{Progress}
-
-This week we started the Design Document and slides for the presentation for this class and for our RockSat-X program CDR. We met in order to discuss the solutions that we wanted to choose for each of the requirements. During that meeting I updated our Design Document to reflect the choices that we made, and created issues to reflect the tasks that we have yet to complete.
-}
-\item{
-\textbf{Plans}
-
-In the next week we will be finishing the Design Document, finishing our slides for the class presentation, finishing our slides for the CDR presentation, practicing the CDR presentation, and starting to compile the progress update assignment.
-}
-\item{
-\textbf{Problems}
-
-I am still experiencing technical issues with my computer, but less seriously than before, so progress has been made there.
-}
-\end{itemize}
-
-\subsubsection{Week 10}
-\begin{itemize}
-\item{
-\textbf{Progress}
-
-This week we finished up the Design Document and started the Progress Update write up and presentation. We also prepared for CDR by adding slides to the presentation. In order to finish the design document we talked about how to solve each of the issues from the Requirements document. Once we picked a solution to pursue, we each added detail to our solutions. The CDR presentation was adapted to form the start of our Progress Update presentation since it already describes the project and our work thus far.
-}
-\item{
-\textbf{Plans}
-
-Next week we will be finishing our progress update write up and presentation. We will do the write up first, then make sure that the presentation slides cover the content from the write up, and finally record the presentation.
-}
-\item{
-\textbf{Problems}
-
-None.
-}
-\end{itemize}
