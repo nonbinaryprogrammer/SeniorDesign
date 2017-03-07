@@ -132,7 +132,7 @@ DRESULT disk_ioctl (
 		return cf_disk_ioctl(cmd, buff);
 #endif
 #ifdef DRV_MMC
-	case DRV_MMC :
+	case DRV_MMC :	
 		return mmc_disk_ioctl(cmd, buff);
 #endif
 	}
