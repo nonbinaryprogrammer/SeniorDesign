@@ -1,18 +1,18 @@
 SHELL           = /bin/bash
 
-PRG             = test
+PRG             = sd_card_test
 
-OBJS            = $(PRG).o RSXAVRD.o ff.o diskio.o mmc_avr_spi.o
+OBJS            = $(PRG).o mmc_avr_spi.o RSXAVRD.o ff.o diskio.o
 
-SRCS            = $(PRG).c RSXAVRD.c ff.c diskio.c mmc_avr_spi.c
+SRCS            = $(PRG).c mmc_avr_spi.c RSXAVRD.c ff.c diskio.c
 
-MCU_TARGET     = atmega64
-#MCU_TARGET     = atmega128
+#MCU_TARGET     = atmega64
+MCU_TARGET     = atmega128
 
 F_CPU          = 16000000UL
 
-PROGRAMMER_TARGET     = m64
-#PROGRAMMER_TARGET     = m128
+#PROGRAMMER_TARGET     = m64
+PROGRAMMER_TARGET     = m128
 
 #agressive optimization
 OPTIMIZE       = -O2    # options are 1, 2, 3, s

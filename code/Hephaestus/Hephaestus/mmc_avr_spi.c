@@ -86,6 +86,8 @@ void power_on (void)
 	/* Enable SPI module in SPI mode 0 */
 	//Enable AVR SPI as Master, SCK as Fosc/64 = 250kHz, SPI mode 0
 	SPCR = (1<<SPE | 1<<MSTR | 1<<SPR1);
+
+	
 }
 
 
@@ -114,11 +116,22 @@ BYTE xchg_spi (		/* Returns received data */
 	BYTE dat		/* Data to be sent */
 )
 {
+	SPDR = dat; //Load the mode into SPDR
+	while(!(SPSR & (1<<SPIF)));	//Wait until you're done sending
+	//Store the SPDR value
+	while(!(SPSR & (1<<SPIF)));
+	return SPDR;
+}
+
+static
+BYTE xchg_spi2 (		/* Returns received data */
+	BYTE dat		/* Data to be sent */
+)
+{
 	SPDR = dat;
 	loop_until_bit_is_set(SPSR, SPIF);
 	return SPDR;
 }
-
 
 /* Receive a data block fast */
 static
@@ -283,7 +296,8 @@ BYTE send_cmd (		/* Returns R1 resp (bit7==1:Send failed) */
 	if (cmd & 0x80) {	/* ACMD<n> is the command sequense of CMD55-CMD<n> */
 		cmd &= 0x7F;
 		res = send_cmd(CMD55, 0);
-		if (res > 1) return res;
+		if (res > 1) // > 1
+		 return res;
 	}
 
 	/* Select the card and wait for ready except to stop multiple block read */
@@ -331,27 +345,32 @@ DSTATUS mmc_disk_initialize (void)
 	BYTE n, cmd, ty, ocr[4];
 
 
-	power_off();						/* Turn off the socket power to reset the card */
-	for (Timer1 = 10; Timer1; ) ;		/* Wait for 100ms */
-	if (Stat & STA_NODISK) return Stat;	/* No card in the socket? */
+	//power_off();						/* Turn off the socket power to reset the card */
+	//for (Timer1 = 10; Timer1; ) ;		/* Wait for 100ms */
+	//if (Stat & STA_NODISK) return Stat;	/* No card in the socket? */
 
 	power_on();							/* Turn on the socket power */
 	FCLK_SLOW();
-	for (n = 10; n; n--) xchg_spi(0xFF);	/* 80 dummy clocks */
-
+	
+	for (n = 10; n; n--) xchg_spi(0xFF);	 /*80 dummy clocks */
+	
 	ty = 0;
-	if (send_cmd(CMD0, 0) == 1) {			/* Put the card SPI mode */
+	if (send_cmd(CMD0, 0) == 1) {	/* Put the card SPI mode */
 		Timer1 = 100;						/* Initialization timeout of 1000 msec */
 		if (send_cmd(CMD8, 0x1AA) == 1) {	/* Is the card SDv2? */
-			for (n = 0; n < 4; n++) ocr[n] = xchg_spi(0xFF);	/* Get trailing return value of R7 resp */
-			if (ocr[2] == 0x01 && ocr[3] == 0xAA) {				/* The card can work at vdd range of 2.7-3.6V */
+			for (n = 0; n < 4; n++) ocr[n] = xchg_spi(0xFF);	/* Get trailing return value of R7 resp */				
+				
+			if (ocr[2] == 0x01 && ocr[3] == 0xAA) {				/* The card can work at vdd range of 2.7-3.6V */					
+
 				while (Timer1 && send_cmd(ACMD41, 1UL << 30));	/* Wait for leaving idle state (ACMD41 with HCS bit) */
-				if (Timer1 && send_cmd(CMD58, 0) == 0) {		/* Check CCS bit in the OCR */
-					for (n = 0; n < 4; n++) ocr[n] = xchg_spi(0xFF);
+				
+				if (Timer1 && send_cmd(CMD58, 0) == 0) {		/* Check CCS bit in the OCR */					
+					
+					for (n = 0; n < 4; n++) ocr[n] = xchg_spi(0xFF); /* line doesn't add light???? - nevermind it's good??? */
 					ty = (ocr[0] & 0x40) ? CT_SD2 | CT_BLOCK : CT_SD2;	/* Check if the card is SDv2 */
 				}
 			}
-		} else {							/* SDv1 or MMCv3 */
+		} else {							/* SDv1 or MMCv3 */			
 			if (send_cmd(ACMD41, 0) <= 1) 	{
 				ty = CT_SD1; cmd = ACMD41;	/* SDv1 */
 			} else {
@@ -365,9 +384,15 @@ DSTATUS mmc_disk_initialize (void)
 	CardType = ty;
 	deselect();
 
+	
+
 	if (ty) {			/* Initialization succeded */
 		Stat &= ~STA_NOINIT;		/* Clear STA_NOINIT */
 		FCLK_FAST();
+		/*while(1){
+			SPDR = 0xAC;
+			while(!(SPSR && (1<<SPIF)));
+		}*/
 	} else {			/* Initialization failed */
 		power_off();
 	}
@@ -401,7 +426,9 @@ DRESULT mmc_disk_read (
 	BYTE cmd;
 
 
-	if (!count) return RES_PARERR;
+	if (!count) {
+		return RES_PARERR;
+	}
 	if (Stat & STA_NOINIT) return RES_NOTRDY;
 
 	if (!(CardType & CT_BLOCK)) sector *= 512;	/* Convert to byte address if needed */
@@ -619,7 +646,6 @@ DRESULT mmc_disk_ioctl (
 	default:
 		res = RES_PARERR;
 	}
-
 	return res;
 }
 #endif

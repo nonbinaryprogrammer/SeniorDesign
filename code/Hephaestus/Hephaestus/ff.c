@@ -20,7 +20,7 @@
 
 #include "ff.h"			/* Declarations of FatFs API */
 #include "diskio.h"		/* Declarations of device I/O functions */
-
+#include <avr/io.h>
 
 /*--------------------------------------------------------------------------
 
@@ -907,7 +907,7 @@ FRESULT move_window (	/* Returns FR_OK or FR_DISK_ERROR */
 		res = sync_window(fs);		/* Write-back changes */
 #endif
 		if (res == FR_OK) {			/* Fill sector window with new data */
-			if (disk_read(fs->drv, fs->win, sector, 1) != RES_OK) {
+			if (mmc_disk_read(fs->win, sector, 1) != RES_OK) {
 				sector = 0xFFFFFFFF;	/* Invalidate window if data is not reliable */
 				res = FR_DISK_ERR;
 			}
@@ -2917,7 +2917,9 @@ BYTE check_fs (	/* 0:FAT, 1:exFAT, 2:Valid BS but not FAT, 3:Not a BS, 4:Disk er
 )
 {
 	fs->wflag = 0; fs->winsect = 0xFFFFFFFF;		/* Invaidate window */
-	if (move_window(fs, sect) != FR_OK) return 4;	/* Load boot record */
+	if (move_window(fs, sect) != FR_OK) {
+		return 4;	/* Load boot record */
+	}
 
 	if (ld_word(fs->win + BS_55AA) != 0xAA55) return 3;	/* Check boot record signature (always placed at offset 510 even if the sector size is >512) */
 
@@ -2982,16 +2984,20 @@ FRESULT find_volume (	/* FR_OK(0): successful, !=0: any error occurred */
 
 	fs->fs_type = 0;					/* Clear the file system object */
 	fs->drv = LD2PD(vol);				/* Bind the logical drive and a physical drive */
-	stat = disk_initialize(fs->drv);	/* Initialize the physical drive */
-	if (stat & STA_NOINIT) { 			/* Check if the initialization succeeded */
+	stat = mmc_disk_initialize(fs->drv); /* Initialize the physical drive */
+	if (stat & STA_NOINIT) { 		/* Check if the initialization succeeded */
 		return FR_NOT_READY;			/* Failed to initialize due to no medium or hard error */
 	}
 	if (!_FS_READONLY && mode && (stat & STA_PROTECT)) { /* Check disk write protection if needed */
 		return FR_WRITE_PROTECTED;
 	}
 #if _MAX_SS != _MIN_SS						/* Get sector size (multiple sector size cfg only) */
-	if (disk_ioctl(fs->drv, GET_SECTOR_SIZE, &SS(fs)) != RES_OK) return FR_DISK_ERR;
-	if (SS(fs) > _MAX_SS || SS(fs) < _MIN_SS || (SS(fs) & (SS(fs) - 1))) return FR_DISK_ERR;
+	if (mmc_disk_ioctl(fs->drv, GET_SECTOR_SIZE, &SS(fs)) != RES_OK) {
+		return FR_DISK_ERR;
+	}
+	if (SS(fs) > _MAX_SS || SS(fs) < _MIN_SS || (SS(fs) & (SS(fs) - 1))){
+	 return FR_DISK_ERR;
+	}
 #endif
 	/* Find an FAT partition on the drive. Supports only generic partitioning, FDISK and SFD. */
 	bsect = 0;
@@ -3008,7 +3014,14 @@ FRESULT find_volume (	/* FR_OK(0): successful, !=0: any error occurred */
 			fmt = bsect ? check_fs(fs, bsect) : 3;	/* Check the partition */
 		} while (!LD2PT(vol) && fmt >= 2 && ++i < 4);
 	}
-	if (fmt == 4) return FR_DISK_ERR;		/* An error occured in the disk I/O layer */
+	if (fmt == 4) {
+		 /*while(1){
+		 	// I LIKE PIE
+            SPDR = 0xAC;
+            while(!(SPSR && (1<<SPIF)));
+        }*/
+		return FR_DISK_ERR;		/* An error occured in the disk I/O layer */
+	}
 	if (fmt >= 2) return FR_NO_FILESYSTEM;	/* No FAT volume is found */
 
 	/* An FAT volume is found. Following code initializes the file system object */
@@ -3211,6 +3224,9 @@ FRESULT f_mount (
 	if (vol < 0) return FR_INVALID_DRIVE;
 	cfs = FatFs[vol];					/* Pointer to fs object */
 
+	//if(!cfs){ // cfs is 0
+		
+	//}
 	if (cfs) {
 #if _FS_LOCK != 0
 		clear_lock(cfs);
@@ -3230,7 +3246,7 @@ FRESULT f_mount (
 	FatFs[vol] = fs;					/* Register new fs object */
 
 	if (!fs || opt != 1) return FR_OK;	/* Do not mount now, it will be mounted later */
-
+	// this function is okay - fs exists
 	res = find_volume(&path, &fs, 0);	/* Force mounted the volume */
 	LEAVE_FF(fs, res);
 }

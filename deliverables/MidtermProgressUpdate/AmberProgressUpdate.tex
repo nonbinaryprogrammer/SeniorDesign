@@ -1,110 +1,102 @@
+\subsubsection{Week 1}
+This week we attempted to gather ourselves after winter break and make a game plan for this coming term. We met as a 
+group and worked on figuring out what needs to get done within the next 5 weeks and set small goals for each coming 
+week. We are meeting with our EE collaborators next week to figure out telemetry codes. I've downloaded Atmel studio 
+so I can start writing code. We are divvying out work based on our design document from last term.
+
+For the next week, I am hoping to begin work with the telemetry side of the project and help Michael.
+
+So far, we have not encountered any barriers. The only issue is coordinating schedules, which was an issue we 
+encountered last term as well. What mitigated that issue was clear and consistent communication across teams, which
+our newly established subteams should help with. I am serving as the representative for the Physical Integration team
+which is the team in charge of ensuring all the mechanical pieces get manufactured and put together properly. 
+
+\subsubsection{Week 2}
+This week was somewhat odd due to the short week the previous week because of snow throwing off our progress and the
+ shortness of this week due to Martin Luther King Jr. day. Little progress was made this week. The only progress made
+ was attempting to work on our team organizational skills and begin documenting our individual process through a 
+ scrum document that Michael set up. 
+
+There was also a change in project delegation as the EE's decided that they want a local storage for the 
+microcontroller in the form of an SD card. I will begin looking into lightweight, Atmel-compliant storage systems
+that interface with an SD card.
+
+Our barriers have been limited to lack of time between all of us. Also, due to having irregular meetings, we are
+having issues knowing what each other are doing and how to keep track of differing obligations and deadlines.
+We are attempting to overcome this with the scrum document which should allow for less in-person meetings
+and more communication about what we are all doing on our own time. We also are waiting on the EE's for their driver 
+code they are writing for us. They have been tasked with writing the C code that will interface with the motors.
+
 \subsubsection{Week 3}
-This previous week, our team made great strides by writing up our problem statement, which served useful in nailing
- down what we hope to accomplish this coming term, and how we can actualize these goals. We also took a group photo 
- with our full team (comprised of us three computer scientists, six mechanical engineers, and three electrical 
- engineers). This photo was required by Dr. Nancy Squires, our advisor. We also presented our plans in the form of a 
- powerpoint to our Colorado collaborators over a group call.
+This week we got the code from the EE's for interfacing with the microcontroller. I also did research on SD card 
+interfaces with microcontrollers that we are now using to write data from the microcontroller to an SD card. This 
+code will be up on Github once we translate it from the Atmega 16 pins to the Atmega 64 (which we are using). I worked
+with the EE's to accomplish this translation as they are more familiar with the Atmega 64 archictecture than I am.
 
-For the next week, we are going to meet with our team to discuss future prospects for our project. Since we've chosen 
-a design, our next step is to begin prototyping implementation designs and begin research on the telemetry aspect of 
-the project. We are also going to use our RockSat-X project as a stepping stone to introducing a designated lab for 
-satellite creation to Oregon State University. In order to do that, however, we will need to work on finding space on
- campus for such a lab and lobbying for its creation. While this might seem outside of the scope of the project, it 
- would be greatly beneficial for future students who have an interest in space exploration and development.
-
-So far, we have not encountered any barriers. The only issue is coordinating schedules and planning with 11 other 
-students. Finding times where everyone is available is difficult, but since we have an effective group chat and a
- Google Calendar with everyone's individual schedules filled in, we've been doing our best to mitigate this issue.
-
-\subsubsection{Week 4}
-This week, our team worked to figure out more logistical details. We assembled two new sub-teams, one is the budget 
-planning committee (to which I represent the CS group), and a group to prepare a slideshow presentation for an event 
-happening next week. As for progress on the tool, we just recruited a new post-grad to help who has a degree in 
-mechanical engineering but is coming back to school for a computer science degree. He is currently enrolled in CS 161 
-and thus has experience in C++ and nothing else. 
-
-Our next initiative is to meet up with the electrical engineers to figure out constraints between hardware and 
-software and read up on some of the documentation on what we can load into our \gls{payload} as far as the robotics side 
-goes.
-
-Our barriers have been limited to task and time managing. Between the amount of students, the amount of deadlines, and 
-the differing levels of expertise in each others domains, it can be hard to keep communication clear and comprehensive.
-Meeting times have also been difficult to coordinate due to the different schedules.
-
-\subsubsection{Week 5}
-This week we refined our problem statement and created a rough draft of the Requirements document. I was unavailable 
-to attend our weekly meeting, but I did attend the first budget committee meeting. The meeting was held over the app 
-Discord, and we came up with a budget for the rest of our project's lifespan.
-
-Our next initiatve is to gather information from the electronics team to gather information for our requirements
-document. This is important, as hardware limitations will greatly impact our software design choices.
+Our next step is to make the code compliant with the Atmega64 archictecture. I will also begin work on writing code
+that utilizes this library so that we can write telemetry codes, sensor touch data, and other log data to the card
+for post-mortem analysis.
 
 The problems we have encountered include illness and traveling. When we do not have teammates available, it can be
-difficult to be as productive due to reduced man power. Hopefully everyone comes back happy and healthy soon.
+difficult to be as productive due to reduced man power. These random holidays also slowed our initial progress, so
+it can feel like we are trying to play catch up. We are also nearing deadlines for our STR meeting with the Colorado
+RockSat-X group, so I am beginning to feel the pressure of that as I do not feel our team has accomplished as much
+as I would like us to.
+
+\subsubsection{Week 4}
+This week, I was able to get all the code up on Github for the SD card interface with the microcontrollers. Me and 
+the EE's (namely Jonathan Hardman) are working on implementing the remaining functions and pre-processor directives 
+for our SD card interface file. We should have that done by next Tuesday. Jonathan also updated the drivers and 
+uploaded 
+them on Google Drive, so I will import those over to Github. Now that these drivers are almost completely ready, I am 
+looking forward to working on more implementation that actually utilizes the libraries and drivers that we have 
+gotten. This step, however, hinges on having motors and a working prototype ready so we can determine whether our
+arm movements are correct. This will not be ready soon as our funding has been delayed leaving us with no money for 
+purchasing these motors.
+
+Next steps include nailing down with Michael what information we are sending over telemetry and what of that 
+information should be sent to the SD Card. Next steps also include getting the updated code from Jonathan and getting
+ the drivers up on Github and fully implemented.
+
+The CS 462 class is also requiring that we update some of our previous documents and get all our deliverables up onto
+One Note, so we will do that as well. Lastly, we have a big meeting with our sponsors in Colorado next week, so we
+have some slideshow slides that we need to complete. We are in a stage where we need to start divvying out tasks
+and better communicating as a team. We also have dependencies that are reliant upon other teams that we have no way 
+of controlling, such as the lack of motors.
+
+\subsubsection{Week 5}
+This week I worked on furthering the progress on our SD card implementation. I updated the Makefile such that the 
+library now compiles with the rest of the program. Jonathan also updated the code such that it uses the correct pins
+and is designed with our Atmega64 in mind. Since the FatFS library is meant to be generalizable across different
+microcontrollers, there are some functions that are left as user-designed so that they can be written for specific
+microcontrollers. We completed those parts of the code, so the library should be fully functional now.
+
+Our next work will be to test the SD card library. We are also prepping for our STR presentation with our contacts
+in Colorado, so we have to complete an extensive PowerPoint skeleton that they provide us. We will also be meeting with
+Dr. Smart (a professor in the Mechanical Engineering department) to discuss path-finding for our mechanical arm.
+
+Our main blockers are lack of communication between team members. Despite putting a scrum document into affect and 
+requiring each individual team member to add to the document every Monday and Thursday, some members of the team
+have been failing to meet this requirement, so it is difficult to know what is going on between other subteams
+and what our individual team members are doing on their own time. We also have regularly scheduled meetings, but
+attendance has been rather lax on those with team members either forgetting or making excuses right before the meeting
+time. Despite us stressing the importance of attending these meetings and communicating relevant information, our team
+still struggles with this, so some measures must be taken. However, we are ensure at the time of writing this what
+those measures should be. 
 
 \subsubsection{Week 6}
-This week, our team worked on finalizing our Requirements Document, along with doing our first Product Design Review 
-meeting with our collaborators in Colorado. We also moved forward on some key design choices, such as choosing to 
-program in C on an ATMega128 microcontroller. We also worked on communication between our teams by bringing in Discord 
-(the app) as a new medium of communication.
+This week was focused primarily on prepping for our big STR presentation. This is a presentation where we review our 
+subsystem testing for the RockSat-X group in Colorado. The meeting was at 6 AM on Friday and required us to prepare a 
+lot of slides for a slideshow. We also met with Dr. Smart to learn more about preparing our C-Space for 
+pathing the arm's movement and determining what are and aren't legal movements for the arm. There are multiple ways
+to do this as we can either use inverse kinematics, manually moving the arm through different legal motions and 
+recording the different degrees of rotation the motors are in, or using sensors on the motors to determine their 
+rotation. We are hoping to do the last option.
 
-Next week, we hope to work on the framework for the software. With a key design choice in place, we can make progress
-towards actual implementation. This is an exciting turning point in our project!
+Next week we shall work on the presentation for this class. Fortunately, we can lift a lot of the work we did last 
+week so it shouldn't be too cumbersome. I will also be meeting with the EE's on Friday to work on testing the SD Card 
+implementation and also continue work on the code for moving the arm.
 
-Problems included communication outside of our sub-team. It can be hard to communicate within the larger group.
-
-\subsubsection{Week 7}
-This week, our team worked on finalizing our Tech Review and continued collaboration with the larger RockSat-X team. 
-Together, we're working to reach conclusions on how the design will be so we can hopefully dive into implementation 
-within the next couple weeks. We've settled upon most choices, but it is difficult to reach conclusions with the rest 
-of the team about where we stand and how everything will fit together. We did divide work between the three of us
-for the software components that are necessary to the overall design of the project. 
-
-Next week I will be out of town for most of the week, so I am leaving most decision making to the rest of my team to 
-figure out as far as moving forwards.
-
-Our main issues include traveling as that complicates our established workflow and coordinating all of our deadlines,
-both for this class and other classes.
-
-\subsubsection{Week 8}
-This week, we finalized our Tech Review. Most of the week I was out of town, but we are setting up our relations with 
-the electrical team for next term and figuring out meeting times for our larger group next term.
-
-Next week we hope to meet with the electrical team, but this may be difficult to accomplish as it is Thanksgiving
-and a lot of people will be heading out of town to meet with family.
-
-Issues encountered included figuring out specifics regarding the implementation efforts that will need to be made.
-Looking into potential solutions and having to deal with some of the ambiguities about the hardware solutions
-presented so far made figuring out the software solutions difficult. However, as more information is
-presented about hardware solutions, this issue should resolve itself.
-
-\subsubsection{Week 9}
-This week was a bit of an odd week due to the Thanksgiving holiday. However, despite the holidays, our team still met 
-up to discuss planning how we will finish the term. There still lies some action items that must be completed such as 
-resolving issues on our Tech Review document, preparing for the Critical Design Review, and doing our end of term 
-project assigned for this class. We will be meeting on Tuesday of this next week to further our plans and see how 
-much we have accomplished over the break.
-
-Next week will include meeting to discuss where we stand as a group and what work needs to be completed by what date.
-As the end of the term approaches, everyone is more busy and juggling many assignment deadlines from other classes
-so touching bases to ensure that the work required for this class gets done.
-
-The main issue this week was scheduling conflicts due to Thanksgiving and the aforementioned deadlines drawing
-close. Staying on top of work is sometimes harder than one would imagine.
-
-\subsubsection{Week 10}
-This week our Project Design Document was due. Due to the business of Thanksgiving and other classes interfering, 
-it was rather difficult getting this document done and over with. However, we managed to pull through. We also
-made progress on getting ready for next term with the larger senior design group. We came up with a meeting time
-for next term and made plans to meet up with the electrical engineers once more to work out specifics
-of our design choices.
-
-Next week we will need to submit our progress report (which will include entries such as this one) and do
-our Critical Design presentation for the people in Colorado. Our team will most likely meet to work on the
-project over winter break, but specific times for that have not been chosen yet.
-
-The main issues this week included miscommunications regarding work balance and meeting times. Some
-members were unable to attend previously scheduled meetings, resulting in work not being distributed
-properly and a lot of questions were fielded online as opposed to in person, which slowed our workflow.
-However, all work was eventually submitted on time, but it was a more difficult road to complete this then
-what we hope to achieve in the future.
+Blockers this week were the fact that I was running a study at IBM so I was out of town most of the weekend and could 
+not do work for this since I was busy preparing for that. This should not be a problem now that the study is 
+concluded.

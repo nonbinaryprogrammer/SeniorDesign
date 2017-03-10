@@ -11,7 +11,7 @@
 #include "ff.h"
 #include "diskio.h"
 #include "rtc.h"
-#include "sound.h"
+//#include "sound.h"
 
 
 
@@ -73,7 +73,7 @@ DWORD get_fattime (void)
 /*---------------------------------------------------------*/
 
 
-ISR(TIMER0_COMPA_vect)
+ISR(TIMER3_COMPC_vect)
 {
 	Timer++;			/* Performance counter for this module */
 	disk_timerproc();	/* Drive timer procedure of low level disk I/O module */
@@ -184,13 +184,13 @@ void put_rc (FRESULT rc)
 static
 void ioinit (void)
 {
-	MCUCR = _BV(JTD); MCUCR = _BV(JTD);	/* Disable JTAG */
+	MCUCR = _BV(JTD); MCUCR = _BV(JTD);	/*Disable JTAG */
 
-	/* Start 100Hz system timer with TC0 */
-	OCR0A = F_CPU / 1024 / 100 - 1;
+	 Start 100Hz system timer with TC0 
+	OCR3C = F_CPU / 1024 / 100 - 1;
 	TCCR0A = _BV(WGM01);
 	TCCR0B = 0b101;
-	TIMSK0 = _BV(OCIE0A);
+	TIMSK0 = _BV(OCIE3C);
 
 	sei();
 }
