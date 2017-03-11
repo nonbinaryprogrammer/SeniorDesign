@@ -20,7 +20,7 @@ int main() {
 	timer_event_enable(0x00,0x00); //Once done waiting, turn off interrupt to reset state
 	
 	//time to do stuff
-	calibration_enable(0x00,0x01); //Turn on calibration interrupt for motor 0
+	motor_calibration_enable(0x00,0x01); //Turn on calibration interrupt for motor 0
 	motor_pwr(0x00,0x01); //Turn on power for motor 0
 	motor_dir(0x00,0x01); //Set motor 0 rotation direction to CW
 	timer_event_enable(0x01,0x01); //Turn on the Timer Event 1 Interrupt
