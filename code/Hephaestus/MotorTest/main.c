@@ -10,11 +10,11 @@
 #include "RSXAVRD.h"	// Drivers
 
 // Speed to operate the motors, 0-100
-#define SPEED 90
+#define SPEED 80
 
 // Helpful constants
-#define DEGREES_PER_STEP .225
 #define STEPS_PER_ROTATION 1600
+#define DEGREES_PER_STEP .225
 
 // Motor direction, 1=CCW 0=CW
 #define CLOCKWISE 0
