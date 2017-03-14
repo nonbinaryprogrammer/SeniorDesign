@@ -5,7 +5,7 @@ if len(sys.argv) != 2:			# Make sure filename is specified on command line
 	print("No file specified.")	
 	sys.exit(1)
 
-temps = []
+temps = []							# Create an empty list of temperatures
 
 with open(sys.argv[1], "br") as f:	# Open output file for binary reading
 	data = bytes(f.read(3))			# Read three bytes
