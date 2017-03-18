@@ -9,3 +9,4 @@
 *.toc
 *.atsuo
 Debug/
+.DS_Store
