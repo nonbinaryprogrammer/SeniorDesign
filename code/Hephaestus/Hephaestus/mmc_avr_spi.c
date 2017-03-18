@@ -22,8 +22,8 @@
 yes:true, no:false, default:true */
 #define MMC_WP			0   /* FILL THESE IN LATER WITH REAL TESTS - Test if write protected. 
 yes:true, no:false, default:false */
-#define	FCLK_SLOW()	(SPCR |= (1<<SPR1)); (SPSR &= ~(1<<SPI2X));	/* Set SPI slow clock (100-400kHz) */
-#define	FCLK_FAST()	(SPCR &= ~(1<<SPR1)); (SPSR |= (1<<SPI2X));	//To be filled	/* Set SPI fast clock (20MHz max) */
+#define	FCLK_SLOW()	(SPCR |= (1<<SPR1)); (SPCR &= ~(1<<SPR0));	/* Set SPI slow clock (100-400kHz) */
+#define	FCLK_FAST()	(SPCR &= ~(1<<SPR1)); (SPCR |= (1<<SPR0));	//To be filled	/* Set SPI fast clock (20MHz max) */
 
 
 /*--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ void power_on (void)
 	// N/a for our design
 
 	/* Configure MOSI/MISO/SCLK/CS pins */
-	DDRB |= 0x0F;
+	DDRB |= 0x07;
 
 	/* Enable SPI module in SPI mode 0 */
 	//Enable AVR SPI as Master, SCK as Fosc/64 = 250kHz, SPI mode 0
@@ -117,9 +117,9 @@ BYTE xchg_spi (		/* Returns received data */
 )
 {
 	SPDR = dat; //Load the mode into SPDR
-	while(!(SPSR & (1<<SPIF)));	//Wait until you're done sending
+	while(!((SPSR & (1<<SPIF)) > 0x00));	//Wait until you're done sending
 	//Store the SPDR value
-	while(!(SPSR & (1<<SPIF)));
+	while(!((SPSR & (1<<SPIF)) > 0x00));
 	return SPDR;
 }
 
@@ -181,9 +181,10 @@ int wait_ready (	/* 1:Ready, 0:Timeout */
 
 
 	Timer2 = wt / 10;
-	do
+	do{
 		d = xchg_spi(0xFF);
-	while (d != 0xFF && Timer2);
+		Timer2--;
+	}while (d != 0xFF && Timer2);
 
 	return (d == 0xFF) ? 1 : 0;
 }
@@ -232,7 +233,7 @@ int rcvr_datablock (
 {
 	BYTE token;
 
-
+	
 	Timer1 = 20;
 	do {							/* Wait for data packet in timeout of 200ms */
 		token = xchg_spi(0xFF);
@@ -291,7 +292,7 @@ BYTE send_cmd (		/* Returns R1 resp (bit7==1:Send failed) */
 )
 {
 	BYTE n, res;
-
+	
 
 	if (cmd & 0x80) {	/* ACMD<n> is the command sequense of CMD55-CMD<n> */
 		cmd &= 0x7F;
@@ -303,7 +304,9 @@ BYTE send_cmd (		/* Returns R1 resp (bit7==1:Send failed) */
 	/* Select the card and wait for ready except to stop multiple block read */
 	if (cmd != CMD12) {
 		deselect();
-		if (!select()) return 0xFF;
+		if (!select()){
+		 return 0xFF;
+		}
 	}
 
 	/* Send command packet */
@@ -344,7 +347,6 @@ DSTATUS mmc_disk_initialize (void)
 {
 	BYTE n, cmd, ty, ocr[4];
 
-
 	//power_off();						/* Turn off the socket power to reset the card */
 	//for (Timer1 = 10; Timer1; ) ;		/* Wait for 100ms */
 	//if (Stat & STA_NODISK) return Stat;	/* No card in the socket? */
@@ -360,12 +362,11 @@ DSTATUS mmc_disk_initialize (void)
 		if (send_cmd(CMD8, 0x1AA) == 1) {	/* Is the card SDv2? */
 			for (n = 0; n < 4; n++) ocr[n] = xchg_spi(0xFF);	/* Get trailing return value of R7 resp */				
 				
-			if (ocr[2] == 0x01 && ocr[3] == 0xAA) {				/* The card can work at vdd range of 2.7-3.6V */					
-
+			if (ocr[2] == 0x01 && ocr[3] == 0xAA) {				/* The card can work at vdd range of 2.7-3.6V */	
+			
 				while (Timer1 && send_cmd(ACMD41, 1UL << 30));	/* Wait for leaving idle state (ACMD41 with HCS bit) */
 				
-				if (Timer1 && send_cmd(CMD58, 0) == 0) {		/* Check CCS bit in the OCR */					
-					
+				if (Timer1 && send_cmd(CMD58, 0) == 0) {		/* Check CCS bit in the OCR */						
 					for (n = 0; n < 4; n++) ocr[n] = xchg_spi(0xFF); /* line doesn't add light???? - nevermind it's good??? */
 					ty = (ocr[0] & 0x40) ? CT_SD2 | CT_BLOCK : CT_SD2;	/* Check if the card is SDv2 */
 				}
@@ -389,11 +390,9 @@ DSTATUS mmc_disk_initialize (void)
 	if (ty) {			/* Initialization succeded */
 		Stat &= ~STA_NOINIT;		/* Clear STA_NOINIT */
 		FCLK_FAST();
-		/*while(1){
-			SPDR = 0xAC;
-			while(!(SPSR && (1<<SPIF)));
-		}*/
-	} else {			/* Initialization failed */
+
+	}
+	else {			/* Initialization failed */
 		power_off();
 	}
 
@@ -424,24 +423,45 @@ DRESULT mmc_disk_read (
 )
 {
 	BYTE cmd;
-
+	
 
 	if (!count) {
 		return RES_PARERR;
 	}
-	if (Stat & STA_NOINIT) return RES_NOTRDY;
+	if (Stat & STA_NOINIT) {
+		return RES_NOTRDY;
+	}
 
-	if (!(CardType & CT_BLOCK)) sector *= 512;	/* Convert to byte address if needed */
+	
+	if (!(CardType & CT_BLOCK)){
+		sector *= 512;	/* Convert to byte address if needed */
+	}
 
-	cmd = count > 1 ? CMD18 : CMD17;			/*  READ_MULTIPLE_BLOCK : READ_SINGLE_BLOCK */
-	if (send_cmd(cmd, sector) == 0) {
+
+
+	cmd = count > 1 ? CMD18 : CMD17;		/*  READ_MULTIPLE_BLOCK : READ_SINGLE_BLOCK */
+
+	if(sector == 0){
+		
+	}
+
+	if (send_cmd(cmd, sector) == 0) {	
 		do {
-			if (!rcvr_datablock(buff, 512)) break;
+			if (!rcvr_datablock(buff, 512)){
+			 break;
+			}
 			buff += 512;
 		} while (--count);
-		if (cmd == CMD18) send_cmd(CMD12, 0);	/* STOP_TRANSMISSION */
+
+		if (cmd == CMD18){
+			send_cmd(CMD12, 0);
+		}	/* STOP_TRANSMISSION */
 	}
 	deselect();
+
+	if(count == 0){
+		
+	}
 
 	return count ? RES_ERROR : RES_OK;
 }

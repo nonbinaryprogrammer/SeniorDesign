@@ -872,22 +872,29 @@ FRESULT sync_window (	/* Returns FR_OK or FR_DISK_ERROR */
 	DWORD wsect;
 	UINT nf;
 	FRESULT res = FR_OK;
+	uint8_t num = 0x00;
+
+	// do we go in this function? - WE DO
 
 
 	if (fs->wflag) {	/* Write back the sector if it is dirty */
 		wsect = fs->winsect;	/* Current sector number */
-		if (disk_write(fs->drv, fs->win, wsect, 1) != RES_OK) {
+		if (mmc_disk_write(fs->drv, fs->win, wsect, 1) != RES_OK) {
+			// mmc_disk_write returns RES_OK
 			res = FR_DISK_ERR;
 		} else {
 			fs->wflag = 0;
 			if (wsect - fs->fatbase < fs->fsize) {		/* Is it in the FAT area? */
+				// doesn't get in here - not sure if that's an issue
 				for (nf = fs->n_fats; nf >= 2; nf--) {	/* Reflect the change to all FAT copies */
 					wsect += fs->fsize;
-					disk_write(fs->drv, fs->win, wsect, 1);
+					mmc_disk_write(fs->drv, fs->win, wsect, 1);
 				}
 			}
 		}
 	}
+
+
 	return res;
 }
 #endif
@@ -900,20 +907,40 @@ FRESULT move_window (	/* Returns FR_OK or FR_DISK_ERROR */
 )
 {
 	FRESULT res = FR_OK;
-
+	uint8_t num = 0x00;
 
 	if (sector != fs->winsect) {	/* Window offset changed? */
+
 #if !_FS_READONLY
 		res = sync_window(fs);		/* Write-back changes */
 #endif
-		if (res == FR_OK) {			/* Fill sector window with new data */
+		if (res == FR_OK) {		/* Fill sector window with new data */
+
 			if (mmc_disk_read(fs->win, sector, 1) != RES_OK) {
+				
+				
+
+   				
+				/*
+				while(1){
+   					SPDR = 0xAC;
+   					while(!((SPSR & (1<<SPIF)) > 0x00)){}
+   					num = (num + 1) % 10000;
+   					if(num == 0)
+   						PORTB ^= 0xF0;
+   				}*/
+				// returns both RES_OK and RES_ERR so need to figure out what the diff is between the two
 				sector = 0xFFFFFFFF;	/* Invalidate window if data is not reliable */
-				res = FR_DISK_ERR;
+				res = FR_DISK_ERR;	
 			}
+			else{				
+				res = FR_OK;
+   			}
+
 			fs->winsect = sector;
 		}
 	}
+
 	return res;
 }
 
@@ -991,14 +1018,14 @@ DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x7FFFFFFF:Cluste
 	UINT wc, bc;
 	DWORD val;
 	FATFS *fs = obj->fs;
-
-
+	uint8_t num = 0x00;
+	
 	if (clst < 2 || clst >= fs->n_fatent) {	/* Check if in valid range */
 		val = 1;	/* Internal error */
 
 	} else {
 		val = 0xFFFFFFFF;	/* Default value falls on disk error */
-
+		
 		switch (fs->fs_type) {
 		case FS_FAT12 :
 			bc = (UINT)clst; bc += bc / 2;
@@ -1010,7 +1037,21 @@ DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x7FFFFFFF:Cluste
 			break;
 
 		case FS_FAT16 :
-			if (move_window(fs, fs->fatbase + (clst / (SS(fs) / 2))) != FR_OK) break;
+			// do get here
+			if (move_window(fs, fs->fatbase + (clst / (SS(fs) / 2))) != FR_OK){
+				// get here
+				while(1){
+   				SPDR = 0xAC;
+   				while(!((SPSR & (1<<SPIF)) > 0x00)){}
+   				num = (num + 1) % 10000;
+   				if(num == 0)
+   					PORTB ^= 0xF0;
+   			}
+				break;
+			}
+			
+			// don't get here so it breaks
+			 
 			val = ld_word(fs->win + clst * 2 % SS(fs));
 			break;
 
@@ -1317,16 +1358,21 @@ DWORD create_chain (	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:Disk err
 	DWORD cs, ncl, scl;
 	FRESULT res;
 	FATFS *fs = obj->fs;
-
-
+	uint8_t num = 0x00;
+	
 	if (clst == 0) {	/* Create a new chain */
 		scl = fs->last_clst;				/* Get suggested cluster to start at */
-		if (scl == 0 || scl >= fs->n_fatent) scl = 1;
+		
+		if (scl == 0 || scl >= fs->n_fatent) {
+			scl = 1; // true - scl is 1
+		}
 	}
 	else {				/* Stretch current chain */
 		cs = get_fat(obj, clst);			/* Check the cluster status */
 		if (cs < 2) return 1;				/* Invalid value */
-		if (cs == 0xFFFFFFFF) return cs;	/* A disk error occurred */
+		if (cs == 0xFFFFFFFF){
+		 return cs;	/* A disk error occurred */
+		}
 		if (cs < fs->n_fatent) return cs;	/* It is already followed by next cluster */
 		scl = clst;
 	}
@@ -1349,17 +1395,40 @@ DWORD create_chain (	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:Disk err
 	} else
 #endif
 	{	/* At the FAT12/16/32 */
+		
 		ncl = scl;	/* Start cluster */
+
 		for (;;) {
-			ncl++;							/* Next cluster */
+			ncl++;	// ncl is 2	this is where the long time stuff happens					/* Next cluster */
 			if (ncl >= fs->n_fatent) {		/* Check wrap-around */
 				ncl = 2;
 				if (ncl > scl) return 0;	/* No free cluster */
 			}
-			cs = get_fat(obj, ncl);			/* Get the cluster status */
-			if (cs == 0) break;				/* Found a free cluster */
-			if (cs == 1 || cs == 0xFFFFFFFF) return cs;	/* An error occurred */
-			if (ncl == scl) return 0;		/* No free cluster */
+			 // does this loop happen more than once? - no........
+			if(ncl == 2){
+
+			}
+			cs = get_fat(obj, ncl);			/* Get the cluster status */ /*are there iterations where cs gets a bad return value? - no */
+			
+			if (cs == 0){
+				// no we dont'
+				 break;		
+			}		/* Found a free cluster */
+			if (cs == 1 || cs == 0xFFFFFFFF){
+			 // we get here
+			 return cs;	/* An error occurred */
+			}
+			if (ncl == scl){
+				// we don't get here 
+			 return 0;		/* No free cluster */
+			}
+			while(1){
+   				SPDR = 0xAC;
+   				while(!((SPSR & (1<<SPIF)) > 0x00)){}
+   				num = (num + 1) % 10000;
+   				if(num == 0)
+   					PORTB ^= 0xF0;
+   			}
 		}
 	}
 
@@ -3182,7 +3251,7 @@ FRESULT validate (	/* Returns FR_OK or FR_INVALID_OBJECT */
 	FRESULT res;
 
 
-	if (!dfp || !obj->fs || !obj->fs->fs_type || obj->fs->id != obj->id || (disk_status(obj->fs->drv) & STA_NOINIT)) {
+	if (!dfp || !obj->fs || !obj->fs->fs_type || obj->fs->id != obj->id || (mmc_disk_status(obj->fs->drv) & STA_NOINIT)) {
 		*fs = 0;				/* The object is invalid */
 		res = FR_INVALID_OBJECT;
 	} else {
@@ -3571,11 +3640,14 @@ FRESULT f_write (
 	DWORD clst, sect;
 	UINT wcnt, cc, csect;
 	const BYTE *wbuff = (const BYTE*)buff;
-
+	uint8_t num = 0x00;
+	
 
 	*bw = 0;	/* Clear write byte counter */
 	res = validate(fp, &fs);
-	if (res != FR_OK || (res = (FRESULT)fp->err) != FR_OK) LEAVE_FF(fs, res);	/* Check validity */
+	if (res != FR_OK || (res = (FRESULT)fp->err) != FR_OK) {
+		LEAVE_FF(fs, res);
+	}	/* Check validity */
 	if (!(fp->flag & FA_WRITE)) LEAVE_FF(fs, FR_DENIED);	/* Check access mode */
 
 	/* Check fptr wrap-around (file size cannot reach 4GiB on FATxx) */
@@ -3583,29 +3655,40 @@ FRESULT f_write (
 		btw = (UINT)(0xFFFFFFFF - (DWORD)fp->fptr);
 	}
 
+
+	// how many times is this loop running? - answer: it doesn't make it all the way thru
 	for ( ;  btw;							/* Repeat until all data written */
 		wbuff += wcnt, fp->fptr += wcnt, fp->obj.objsize = (fp->fptr > fp->obj.objsize) ? fp->fptr : fp->obj.objsize, *bw += wcnt, btw -= wcnt) {
-		if (fp->fptr % SS(fs) == 0) {		/* On the sector boundary? */
+		
+		if (fp->fptr % SS(fs) == 0) {
+					/* On the sector boundary? */
 			csect = (UINT)(fp->fptr / SS(fs)) & (fs->csize - 1);	/* Sector offset in the cluster */
-			if (csect == 0) {				/* On the cluster boundary? */
+			if (csect == 0) {				/* On the cluster boundary? */ 
 				if (fp->fptr == 0) {		/* On the top of the file? */
 					clst = fp->obj.sclust;	/* Follow from the origin */
 					if (clst == 0) {		/* If no cluster is allocated, */
+						// we for sure get here
 						clst = create_chain(&fp->obj, 0);	/* create a new cluster chain */
 					}
 				} else {					/* On the middle or end of the file */
 #if _USE_FASTSEEK
 					if (fp->cltbl) {
+						// don't go here
 						clst = clmt_clust(fp, fp->fptr);	/* Get cluster# from the CLMT */
 					} else
 #endif
 					{
+						// do we call create_chain from two different locations? - we don't call it here
+						
 						clst = create_chain(&fp->obj, fp->clust);	/* Follow or stretch cluster chain on the FAT */
 					}
 				}
 				if (clst == 0) break;		/* Could not allocate a new cluster (disk full) */
 				if (clst == 1) ABORT(fs, FR_INT_ERR);
-				if (clst == 0xFFFFFFFF) ABORT(fs, FR_DISK_ERR);
+				if (clst == 0xFFFFFFFF) {
+					// get here
+					ABORT(fs, FR_DISK_ERR);
+				}
 				fp->clust = clst;			/* Update current cluster */
 				if (fp->obj.sclust == 0) fp->obj.sclust = clst;	/* Set start cluster if the first write */
 			}
