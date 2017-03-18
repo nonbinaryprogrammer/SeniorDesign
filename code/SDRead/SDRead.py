@@ -1,20 +1,22 @@
 import matplotlib.pyplot as plt
 import sys
 
-if len(sys.argv) != 2:
-	print("No file specified.")
+if len(sys.argv) != 2:			# Make sure filename is specified on command line
+	print("No file specified.")	
 	sys.exit(1)
 
-temps = []
+temps = []							# Create an empty list of temperatures
 
-with open(sys.argv[1], "br") as f:
-	data = bytes(f.read(3))
-	while data != bytes(b""):
-		#print(repr(data[0]), repr(data[1]))
-		temps.append((data[0] * pow(2, 8)) + (data[1]))
-		data = bytes(f.read(3))
+with open(sys.argv[1], "br") as f:	# Open output file for binary reading
+	data = bytes(f.read(3))			# Read three bytes
+	while data != bytes(b""):		# Make sure we have input (i.e. not EOF)
+		num = (data[0] * pow(2, 8))	# Load the most significant byte
+		num += (data[1])			# Load the least significant byte
+		temps.append(num)			# Store the number in the array
+		data = bytes(f.read(3))		# Get thee next three bytes
 	
-plt.plot([(i/(2**10)) for i in temps])
-plt.ylabel("Relative temperature")
-plt.xlabel("Sample number")
-plt.show()
+scaled = [(i/(2**10)) for i in temps] # Scale the temperature values to between 0-1
+plt.plot(scaled)					# Create the plot
+plt.ylabel("Relative temperature")	# Always label your axises
+plt.xlabel("Sample number")			
+plt.show()							# Display the plot
