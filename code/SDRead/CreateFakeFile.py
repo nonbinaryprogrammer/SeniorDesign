@@ -2,6 +2,7 @@ import sys, random
 
 if len(sys.argv) != 2:
 	print("No file specified.")
+	print("USAGE:", sys.argv[0], "<filename>")
 	sys.exit(1)
 
 csv = open("output.csv", "w")

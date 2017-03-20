@@ -3,6 +3,7 @@ import sys
 
 if len(sys.argv) != 2:			# Make sure filename is specified on command line
 	print("No file specified.")	
+	print("USAGE:", sys.argv[0], "<filename>")
 	sys.exit(1)
 
 temps = []							# Create an empty list of temperatures
