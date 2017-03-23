@@ -1,6 +1,9 @@
 \documentclass[letterpaper,10pt]{article}
 \title{Winter Progress Report for RockSat-X Payload - Hephaestus \\ Group 26}
 \author{Amber~Horvath\\ \\ CS462 - Winter 2017}
+\usepackage[pdftex]{graphicx}
+\usepackage{tikz}
+\usepackage{float}
 
 \parindent = 0.0 in
 \parskip = 0.1 in
@@ -14,16 +17,101 @@ The rocket will be launched from the Wallops Flight Facility filled with student
 various institutions. The Hephaestus payload will consist of a deployable arm and a video camera.
 The arm shall extend and move to a series of pre-placed sensors and make contact with the sensors. 
 The arm will then contract and retract back into the rocket.
-The video camera shall record the arm's movement. Data about the flight, such as error codes, shall be sent via a telemetry port and written onto a microSD card.
+The video camera shall record the arm's movement. Data about the flight, such as error codes, shall be 
+sent via a telemetry port and written onto a microSD card.
 The Hephaestus mission will be Oregon State University's first space mission and will prove not only
 our ability to develop a space-ready payload, but also the viability of construction in space using a robotic
 arm.
-
 \section{Individual Pieces}
 The individual pieces of the project I am in charge of for the project include Emergency Retraction, 
 Modes of Operation, and Touch Sensor Viability. I also took on the Data Storage task by the request
-of the Electrical Engineers.
+of the Electrical Engineering team.
 \subsection{Emergency Retraction}
-During the past term, 
+In the case of the arm getting caught in a bad state, we shall retract the arm back into a safe state
+This will be accomplished by testing for a bad state.
+We will retract the arm and test whether or not we?re in our calibrated normal position
+If we are not, we are in a bad state and need to execute the emergency arm retraction.
+We will then disable each motor except the one attached to the base of the payload.
+Once each motor has been disabled, we will retract the base of the payload.
+\subsection{Modes of Operation}
+\input{state_diagram2}
+The Modes of Operation detail the states the program will be in during the course of the flight, as seen in the included state diagram. The transitions are as such:
+\begin{enumerate}
+\item{\textbf{Apogee is reached.} The experiment begins; the camera is powered on; and the on-board 
+computer is on. A camera sweep is performed.}
+\item{\textbf{Error: Return to Idle.} If an error occurs, we shall transition back to Idle mode.}
+\item{\textbf{Payload Assembly and Camera have been deployed.} The software shall enter Science
+mode once the payload assembly has been deployed and the camera sweep has completed.}
+\item{\textbf{Error: Return to Observation.} If an error occurs, we transition back to Observation mode.}
+\item{\textbf{Timer switch to end apogee period.} Experiment time has ended, proceed to Retract mode 
+to prepare for descent.}
+ \item{\textbf{Error: Proceed to Safety.} If the arm fails to retract, proceed to Safety mode.}
+ \item{\textbf{Power off.} Arm is retracted, payload is retracted, computer is powered off, camera is 
+ powered off. Payload is ready for descent.}
+ \item{\textbf{Cycle in Safety.} Continually attempt to retract the arm and payload and power off the 
+ computer and camera.}
+ \item{\textbf{Power off.} Payload is now ready for descent.}
+\end{enumerate}
+\subsection{Touch Sensor Viability}
+Within the body of the payload, two touch sensors will be placed at predetermined locations.
+The arm shall make contact with the touch sensor and press it.
+Upon being pressed, the touch sensor will go high and send a signal over telemetry and be written to
+an SD card. The arm will then recalibrate before moving to the next sensor. If no sensors remain, 
+the arm will retract and await shutdown.
+
+\section{Progress and Problems}
+\subsection{Emergency Retraction}
+Due to the testing of emergency retraction being dependent upon the payload being assembled and the 
+motors being attached to the payload, this has been a lower priority task. Pseudocode was written that 
+details how this component of the project interacts with the other components of the program, but the 
+code has not yet been completed. Code has been written for the interrupt subroutine that will notify the 
+on-board computer to halt the current process and power off the specified motors.
+\subsection{Modes of Operation}
+The Modes of Operation requirement was technically completed last term, as it was essentially a state 
+diagram that detailed how the program would operate throughout the flight. A state was added during the 
+middle of the term to account for the time when the payload is being retracted from its extended state, 
+but no other changes were made. As more code is being written, the modes of operation requirement will 
+entail me ensuring that the design of the program upholds the design we originally developed last term.
+\subsection{Touch Sensor Viability}
+Similar to the Emergency Retraction requirement, due to dependencies of other components of the 
+payload being assembled first, the Touch Sensor Viability requirement has been a lower-priority task. 
+The dependences that must be resolved include determining the locations the arm will move to and 
+implementing the code to move the arm to that location. Both those requirements are to be completed by 
+Helena and her sub-team, "Pathing and Automation".
+\subsection{Data Storage}
+The Data Storage requirement has been the requirement that I have worked on the most the past term.
+This is due to the other requirements having dependencies that must be resolved before progress
+can be made, and the Electrical Engineers wanting this to be completed. The Data Storage component of the overall project has included numerous steps for completion including researching previous projects
+similar to ours that required a micro controller and SD card, researching how SD cards work, requesting
+assistance from experts around campus, and implementing the code and writing code specific to our ATMega128 and micoSD card. After researching solutions already in place for the larger question our team had ("How can you write data to an SD card from an ATMega128 micro controller?"), we chose to 
+leverage the already-existing FatFS library, written by Elm-chan. The code is written in C and includes
+a variety of files, some of which required ATMega128-specific code to be added in order to make it
+compile and run. 
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=5cm,width=\linewidth,keepaspectratio]{code.png}
+\caption{An editor showing the files primarily used from the FatFS library and the code compiling with the avrdude compiler}
+\label{fig:code}
+\end{center}
+\end{figure}
+As shown in Figure \ref{fig:code}, there are 4 files currently open in the editor. One is "sdcardtest.c", 
+which is the current file being used to test the core functionality our system requires. Our system must 
+be able to open a file, write or append some data to the opened file, and close the file. 
+These functionalities map to the API calls specified in "ff.c", the currently open file in Figure 
+\ref{fig:code}. The main focus of my effort has been on getting these API calls to work as we intend
+for them to. Currently, calls to the "fmount" function, which mounts the filesystem onto the micro
+controller, and the "fopen" function, which creates a file pointer, work. However, we have not
+been able to get writing to a file to work. This has been a large blocker for progress as the errors thrown
+are difficult to follow and, as evident within Figure \ref{fig:code} there is a large amount of code that
+must be sifted through.
+
+
+
+
+
+
+
+
 
 \end{document}
