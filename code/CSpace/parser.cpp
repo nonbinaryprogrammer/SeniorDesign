@@ -10,9 +10,21 @@
 
 using namespace std;
 
+/************************************************************************************************
+ * Program: C-Space Data Parser
+ * Author: Helena Bales
+ * Date: April 12th, 2017
+ * Description: A C++ implementation of a parser for the Hephaestus Configuration Space data. The 
+ * 	parser creates a 4-D array of boolean values with a 0 representing a valid configuration 
+ * 	and a 1 representing an invalid configuration.
+ * Input: ./test1/data1 - Hephaestus C-Space data as defined in project docs
+ * Output: ./cspace.out - Output file containing boolean data from 37x37x37x37 array
+ ***********************************************************************************************/
+
 int main() {
 	char* myFile;
 	ifstream sourceFile;
+	ofstream outfile;
 	string line;
 
 	int accuracyFactor = 10;
@@ -36,7 +48,7 @@ int main() {
 	}
 
 	//open file
-	myFile[0] = "./test1/data1";
+	myFile = "./test1/data1";
 	sourceFile.open(myFile);
 	
 	//loop for length of file
@@ -74,20 +86,20 @@ int main() {
 		d = floor(df);
 
 		//check floored values against original FOR TESTING
-		cout << a << "/" << af << " - " << b << "/" << bf << " - " << c << "/" << cf << " - " << d << "/" << df << endl;
+		//cout << a << "/" << af << " - " << b << "/" << bf << " - " << c << "/" << cf << " - " << d << "/" << df << endl;
 
 		//mark array[a][b][c][d] = 0
 		CSpace[a][b][c][d] = 0;
 
 		//check if eof has been reached
 		if(sourceFile.eof()) {
-			cout << "Reached eof" << endl;
+			cout << "Reached eof - check 3" << endl;
 			endOfFile = 1;
 		}
 
 		//check if eof has been reached
 		if(sourceFile.peek() == 10) {
-			cout << "Reached eof check 2" << endl;
+			cout << "Reached eof - check 2" << endl;
 			endOfFile = 1;
 		}
 	}
@@ -98,8 +110,30 @@ int main() {
 	}
 
 	//print array
+	for(a=0; a<1; a++) {
+		for(b=0; b<37; b++) {
+			for(c=0; c<37; c++) {
+				for(d=0; d<37; d++) {
+					cout << CSpace[a][b][c][d];
+				}
+				cout << endl;
+			}
+			cout << endl;
+			cout << endl;
+		}
+	}
 
 	//store array in file
+	outfile.open("cspace.out");
+	for(a=0; a<x; a++) {
+		for(b=0; b<x; b++) {
+			for(c=0; c<x; c++) {
+				for(d=0; d<x; d++) {
+					outfile << CSpace[a][b][c][d];
+				}
+			}
+		}
+	}
 	
 
 }
