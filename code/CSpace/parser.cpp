@@ -77,29 +77,29 @@ int main() {
 
 		//line 5 == ; divider between coordinates
 		getline(sourceFile, line);
-		cout << ";" << endl;
+		//cout << ";" << endl;
 
 		//convert negative degrees to corresponding positive angle
-		if(a < 0) {
-			a = 360 - a;
+		if(af < 0) {
+			af = 360 - af;
 		}
 
-		if(b < 0) {
-			b = 360 - b;
+		if(bf < 0) {
+			bf = 360 - bf;
 		}
 
-		if(c < 0) {
-			c = 360 - c;
+		if(cf < 0) {
+			cf = 360 - cf;
 		}
 		
 		//convert to ints
-		a = floor(af);
-		b = floor(bf);
-		c = floor(cf);
-		d = floor(df);
+		a = floor(af)/10;
+		b = floor(bf)/10;
+		c = floor(cf)/10;
+		d = floor(df)/10;
 
 		//check floored values against original FOR TESTING
-		//cout << a << "/" << af << " - " << b << "/" << bf << " - " << c << "/" << cf << " - " << d << "/" << df << endl;
+		cout << a << "/" << af << " - " << b << "/" << bf << " - " << c << "/" << cf << " - " << d << "/" << df << endl;
 
 		//mark array[a][b][c][d] = 0
 		CSpace[a][b][c][d] = 0;
@@ -129,13 +129,16 @@ int main() {
 				for(d=0; d<37; d++) {
 					cout << CSpace[a][b][c][d];
 				}
+				cout << " c = " << c;
 				cout << endl;
-			}
+							}
 			cout << endl;
+			cout << "b = " << b << endl;
 			cout << endl;
 		}
 	}
 
+	/* SAVE ME
 	//store array in file
 	outfile.open("cspace");
 	for(a=0; a<x; a++) {
@@ -143,6 +146,23 @@ int main() {
 			for(c=0; c<x; c++) {
 				for(d=0; d<x; d++) {
 					outfile << CSpace[a][b][c][d];
+				}
+			}
+		}
+	}
+	*/
+
+	//store array in file for plotting
+	// loop through all locations and output/save 0's (hits)
+	outfile.open("cspacePlotData");
+	for(a=0; a<1; a++) {
+		for(b=0; b<x; b++) {
+			for(c=0; c<x; c++) {
+				for(d=0; d<x; d++) {
+					if(CSpace[a][b][c][d] == 0){
+						outfile << b << " " << c << " " << d
+							<< endl;
+					}
 				}
 			}
 		}
