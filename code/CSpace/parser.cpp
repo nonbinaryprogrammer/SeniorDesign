@@ -78,6 +78,19 @@ int main() {
 		//line 5 == ; divider between coordinates
 		getline(sourceFile, line);
 		cout << ";" << endl;
+
+		//convert negative degrees to corresponding positive angle
+		if(a < 0) {
+			a = 360 - a;
+		}
+
+		if(b < 0) {
+			b = 360 - b;
+		}
+
+		if(c < 0) {
+			c = 360 - c;
+		}
 		
 		//convert to ints
 		a = floor(af);
@@ -124,7 +137,7 @@ int main() {
 	}
 
 	//store array in file
-	outfile.open("cspace.out");
+	outfile.open("cspace");
 	for(a=0; a<x; a++) {
 		for(b=0; b<x; b++) {
 			for(c=0; c<x; c++) {
