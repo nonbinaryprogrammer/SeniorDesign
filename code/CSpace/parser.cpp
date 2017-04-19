@@ -28,7 +28,7 @@ int main() {
 	string line;
 
 	int accuracyFactor = 10;
-	int MAX_ANGLE = 365;
+	int MAX_ANGLE = 360;
 	int x = MAX_ANGLE/accuracyFactor;
 	int a, b, c, d;
 	float af, bf, cf, df;
