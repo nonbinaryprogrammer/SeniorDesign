@@ -153,7 +153,7 @@ int main() {
 	*/
 
 	//store array in file for plotting
-	// loop through all locations and output/save 0's (hits)
+	//loop through all data points and store 0 (hit) locations
 	outfile.open("cspacePlotData");
 	for(a=0; a<1; a++) {
 		for(b=0; b<x; b++) {
@@ -168,5 +168,4 @@ int main() {
 		}
 	}
 	
-
 }
