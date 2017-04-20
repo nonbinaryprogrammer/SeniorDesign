@@ -130,6 +130,7 @@ int main() {
 					cout << CSpace[a][b][c][d];
 				}
 				cout << endl;
+			}
 			cout << endl;
 			cout << endl;
 		}
