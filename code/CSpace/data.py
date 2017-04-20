@@ -15,9 +15,18 @@ f = open("cspacePlotData", "r")
 #loop through every line of data and store data string in 'line'
 for line in f:
 	x, y, z = line.split() #split() seperates data by whitespace
+<<<<<<< HEAD
 	b.append(x)
 	c.append(y)
 	d.append(z)
 
 ax.scatter(b, c, d)
 plt.show()
+=======
+	b.append(int(x))
+	c.append(int(y))
+	d.append(int(z))
+
+ax.scatter(b, c, d)
+plt.show()
+>>>>>>> f1b3fd45934f260b4b3e03c65002cc10098ab2b5
