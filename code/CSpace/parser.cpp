@@ -129,16 +129,12 @@ int main() {
 				for(d=0; d<37; d++) {
 					cout << CSpace[a][b][c][d];
 				}
-				cout << " c = " << c;
 				cout << endl;
-							}
 			cout << endl;
-			cout << "b = " << b << endl;
 			cout << endl;
 		}
 	}
 
-	/* SAVE ME
 	//store array in file
 	outfile.open("cspace");
 	for(a=0; a<x; a++) {
@@ -150,10 +146,8 @@ int main() {
 			}
 		}
 	}
-	*/
 
-	//store array in file for plotting
-	//loop through all data points and store 0 (hit) locations
+	//store 0 locations in file for plotting
 	outfile.open("cspacePlotData");
 	for(a=0; a<1; a++) {
 		for(b=0; b<x; b++) {
