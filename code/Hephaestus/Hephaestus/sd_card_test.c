@@ -19,6 +19,7 @@ int main(void) {
     UINT bytesRead = 0;
     UINT bytesWrite = 0;
     int i;
+    UINT num;
 
     
     //FRESULT res;
@@ -42,21 +43,32 @@ int main(void) {
 
     if(f_mount(&fs,"0:/", 1) == FR_OK){
        
-        // todo: figure out which FR code is being return by storing result in Var and checking which one is the broken one
     }
-    	// ack should mount the drive - not sure how to do this with our SD card
+    
 
     
 
     char *toWrite = "Hello World";
     char *toRead = malloc(1000);
     if(f_open(fp, path, FA_READ | FA_WRITE | FA_OPEN_ALWAYS) == FR_OK){
-        PORTB = 0xAA;
-        if(f_write(fp, toWrite, 11, &bytesWrite) == FR_DISK_ERR){ // write buffer
-
+        //PORTB = 0xAA;
+        // try creating file on the SD card, opening it, and reading from it
+        if(f_read(fp, (void *)toRead, 11, &bytesRead) == FR_DISK_ERR){ // write buffer
+            PORTB &= ~(0xF0);
+            while(1){
+                SPDR = 0xAC;
+                while(!((SPSR & (1<<SPIF)) > 0x00)){}
+                    num = (num + 1) % 10000;
+                    if(num == 0)
+                        PORTB ^= 0xF0;
+            }
         }
  
-    } /*
+    } 
+
+    /*
+
+
     f_lseek(fp, 0); // set pointer to top
     f_read(fp, (void *)toRead, sizeof(toWrite), &bytesRead); // read what we wrote
 

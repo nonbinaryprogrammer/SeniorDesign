@@ -64,7 +64,7 @@ include $(SRCS:.c=.d)
 program: $(PRG).hex
 #	chmod 644 $(PRG).hex only needed for redhat
 #	avrdude -p $(PROGRAMMER_TARGET) -c usbasp -e -U flash:w:$(PRG).hex
-	avrdude -p $(PROGRAMMER_TARGET) -c usbasp -e -U flash:w:$(PRG).hex \
+	avrdude -p $(PROGRAMMER_TARGET) -c  usbasp -e -U flash:w:$(PRG).hex \
                                                      -U eeprom:w:$(PRG)_eeprom.hex
 #	avrdude -p $(PROGRAMMER_TARGET) -c osuisp2 -e -U flash:w:$(PRG).hex
 

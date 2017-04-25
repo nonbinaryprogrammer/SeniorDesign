@@ -3,7 +3,7 @@ Archive member included because of file (symbol)
 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
                               ff.o (__mulsi3)
 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
-                              mmc_avr_spi.o (__udivmodhi4)
+                              sd_card_test.o (__udivmodhi4)
 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
                               ff.o (__udivmodsi4)
 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
@@ -12,6 +12,14 @@ Archive member included because of file (symbol)
                               sd_card_test.o (__do_copy_data)
 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
                               sd_card_test.o (__do_clear_bss)
+/usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
+                              sd_card_test.o (malloc)
+
+Allocating common symbols
+Common symbol       size              file
+
+__brkval            0x2               /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
+__flp               0x2               /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
 
 Memory Configuration
 
@@ -127,7 +135,7 @@ LOAD /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x5dfa
+.text           0x00000000     0x5fee
  *(.vectors)
  .vectors       0x00000000       0x8c /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/crtm128.o
                 0x00000000                __vectors
@@ -189,7 +197,6 @@ LOAD /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a
                 0x000000cc                __vector_34
                 0x000000cc                __vector_24
                 0x000000cc                __bad_interrupt
-                0x000000cc                __vector_6
                 0x000000cc                __vector_31
                 0x000000cc                __vector_23
                 0x000000cc                __vector_30
@@ -204,6 +211,7 @@ LOAD /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a
                 0x000000cc                __vector_21
                 0x000000cc                __vector_15
                 0x000000cc                __vector_29
+                0x000000cc                __vector_8
                 0x000000cc                __vector_26
                 0x000000cc                __vector_14
                 0x000000cc                __vector_10
@@ -211,89 +219,94 @@ LOAD /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a
                 0x000000cc                __vector_18
                 0x000000cc                __vector_22
  .text          0x000000d0        0x0 sd_card_test.o
- .text          0x000000d0      0xe3c mmc_avr_spi.o
-                0x00000354                mmc_disk_initialize
-                0x000004e8                mmc_disk_status
-                0x000004ee                mmc_disk_read
-                0x000005bc                mmc_disk_write
-                0x000006e0                mmc_disk_ioctl
-                0x00000ee4                mmc_disk_timerproc
- .text          0x00000f0c      0x4b2 RSXAVRD.o
-                0x00000f0c                get_time
-                0x00000f16                get_TE0_status
-                0x00000f1c                get_TE1_status
-                0x00000f22                get_calibration_status
-                0x00000f28                __vector_1
-                0x00000f4a                __vector_2
-                0x00000f6c                __vector_3
-                0x00000f8e                __vector_4
-                0x00000fb0                __vector_5
-                0x00000fd2                __vector_7
-                0x00000ff0                __vector_8
-                0x0000100e                __vector_12
-                0x00001044                AVR_init
-                0x00001088                timer_counter_enable
-                0x000010a2                timer_event_enable
-                0x000010fa                send_code
-                0x00001162                camera_enable
-                0x000011a0                touch_sensor_check
-                0x000011a8                temperature_probe_sample
-                0x000011be                motor_calibration_enable
-                0x00001228                motor_pwr
-                0x0000128e                motor_dir
-                0x000012ee                motor_step
- .text          0x000013be     0x493c ff.o
-                0x000033ca                f_mount
-                0x00003468                f_open
-                0x00003954                f_read
-                0x00003cd4                f_write
-                0x0000422e                f_sync
-                0x0000434e                f_close
-                0x00004398                f_lseek
-                0x00004870                f_opendir
-                0x00004962                f_closedir
-                0x00004994                f_readdir
-                0x00004a2c                f_stat
-                0x00004ac4                f_getfree
-                0x00004d5c                f_truncate
-                0x00004f1e                f_unlink
-                0x0000508e                f_mkdir
-                0x0000542c                f_rename
-                0x000056e6                f_gets
-                0x00005782                f_putc
-                0x000057cc                f_puts
-                0x00005848                f_printf
- .text          0x00005cfa       0x1c diskio.o
-                0x00005cfa                disk_status
-                0x00005cfe                disk_initialize
-                0x00005d02                disk_read
-                0x00005d08                disk_write
-                0x00005d0e                disk_ioctl
-                0x00005d14                disk_timerproc
- .text          0x00005d16        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
- .text          0x00005d16        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
- .text          0x00005d16        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
- .text          0x00005d16        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
- .text          0x00005d16        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
- .text          0x00005d16        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
-                0x00005d16                . = ALIGN (0x2)
+ .text          0x000000d0      0xd5e mmc_avr_spi.o
+                0x00000312                mmc_disk_initialize
+                0x00000496                mmc_disk_status
+                0x0000049c                mmc_disk_read
+                0x00000566                mmc_disk_write
+                0x00000684                mmc_disk_ioctl
+                0x00000e06                mmc_disk_timerproc
+ .text          0x00000e2e      0x4b0 RSXAVRD.o
+                0x00000e2e                get_time
+                0x00000e38                get_TE0_status
+                0x00000e3e                get_TE1_status
+                0x00000e44                get_calibration_status
+                0x00000e4a                __vector_1
+                0x00000e6c                __vector_2
+                0x00000e8e                __vector_3
+                0x00000eb0                __vector_4
+                0x00000ed2                __vector_5
+                0x00000ef4                __vector_6
+                0x00000f12                __vector_7
+                0x00000f30                __vector_12
+                0x00000f5e                AVR_init
+                0x00000fa0                timer_counter_enable
+                0x00000fc2                timer_event_enable
+                0x0000101a                send_code
+                0x00001082                camera_enable
+                0x000010c0                touch_sensor_check
+                0x000010c8                temperature_probe_sample
+                0x000010de                motor_calibration_enable
+                0x00001148                motor_pwr
+                0x000011ae                motor_dir
+                0x0000120e                motor_step
+ .text          0x000012de     0x4942 ff.o
+                0x000032f0                f_mount
+                0x0000338e                f_open
+                0x0000387a                f_read
+                0x00003bfa                f_write
+                0x00004154                f_sync
+                0x00004274                f_close
+                0x000042be                f_lseek
+                0x00004796                f_opendir
+                0x00004888                f_closedir
+                0x000048ba                f_readdir
+                0x00004952                f_stat
+                0x000049ea                f_getfree
+                0x00004c82                f_truncate
+                0x00004e44                f_unlink
+                0x00004fb4                f_mkdir
+                0x00005352                f_rename
+                0x0000560c                f_gets
+                0x000056a8                f_putc
+                0x000056f2                f_puts
+                0x0000576e                f_printf
+ .text          0x00005c20       0x1c diskio.o
+                0x00005c20                disk_status
+                0x00005c24                disk_initialize
+                0x00005c28                disk_read
+                0x00005c2e                disk_write
+                0x00005c34                disk_ioctl
+                0x00005c3a                disk_timerproc
+ .text          0x00005c3c        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
+ .text          0x00005c3c        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
+ .text          0x00005c3c        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
+ .text          0x00005c3c        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
+ .text          0x00005c3c        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
+ .text          0x00005c3c        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .text          0x00005c3c        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
+                0x00005c3c                . = ALIGN (0x2)
  *(.text.*)
- .text.startup  0x00005d16       0x36 sd_card_test.o
-                0x00005d16                main
- .text.libgcc   0x00005d4c       0x3e /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
-                0x00005d4c                __mulsi3
- .text.libgcc   0x00005d8a       0x28 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
-                0x00005d8a                __udivmodhi4
- .text.libgcc   0x00005db2       0x44 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
-                0x00005db2                __udivmodsi4
- .text.libgcc   0x00005df6        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
- .text.libgcc   0x00005df6        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
- .text.libgcc   0x00005df6        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
-                0x00005df6                . = ALIGN (0x2)
+ .text.startup  0x00005c3c       0xa6 sd_card_test.o
+                0x00005c3c                main
+ .text.libgcc   0x00005ce2       0x3e /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
+                0x00005ce2                __mulsi3
+ .text.libgcc   0x00005d20       0x28 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
+                0x00005d20                __udivmodhi4
+ .text.libgcc   0x00005d48       0x44 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
+                0x00005d48                __udivmodsi4
+ .text.libgcc   0x00005d8c        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc   0x00005d8c        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc   0x00005d8c        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .text.avr-libc
+                0x00005d8c      0x25e /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
+                0x00005d8c                malloc
+                0x00005eb8                free
+                0x00005fea                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00005df6        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
-                0x00005df6                exit
-                0x00005df6                _exit
+ .fini9         0x00005fea        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
+                0x00005fea                exit
+                0x00005fea                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -312,64 +325,73 @@ LOAD /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00005df6        0x4 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
+ .fini0         0x00005fea        0x4 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
  *(.fini0)
-                0x00005dfa                _etext = .
+                0x00005fee                _etext = .
 
-.data           0x00800100       0x20 load address 0x00005dfa
+.data           0x00800100       0x30 load address 0x00005fee
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/crtm128.o
- .data          0x00800100        0x4 sd_card_test.o
- .data          0x00800104        0x1 mmc_avr_spi.o
- .data          0x00800105        0xc RSXAVRD.o
- .data          0x00800111        0xf ff.o
- .data          0x00800120        0x0 diskio.o
- .data          0x00800120        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
- .data          0x00800120        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
- .data          0x00800120        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
- .data          0x00800120        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
- .data          0x00800120        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
- .data          0x00800120        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .data          0x00800100        0xd sd_card_test.o
+ .data          0x0080010d        0x1 mmc_avr_spi.o
+ .data          0x0080010e        0xc RSXAVRD.o
+ .data          0x0080011a        0xf ff.o
+ .data          0x00800129        0x0 diskio.o
+ .data          0x00800129        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
+ .data          0x00800129        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
+ .data          0x00800129        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
+ .data          0x00800129        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
+ .data          0x00800129        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
+ .data          0x00800129        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .data          0x00800129        0x6 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
+                0x00800129                __malloc_heap_end
+                0x0080012b                __malloc_heap_start
+                0x0080012d                __malloc_margin
  *(.data*)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.d*)
-                0x00800120                . = ALIGN (0x2)
-                0x00800120                _edata = .
-                0x00800120                PROVIDE (__data_end, .)
+                0x00800130                . = ALIGN (0x2)
+ *fill*         0x0080012f        0x1 00
+                0x00800130                _edata = .
+                0x00800130                PROVIDE (__data_end, .)
 
-.bss            0x00800120        0xd
-                0x00800120                PROVIDE (__bss_start, .)
+.bss            0x00800130       0x11
+                0x00800130                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00800120        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/crtm128.o
- .bss           0x00800120        0x0 sd_card_test.o
- .bss           0x00800120        0x3 mmc_avr_spi.o
- .bss           0x00800123        0x6 RSXAVRD.o
-                0x00800123                time
-                0x00800125                timer_event1_flg
-                0x00800126                timer_event0_flg
-                0x00800127                calibration_flg
- .bss           0x00800129        0x4 ff.o
- .bss           0x0080012d        0x0 diskio.o
- .bss           0x0080012d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
- .bss           0x0080012d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
- .bss           0x0080012d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
- .bss           0x0080012d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
- .bss           0x0080012d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
- .bss           0x0080012d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .bss           0x00800130        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/crtm128.o
+ .bss           0x00800130        0x0 sd_card_test.o
+ .bss           0x00800130        0x3 mmc_avr_spi.o
+ .bss           0x00800133        0x6 RSXAVRD.o
+                0x00800133                time
+                0x00800135                timer_event1_flg
+                0x00800136                timer_event0_flg
+                0x00800137                calibration_flg
+ .bss           0x00800139        0x4 ff.o
+ .bss           0x0080013d        0x0 diskio.o
+ .bss           0x0080013d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
+ .bss           0x0080013d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
+ .bss           0x0080013d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
+ .bss           0x0080013d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
+ .bss           0x0080013d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
+ .bss           0x0080013d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .bss           0x0080013d        0x0 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
  *(.bss*)
  *(COMMON)
-                0x0080012d                PROVIDE (__bss_end, .)
-                0x00005dfa                __data_load_start = LOADADDR (.data)
-                0x00005e1a                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x0080013d        0x4 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
+                0x0080013d                __brkval
+                0x0080013f                __flp
+                0x00800141                PROVIDE (__bss_end, .)
+                0x00005fee                __data_load_start = LOADADDR (.data)
+                0x0000601e                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080012d        0x0
-                0x0080012d                PROVIDE (__noinit_start, .)
+.noinit         0x00800141        0x0
+                0x00800141                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0080012d                PROVIDE (__noinit_end, .)
-                0x0080012d                _end = .
-                0x0080012d                PROVIDE (__heap_start, .)
+                0x00800141                PROVIDE (__noinit_end, .)
+                0x00800141                _end = .
+                0x00800141                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -422,7 +444,7 @@ LOAD /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x160
+.debug_aranges  0x00000000      0x188
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x20 sd_card_test.o
@@ -446,88 +468,98 @@ LOAD /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a
                 0x00000120       0x20 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
  .debug_aranges
                 0x00000140       0x20 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .debug_aranges
+                0x00000160       0x28 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x4f97
+.debug_info     0x00000000     0x5461
  *(.debug_info)
- .debug_info    0x00000000      0x26c sd_card_test.o
- .debug_info    0x0000026c      0xda1 mmc_avr_spi.o
- .debug_info    0x0000100d      0x669 RSXAVRD.o
- .debug_info    0x00001676     0x323f ff.o
- .debug_info    0x000048b5      0x25c diskio.o
- .debug_info    0x00004b11       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
- .debug_info    0x00004bd2       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
- .debug_info    0x00004c93       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
- .debug_info    0x00004d54       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
- .debug_info    0x00004e15       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
- .debug_info    0x00004ed6       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .debug_info    0x00000000      0x407 sd_card_test.o
+ .debug_info    0x00000407      0xda1 mmc_avr_spi.o
+ .debug_info    0x000011a8      0x66a RSXAVRD.o
+ .debug_info    0x00001812     0x32d3 ff.o
+ .debug_info    0x00004ae5      0x25c diskio.o
+ .debug_info    0x00004d41       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
+ .debug_info    0x00004e02       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
+ .debug_info    0x00004ec3       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
+ .debug_info    0x00004f84       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
+ .debug_info    0x00005045       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
+ .debug_info    0x00005106       0xc1 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .debug_info    0x000051c7      0x29a /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0x999
+.debug_abbrev   0x00000000      0xb32
  *(.debug_abbrev)
- .debug_abbrev  0x00000000       0xb2 sd_card_test.o
- .debug_abbrev  0x000000b2      0x2e2 mmc_avr_spi.o
- .debug_abbrev  0x00000394      0x1de RSXAVRD.o
- .debug_abbrev  0x00000572      0x2f0 ff.o
- .debug_abbrev  0x00000862       0xbf diskio.o
- .debug_abbrev  0x00000921       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
- .debug_abbrev  0x00000935       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
- .debug_abbrev  0x00000949       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
- .debug_abbrev  0x0000095d       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
- .debug_abbrev  0x00000971       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
- .debug_abbrev  0x00000985       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .debug_abbrev  0x00000000      0x11e sd_card_test.o
+ .debug_abbrev  0x0000011e      0x2f1 mmc_avr_spi.o
+ .debug_abbrev  0x0000040f      0x1ed RSXAVRD.o
+ .debug_abbrev  0x000005fc      0x308 ff.o
+ .debug_abbrev  0x00000904       0xbf diskio.o
+ .debug_abbrev  0x000009c3       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
+ .debug_abbrev  0x000009d7       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
+ .debug_abbrev  0x000009eb       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
+ .debug_abbrev  0x000009ff       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
+ .debug_abbrev  0x00000a13       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
+ .debug_abbrev  0x00000a27       0x14 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .debug_abbrev  0x00000a3b       0xf7 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
 
-.debug_line     0x00000000     0x1820
+.debug_line     0x00000000     0x19bb
  *(.debug_line)
- .debug_line    0x00000000       0xb1 sd_card_test.o
- .debug_line    0x000000b1      0x52c mmc_avr_spi.o
- .debug_line    0x000005dd      0x1b3 RSXAVRD.o
- .debug_line    0x00000790      0xd98 ff.o
- .debug_line    0x00001528       0x6d diskio.o
- .debug_line    0x00001595       0x79 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
- .debug_line    0x0000160e       0x6e /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
- .debug_line    0x0000167c       0x7c /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
- .debug_line    0x000016f8       0x5c /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
- .debug_line    0x00001754       0x6a /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
- .debug_line    0x000017be       0x62 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .debug_line    0x00000000       0xc5 sd_card_test.o
+ .debug_line    0x000000c5      0x4f6 mmc_avr_spi.o
+ .debug_line    0x000005bb      0x1b5 RSXAVRD.o
+ .debug_line    0x00000770      0xe00 ff.o
+ .debug_line    0x00001570       0x6d diskio.o
+ .debug_line    0x000015dd       0x79 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_mulsi3.o)
+ .debug_line    0x00001656       0x6e /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodhi4.o)
+ .debug_line    0x000016c4       0x7c /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_udivmodsi4.o)
+ .debug_line    0x00001740       0x5c /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_exit.o)
+ .debug_line    0x0000179c       0x6a /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_copy_data.o)
+ .debug_line    0x00001806       0x62 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/avr51/libgcc.a(_clear_bss.o)
+ .debug_line    0x00001868      0x153 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
 
-.debug_frame    0x00000000      0xf20
+.debug_frame    0x00000000      0xf74
  *(.debug_frame)
  .debug_frame   0x00000000       0x34 sd_card_test.o
  .debug_frame   0x00000034      0x198 mmc_avr_spi.o
  .debug_frame   0x000001cc      0x260 RSXAVRD.o
  .debug_frame   0x0000042c      0xa80 ff.o
  .debug_frame   0x00000eac       0x74 diskio.o
+ .debug_frame   0x00000f20       0x54 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
 
-.debug_str      0x00000000      0x987
+.debug_str      0x00000000      0xa75
  *(.debug_str)
- .debug_str     0x00000000      0x233 sd_card_test.o
-                                0x276 (size before relaxing)
- .debug_str     0x00000233      0x183 mmc_avr_spi.o
+ .debug_str     0x00000000      0x28f sd_card_test.o
+                                0x2f1 (size before relaxing)
+ .debug_str     0x0000028f      0x17e mmc_avr_spi.o
                                 0x25a (size before relaxing)
- .debug_str     0x000003b6      0x27c RSXAVRD.o
-                                0x30f (size before relaxing)
- .debug_str     0x00000632      0x347 ff.o
-                                0x63f (size before relaxing)
- .debug_str     0x00000979        0xe diskio.o
+ .debug_str     0x0000040d      0x239 RSXAVRD.o
+                                0x2e4 (size before relaxing)
+ .debug_str     0x00000646      0x314 ff.o
+                                0x666 (size before relaxing)
+ .debug_str     0x0000095a        0xe diskio.o
                                 0x14a (size before relaxing)
+ .debug_str     0x00000968      0x10d /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
+                                0x193 (size before relaxing)
 
-.debug_loc      0x00000000     0x9a78
+.debug_loc      0x00000000     0x9e7e
  *(.debug_loc)
- .debug_loc     0x00000000       0x3c sd_card_test.o
- .debug_loc     0x0000003c     0x118c mmc_avr_spi.o
- .debug_loc     0x000011c8      0x5e9 RSXAVRD.o
- .debug_loc     0x000017b1     0x8268 ff.o
- .debug_loc     0x00009a19       0x5f diskio.o
+ .debug_loc     0x00000000       0xac sd_card_test.o
+ .debug_loc     0x000000ac     0x116c mmc_avr_spi.o
+ .debug_loc     0x00001218      0x5e9 RSXAVRD.o
+ .debug_loc     0x00001801     0x81fd ff.o
+ .debug_loc     0x000099fe       0x5f diskio.o
+ .debug_loc     0x00009a5d      0x421 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)
 
 .debug_macinfo
  *(.debug_macinfo)
 OUTPUT(sd_card_test.elf elf32-avr)
 LOAD linker stubs
 
-.debug_ranges   0x00000000      0x478
+.debug_ranges   0x00000000      0x510
  .debug_ranges  0x00000000       0x10 sd_card_test.o
- .debug_ranges  0x00000010       0x78 mmc_avr_spi.o
- .debug_ranges  0x00000088      0x3f0 ff.o
+ .debug_ranges  0x00000010      0x128 mmc_avr_spi.o
+ .debug_ranges  0x00000138      0x3c0 ff.o
+ .debug_ranges  0x000004f8       0x18 /usr/local/CrossPack-AVR-20121128/lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/libc.a(malloc.o)

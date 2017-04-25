@@ -15,4 +15,4 @@
 *.srec
 *.atsuo
 Debug/
-.DS_Store
+**/.DS_Store

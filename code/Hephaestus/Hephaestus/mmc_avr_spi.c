@@ -112,7 +112,7 @@ void power_off (void)
 
 /* Exchange a byte */
 static
-BYTE xchg_spi (		/* Returns received data */
+BYTE xchg_spi2 (		/* Returns received data */
 	BYTE dat		/* Data to be sent */
 )
 {
@@ -124,7 +124,7 @@ BYTE xchg_spi (		/* Returns received data */
 }
 
 static
-BYTE xchg_spi2 (		/* Returns received data */
+BYTE xchg_spi (		/* Returns received data */
 	BYTE dat		/* Data to be sent */
 )
 {
@@ -442,7 +442,7 @@ DRESULT mmc_disk_read (
 	cmd = count > 1 ? CMD18 : CMD17;		/*  READ_MULTIPLE_BLOCK : READ_SINGLE_BLOCK */
 
 	if(sector == 0){
-		
+		// what is the sector number during the bad call? should be 0
 	}
 
 	if (send_cmd(cmd, sector) == 0) {	

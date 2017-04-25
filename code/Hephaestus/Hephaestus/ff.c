@@ -909,6 +909,8 @@ FRESULT move_window (	/* Returns FR_OK or FR_DISK_ERROR */
 	FRESULT res = FR_OK;
 	uint8_t num = 0x00;
 
+	// what is sector during bad call from f_write?
+
 	if (sector != fs->winsect) {	/* Window offset changed? */
 
 #if !_FS_READONLY
@@ -918,8 +920,12 @@ FRESULT move_window (	/* Returns FR_OK or FR_DISK_ERROR */
 
 			if (mmc_disk_read(fs->win, sector, 1) != RES_OK) {
 				
+				if(sector){
+					
+				}
 				
 
+				
    				
 				/*
 				while(1){
@@ -933,14 +939,20 @@ FRESULT move_window (	/* Returns FR_OK or FR_DISK_ERROR */
 				sector = 0xFFFFFFFF;	/* Invalidate window if data is not reliable */
 				res = FR_DISK_ERR;	
 			}
-			else{				
+			else{	
+				
 				res = FR_OK;
    			}
 
 			fs->winsect = sector;
+			if(fs->winsect == sector){
+
+			}
 		}
 	}
+	if(res == FR_OK){
 
+	}
 	return res;
 }
 
@@ -1028,8 +1040,13 @@ DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x7FFFFFFF:Cluste
 		
 		switch (fs->fs_type) {
 		case FS_FAT12 :
+			
 			bc = (UINT)clst; bc += bc / 2;
-			if (move_window(fs, fs->fatbase + (bc / SS(fs))) != FR_OK) break;
+			if (move_window(fs, fs->fatbase + (bc / SS(fs))) != FR_OK){
+				 
+				 break;
+			}
+			
 			wc = fs->win[bc++ % SS(fs)];
 			if (move_window(fs, fs->fatbase + (bc / SS(fs))) != FR_OK) break;
 			wc |= fs->win[bc % SS(fs)] << 8;
@@ -1040,14 +1057,10 @@ DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x7FFFFFFF:Cluste
 			// do get here
 			if (move_window(fs, fs->fatbase + (clst / (SS(fs) / 2))) != FR_OK){
 				// get here
-				while(1){
-   				SPDR = 0xAC;
-   				while(!((SPSR & (1<<SPIF)) > 0x00)){}
-   				num = (num + 1) % 10000;
-   				if(num == 0)
-   					PORTB ^= 0xF0;
-   			}
+				
 				break;
+			}else{
+
 			}
 			
 			// don't get here so it breaks
@@ -1056,6 +1069,7 @@ DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x7FFFFFFF:Cluste
 			break;
 
 		case FS_FAT32 :
+
 			if (move_window(fs, fs->fatbase + (clst / (SS(fs) / 4))) != FR_OK) break;
 			val = ld_dword(fs->win + clst * 4 % SS(fs)) & 0x0FFFFFFF;
 			break;
@@ -1404,31 +1418,31 @@ DWORD create_chain (	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:Disk err
 				ncl = 2;
 				if (ncl > scl) return 0;	/* No free cluster */
 			}
-			 // does this loop happen more than once? - no........
-			if(ncl == 2){
-
+			 // does this loop happen more than once? - YES, it happens twice, once with ncl == 2 and once with ncl == 3
+			if(ncl > 3){
+				
 			}
+		
 			cs = get_fat(obj, ncl);			/* Get the cluster status */ /*are there iterations where cs gets a bad return value? - no */
+		
 			
 			if (cs == 0){
 				// no we dont'
+				
 				 break;		
 			}		/* Found a free cluster */
+
 			if (cs == 1 || cs == 0xFFFFFFFF){
+
 			 // we get here
 			 return cs;	/* An error occurred */
 			}
 			if (ncl == scl){
 				// we don't get here 
+
 			 return 0;		/* No free cluster */
 			}
-			while(1){
-   				SPDR = 0xAC;
-   				while(!((SPSR & (1<<SPIF)) > 0x00)){}
-   				num = (num + 1) % 10000;
-   				if(num == 0)
-   					PORTB ^= 0xF0;
-   			}
+			
 		}
 	}
 
@@ -3545,7 +3559,10 @@ FRESULT f_read (
 
 	*br = 0;	/* Clear read byte counter */
 	res = validate(fp, &fs);
-	if (res != FR_OK || (res = (FRESULT)fp->err) != FR_OK) LEAVE_FF(fs, res);	/* Check validity */
+	if (res != FR_OK || (res = (FRESULT)fp->err) != FR_OK){
+	 	// start here
+	 	LEAVE_FF(fs, res);	/* Check validity */
+	}
 	if (!(fp->flag & FA_READ)) LEAVE_FF(fs, FR_DENIED); /* Check access mode */
 	remain = fp->obj.objsize - fp->fptr;
 	if (btr > remain) btr = (UINT)remain;		/* Truncate btr by remaining bytes */
