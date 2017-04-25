@@ -81,17 +81,21 @@ int main() {
 
 		//convert negative degrees to corresponding positive angle
 		if(af < 0) {
-			af = 360 - af;
+			af = 360 + af;
 		}
 
 		if(bf < 0) {
-			bf = 360 - bf;
+			bf = 360 + bf;
 		}
 
 		if(cf < 0) {
-			cf = 360 - cf;
+			cf = 360 + cf;
 		}
-		
+
+		if(df < 0) {
+			df = 360 + df;
+		}
+
 		//convert to ints
 		a = floor(af)/10;
 		b = floor(bf)/10;
@@ -122,6 +126,7 @@ int main() {
 		sourceFile.close();
 	}
 
+	/*
 	//print array
 	for(a=0; a<1; a++) {
 		for(b=0; b<37; b++) {
@@ -129,16 +134,15 @@ int main() {
 				for(d=0; d<37; d++) {
 					cout << CSpace[a][b][c][d];
 				}
-				cout << " c = " << c;
 				cout << endl;
-							}
+			}
 			cout << endl;
-			cout << "b = " << b << endl;
 			cout << endl;
 		}
 	}
+	*/
 
-	/* SAVE ME
+	/*
 	//store array in file
 	outfile.open("cspace");
 	for(a=0; a<x; a++) {
@@ -152,20 +156,21 @@ int main() {
 	}
 	*/
 
-	//store array in file for plotting
-	//loop through all data points and store 0 (hit) locations
+	//store 0 locations in file for plotting
 	outfile.open("cspacePlotData");
-	for(a=0; a<1; a++) {
+	for(a=0; a<x; a++) {
 		for(b=0; b<x; b++) {
 			for(c=0; c<x; c++) {
 				for(d=0; d<x; d++) {
 					if(CSpace[a][b][c][d] == 0){
-						outfile << b << " " << c << " " << d
+						outfile << b << " " << c << " " << d 
 							<< endl;
+
 					}
 				}
 			}
 		}
+		outfile << "\n";
 	}
 	
 }
