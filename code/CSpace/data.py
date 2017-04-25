@@ -5,28 +5,32 @@ from mpl_toolkits.mplot3d import Axes3D #only import Axed3D tool from the mpl_to
 fig = plt.figure()
 ax = fig.add_subplot(111, projection = '3d')
 
+a = 0
 b = []
 c = []
 d = []
+
 
 #read data from cspacePlotData into lists
 f = open("cspacePlotData", "r")
 
 #loop through every line of data and store data string in 'line'
 for line in f:
-	x, y, z = line.split() #split() seperates data by whitespace
-<<<<<<< HEAD
-	b.append(x)
-	c.append(y)
-	d.append(z)
-
-ax.scatter(b, c, d)
-plt.show()
-=======
-	b.append(int(x))
-	c.append(int(y))
-	d.append(int(z))
-
-ax.scatter(b, c, d)
-plt.show()
->>>>>>> f1b3fd45934f260b4b3e03c65002cc10098ab2b5
+	if  line == '\n':
+		ax.scatter(b, c, d)
+		#create plot labels
+		ax.set_xlabel('Motor B (Degrees/10)')
+		ax.set_ylabel('Motor C (Degrees/10)')
+		ax.set_zlabel('Motor D (Degrees/10)')
+		ax.text2D(0.28, .98, "Motor 'A' CSpace Representation", transform=ax.transAxes, color='black', size='large')
+		plt.savefig(str(a) + 'plot.png')
+		#empty contents of lists
+		del b[:]
+		del c[:]
+		del d[:]
+		a += 1 #use in output file name
+	if len(line) > 1:
+		x, y, z = line.split() #split() seperates data by whitespace
+		b.append(int(x))
+		c.append(int(y))
+		d.append(int(z))
