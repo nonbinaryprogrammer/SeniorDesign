@@ -18,6 +18,11 @@ f = open("cspacePlotData", "r")
 for line in f:
 	if  line == '\n':
 		ax.scatter(b, c, d)
+		#create plot labels
+		ax.set_xlabel('Motor B (Degrees/10)')
+		ax.set_ylabel('Motor C (Degrees/10)')
+		ax.set_zlabel('Motor D (Degrees/10)')
+		ax.text2D(0.28, .98, "Motor 'A' CSpace Representation", transform=ax.transAxes, color='black', size='large')
 		plt.savefig(str(a) + 'plot.png')
 		#empty contents of lists
 		del b[:]
