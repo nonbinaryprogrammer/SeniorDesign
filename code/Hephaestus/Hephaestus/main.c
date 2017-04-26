@@ -17,6 +17,12 @@ int main(void)
 
 	int status = 0;
 
+	//timer_counter_enable(1,1); // code that enables timer event - Jon says Michael wanted this?
+
+	timer_event_enable(0,1); // enables timer event line 0
+
+	timer_event_enable(1,1); // enables timer event line 1
+
     /* Replace with your application code */
     while (1) 
     {

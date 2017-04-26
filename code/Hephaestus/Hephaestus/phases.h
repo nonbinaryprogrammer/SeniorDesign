@@ -14,5 +14,6 @@ int observation(void);	// Phase 2
 int science(void);		// Phase 3
 int off(void);			// Phase 4
 int safety(void);		// Phase 5
+void retract(void);  // retract phase
 
 #endif /* PHASES_H_ */
