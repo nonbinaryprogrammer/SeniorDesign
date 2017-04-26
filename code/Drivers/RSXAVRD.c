@@ -1,7 +1,7 @@
 /* Designer: Jonathan Hardman
  * Filename: RSXAVRD.c
- * Version: 3.0
- * Date: 03/11/17
+ * Version: 3.1
+ * Date: 04/25/17
  * Description: AVR ATmega64 I/O Drivers for RS-X Project
 */
 
@@ -108,7 +108,7 @@ ISR(INT4_vect){
 
 //TIMER COUNTER 1 INT: Time Keeping Interrupt - increments time variable every 0.1 sec
 ISR(TIMER1_COMPA_vect){
-	time++;
+	PORTB ^= 0xFF;
 }
 
 /***********************************General***********************************/
@@ -131,11 +131,11 @@ void AVR_init(){
 	
 	//TimerCounter1: 16-bit CTC mode, 64 prescale, 12500 top, no output latching
 	TCCR1B |= (1<<WGM12 | 1<<CS11 | 1<<CS10);
-	OCR1A = 0x30D4;
-	
+	OCR1A = 0x61AB;
+
 	//TimerCounter0: 8-bit normal mode, using 32.768 kHz clock, 64 prescale, no output latching
 	ASSR |= (1<<AS0);
-	TCCR0 |= (1<<CS02);
+	TCCR0 |= (1<<CS02 | 1<< CS00);
 	
 	//Enable ADC, single conversion mode, use external common GND, right-adjusted.
 	ADMUX |= (1<<REFS0);

@@ -1,7 +1,7 @@
-/* Designer: Jonathan Hardman
+/* Designer: n/a
  * Filename: test.c
- * Date: 01/31/17
- * Description: System test for system check-off and code example
+ * Date: n/a
+ * Description: temporary test main.c
 */
 
 #include <avr/io.h>
@@ -13,10 +13,7 @@ volatile uint16_t seconds = 0;
 
 //TIMER COUNTER 0 INT: executes on 1 second intervals
 ISR(TIMER0_OVF_vect){
-	static uint8_t flag = 0;
-	flag = (flag +1) % 2;
-	if(flag == 0)
-		seconds++;
+	seconds++;
 }
 
 //EXTERNAL INT 6: Timer Event 0 Interrupt Routine - Begin Experiment
@@ -31,12 +28,14 @@ ISR(INT5_vect){
 
 int main() {
 	AVR_init(); //Setup system
+	DDRB = 0xFF;
 	timer_counter_enable(0x01,0x01); //Start 1 second timer
 	//camera_enable(0x01);
 	//motor_pwr(0x05, 0x01);
 	//motor_dir(0x05, 0x00);
 	//while(1){motor_step(0x05, 1600, 0x01, 93);}
-	while (get_time() < 5920){}
+	
+	/*while (get_time() < 5920){}
 	camera_enable(1);
 
 	motor_pwr(0,1);
@@ -69,6 +68,7 @@ int main() {
 	motor_pwr(4,0);
 	motor_pwr(5,0);
 	camera_enable(0x00);
+	*/
 	while(1){} //Don't let the main() run off, just idle instead
 	return 0;
 }

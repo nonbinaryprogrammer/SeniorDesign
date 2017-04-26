@@ -1,7 +1,7 @@
 /* Designer: Jonathan Hardman
  * Filename: RSXAVRD.c
- * Version: 3.0
- * Date: 03/10/17
+ * Version: 3.1
+ * Date: 04/25/17
  * Description: AVR ATmega64 I/O Drivers for RS-X Project
 */
 
@@ -52,12 +52,12 @@
 //Motor Direction Output
 #define MOTOR_DIR_DDR &DDRA
 #define MOTOR_DIR_PORT &PORTA
-#define MOT0_DIR_PIN 0
-#define MOT1_DIR_PIN 1
-#define MOT2_DIR_PIN 2
-#define MOT3_DIR_PIN 3
-#define MOT4_DIR_PIN 4
-#define MOT5_DIR_PIN 5
+#define MOT0_DIR_PIN 5
+#define MOT1_DIR_PIN 4
+#define MOT2_DIR_PIN 3
+#define MOT3_DIR_PIN 2
+#define MOT4_DIR_PIN 1
+#define MOT5_DIR_PIN 0
 
 //Camera Enable Output
 #define CAMERA_EN_DDR &DDRB
@@ -75,13 +75,9 @@
 
 /*********Variables*********/
 uint8_t calibration_flg = 0x00; //Will hold number other than 0 when calibration switch triggered
-uint8_t timer_event0_flg = 0x00; //Will switch to 1 once experiment begin signal received
-uint8_t timer_event1_flg = 0x00; //Will switch to 1 once emergency retract signel receieved
 uint16_t time = 0x0000; //Holds time count in tenths of a second from when timer_counter_enable() is turned on
 
 uint16_t get_time(){return time;}
-uint8_t get_TE0_status(){return timer_event0_flg;}
-uint8_t get_TE1_status(){return timer_event1_flg;}
 uint8_t get_calibration_status(){return calibration_flg;}
 
 /*********Interrupt Vectors*********/
@@ -110,21 +106,9 @@ ISR(INT4_vect){
 	calibration_flg |= 0x10;
 }
 
-//EXTERNAL INT 5: Timer Event 1 Function - Emergency Shutoff
-ISR(INT5_vect){
-	timer_event1_flg = 0x01;
-	/* CONSIDER REVISING THIS FOR FINAL */
-}
-
-//EXTERNAL INT 6: Timer Event 0 Interrupt Function - Begin Experiment
-ISR(INT6_vect){
-	timer_event0_flg = 0x01;
-}
-
 //TIMER COUNTER 1 INT: Time Keeping Interrupt - increments time variable every 0.1 sec
 ISR(TIMER1_COMPA_vect){
-	//PORTD ^= 0x01; //For timing testing
-	time++;
+	PORTB ^= 0xFF;
 }
 
 /***********************************General***********************************/
@@ -147,19 +131,30 @@ void AVR_init(){
 	
 	//TimerCounter1: 16-bit CTC mode, 64 prescale, 12500 top, no output latching
 	TCCR1B |= (1<<WGM12 | 1<<CS11 | 1<<CS10);
-	OCR1A = 0x30D4;
+	OCR1A = 0x61AB;
+
+	//TimerCounter0: 8-bit normal mode, using 32.768 kHz clock, 64 prescale, no output latching
+	ASSR |= (1<<AS0);
+	TCCR0 |= (1<<CS02 | 1<< CS00);
 	
 	//Enable ADC, single conversion mode, use external common GND, right-adjusted.
 	ADMUX |= (1<<REFS0);
 	ADCSRA |= (1<<ADEN);
 }
 
-void timer_counter_enable(uint8_t flag){
+void timer_counter_enable(uint8_t counter, uint8_t flag){
 	cli();
-	if(flag == 0x01)
-		TIMSK |= (1<<OCIE1A);
-	else{
-		TIMSK &= ~(1<<OCIE1A);
+	if(flag == 0x01){
+		if(counter == 0)
+			TIMSK |=(1<<TOIE0);
+		if(counter == 1)
+			TIMSK |= (1<<OCIE1A);
+	}else{
+		if(counter == 0)
+			TIMSK &= ~(1<<TOIE0);
+		if(counter == 1)
+			TIMSK &= ~(1<<OCIE1A);
+
 		time = 0x0000;
 	}
 	sei();
@@ -170,11 +165,8 @@ void timer_event_enable(uint8_t event, uint8_t flag){
 	uint8_t eventID[2] = {RSX_TE0_INT, RSX_TE1_INT};
 	if(flag == 0x01)
 		EIMSK |= (1<<eventID[event]);
-	else{
+	else
 		EIMSK &= (1<<eventID[event]);
-		timer_event0_flg = 0x00;
-		timer_event1_flg = 0x00;
-	}
 	sei();
 }
 
@@ -234,9 +226,9 @@ void motor_pwr(uint8_t motor, uint8_t flag){
 	uint8_t motorENID[6] = {MOT0_EN_PIN, MOT1_EN_PIN, MOT2_EN_PIN,
 					   MOT3_EN_PIN, MOT4_EN_PIN, MOT5_EN_PIN};
 	if(flag == 0x01)
-		*MOTOR_EN_PORT &= ~(1<<motorENID[motor]);
-	else
 		*MOTOR_EN_PORT |= (1<<motorENID[motor]);
+	else
+		*MOTOR_EN_PORT &= ~(1<<motorENID[motor]);
 }
 
 void motor_dir(uint8_t motor, uint8_t dir){
@@ -248,11 +240,11 @@ void motor_dir(uint8_t motor, uint8_t dir){
 		*MOTOR_DIR_PORT &= ~(1<<motorDIRID[motor]);
 }
 
-void motor_step(uint8_t motor, uint16_t steps, uint16_t speed){
+void motor_step(uint8_t motor, uint16_t steps, uint8_t mult, uint16_t speed){
 	uint16_t j,k;
 	uint8_t motorSTEPID[6] = {MOT0_STEP_PIN, MOT1_STEP_PIN, MOT2_STEP_PIN, MOT3_STEP_PIN, MOT4_STEP_PIN, MOT5_STEP_PIN};
 	speed = -99*(speed)+10000;
-	steps = 2*steps;
+	steps = steps*mult;
 	for (j=0;j<steps;j++){
 		if(calibration_flg == 0x00){
 			*MOTOR_STEP_PORT ^= (1<<motorSTEPID[motor]);

@@ -1,21 +1,13 @@
 /* Designer: Jonathan Hardman
  * Filename: RSXAVRD.h
- * Version: 3.0
- * Date: 03/10/17
+ * Version: 3.1
+ * Date: 04/25/17
  * Description: AVR ATmega64 I/O Drivers for RS-X Project
 */
 /******************Variables/Flags******************/
 //Returns time count in 0.1 seconds,
-//Can be 0-65535
+//Can be 0-65535 in 0.1s precision
 uint16_t get_time(void);
-
-//Returns Timer Event 0 signal state,
-//0 for not received or 1 for received
-uint8_t get_TE0_status(void);
-
-//Returns Timer Event 1 signal state,
-//0 for not received or 1 for received
-uint8_t get_TE1_status(void);
 
 //Returns Calibration Status, 
 //0 for no calibration, 1=MOT0, 2=MOT1, 4=MOT2, 8=MOT3, 16=MOT4 calibrated
@@ -26,8 +18,8 @@ uint8_t get_calibration_status(void);
 void AVR_init(void);
 
 //Enable or disable the time keeping of the AVR
-//flag: 1=On, 0=Off, time reset on turn-off
-void timer_counter_enable(uint8_t flag);
+//counter: 0=1sec timer, 1=0.1sec timer,  flag: 1=On, 0=Off, time reset on turn-off
+void timer_counter_enable(uint8_t counter, uint8_t flag);
 
 //Enable or Disable Timer Event Interrupt flags, 
 //event: 0 or 1, flag: 1=On, 0=Off
@@ -62,7 +54,8 @@ void motor_pwr(uint8_t motor, uint8_t flag);
 //motor: 0-5, dir: 1=CCW 0=CW
 void motor_dir(uint8_t motor, uint8_t dir);
 
-//Steps the motor at a given speed, 
-//motor: 0-5, steps: <65535, speed: 0-100
-void motor_step(uint8_t motor, uint16_t steps, uint16_t speed);
+//Steps the motor at a given speed, mult variable is step count multiplier 
+//NOTE: motors are 1600steps/rotation
+//motor: 0-5, steps: <65535, mult: 0-255, speed: 0-100
+void motor_step(uint8_t motor, uint16_t steps, uint8_t mult, uint16_t speed);
 

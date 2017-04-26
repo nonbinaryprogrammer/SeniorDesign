@@ -1,21 +1,13 @@
 /* Designer: Jonathan Hardman
  * Filename: RSXAVRD.h
- * Version: 3.0
- * Date: 03/11/17
+ * Version: 3.1
+ * Date: 04/25/17
  * Description: AVR ATmega64 I/O Drivers for RS-X Project
 */
 /******************Variables/Flags******************/
 //Returns time count in 0.1 seconds,
 //Can be 0-65535 in 0.1s precision
 uint16_t get_time(void);
-
-//Returns Timer Event 0 signal state,
-//0 for not received or 1 for received
-uint8_t get_TE0_status(void);
-
-//Returns Timer Event 1 signal state,
-//0 for not received or 1 for received
-uint8_t get_TE1_status(void);
 
 //Returns Calibration Status, 
 //0 for no calibration, 1=MOT0, 2=MOT1, 4=MOT2, 8=MOT3, 16=MOT4 calibrated
