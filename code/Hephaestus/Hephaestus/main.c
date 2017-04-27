@@ -8,6 +8,7 @@
 #include <avr/io.h>
 #include "phases.h"
 #include "RSXAVRD.h"
+#include "retract.h"
 
 
 int main(void)
@@ -34,8 +35,8 @@ int main(void)
 
 		// Phase 3: Science
 		status = science();
-		if (status != 0) {
-			safety();
+		if (status != 0) { // if our arm is not calibrated i.e. collapsed and in home position...
+			retract(); // turn off all motors and retract into a safe position
 		}
 
 		// Phase 4: Off

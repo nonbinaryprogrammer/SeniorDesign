@@ -3,8 +3,9 @@
 #include <util/delay.h>
 #include "RSXAVRD.h"
 #include "phases.h"
+#include "retract.h"
 
-uint8_t plate_retracted_flg; // this means the plate is out 
+uint8_t plate_retracted_flg; // flag to keep track of plate's position
 
 ISR(INT5_vect){
 	
