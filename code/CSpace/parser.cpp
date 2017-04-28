@@ -97,10 +97,10 @@ int main() {
 		}
 
 		//convert to ints
-		a = floor(af)/10;
-		b = floor(bf)/10;
-		c = floor(cf)/10;
-		d = floor(df)/10;
+		a = floor(af/10);
+		b = floor(bf/10);
+		c = floor(cf/10);
+		d = floor(df/10);
 
 		//check floored values against original FOR TESTING
 		cout << a << "/" << af << " - " << b << "/" << bf << " - " << c << "/" << cf << " - " << d << "/" << df << endl;
