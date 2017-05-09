@@ -9,6 +9,8 @@
 #ifndef TELEMETRY_H_
 #define TELEMETRY_H_
 
+#include <stdint.h>
+
 // Telemetry codes
 #define IDLE ((uint8_t) 0x00)
 #define CALIBRATION_SUCCESS ((uint8_t) 0x01)
@@ -19,12 +21,12 @@
 #define RETRACT_PHASE ((uint8_t) 0x06)
 #define OFF_PHASE ((uint8_t) 0x07)
 #define SAFETY_PHASE ((uint8_t) 0x08)
-#define UNDEFINED ((uint8_t) 0x09)
-#define UNDEFINED ((uint8_t) 0x0A)
-#define UNDEFINED ((uint8_t) 0x0B)
-#define UNDEFINED ((uint8_t) 0x0C)
-#define UNDEFINED ((uint8_t) 0x0D)
-#define UNDEFINED ((uint8_t) 0x0E)
+#define UNDEFINED9 ((uint8_t) 0x09)
+#define UNDEFINEDA ((uint8_t) 0x0A)
+#define UNDEFINEDB ((uint8_t) 0x0B)
+#define UNDEFINEDC ((uint8_t) 0x0C)
+#define UNDEFINEDD ((uint8_t) 0x0D)
+#define UNDEFINEDE ((uint8_t) 0x0E)
 #define MOTION_ERROR ((uint8_t) 0x0F)
 
 // Time to send telemetry codes. Use this constant so it can be easily adjusted later
@@ -36,12 +38,13 @@
 // Define line terminator for SD card.
 #define LINE_TERMINATOR '\n'
 
-
-
 // Sends a code with the predefined TELEMETRY_TIME constant.
-void inline send_code(uint8_t code);
+void inline telemetry_send_code(uint8_t code);
 
-// Log a message to the SD card
-void SD_log(char* message);
+// Log a message to the EEPROM
+void eeprom_log(char* message, uint16_t len);
+
+// Log a message to the SD card - DEPRECATED
+//void SD_log(char* message);
 
 #endif /* TELEMETRY_H_ */
