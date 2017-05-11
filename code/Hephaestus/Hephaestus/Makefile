@@ -1,10 +1,10 @@
 SHELL           = /bin/bash
 
-PRG             = sd_card_test
+PRG             = main
 
-OBJS            = $(PRG).o mmc_avr_spi.o RSXAVRD.o ff.o diskio.o
+OBJS            = $(PRG).o science.o idle.o retract.o safety.o RSXAVRD.o telemetry.o
 
-SRCS            = $(PRG).c mmc_avr_spi.c RSXAVRD.c ff.c diskio.c
+SRCS            = $(PRG).c science.c idle.c retract.c safety.c RSXAVRD.c telemetry.c
 
 #MCU_TARGET     = atmega64
 MCU_TARGET     = atmega128
