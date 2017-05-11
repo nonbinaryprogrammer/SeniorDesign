@@ -27,3 +27,13 @@ The Presentations directory shall include all presentations given by the CS team
 
 ### Testing
 ### Code
+
+## Instruction to Build
+
+### Before you build
+Before you can build the code for this project, make sure you have the avr-gcc compiler as well as an ATmega128 microchip and programmer. You can obtain a copy of the avr-gcc compiler from the [WinAVR suite](http://winavr.sourceforge.net/) for Windows, or by installing the `avr-libc`, `binutils-avr`, `gcc-avr`, and `avrdude` packages from your Linux OS's package repository. The ATmega128 chip can be purchased from [Microchip's website here](https://www.microchip.com/wwwproducts/en/ATMEGA128). Also, be sure to have a programming board for your ATmega128 chip, which can be obtained from the OSU TekBot store.
+
+### Building
+1. Navigate to the code/Hephaestus/Hephaestus directory.
+2. Run `make all` to compile the code.
+3. Run `make program` to program the microcontroller.
