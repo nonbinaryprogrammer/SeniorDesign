@@ -7,6 +7,7 @@
 
 #include "RSXAVRD.h"
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 uint8_t ready = 0;
 
