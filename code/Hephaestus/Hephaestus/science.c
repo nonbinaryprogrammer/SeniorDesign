@@ -12,7 +12,7 @@
 //Interrupt for touch sensor being depressed (oh no, so sad)
 ISR(INT6_vect){
 	if(touch_sensor_check() != 0x01){
-		send_code(/*code indicating sensor was depressed*/);
+		telemetry_send_code(TOUCH_SENSOR_1_ENGAGED);
 	}
 }
 
