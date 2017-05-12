@@ -8,6 +8,7 @@
 #include "telemetry.h"
 #include "RSXAVRD.h"
 #include <avr/eeprom.h>
+#include <string.h>
 
 uint16_t current_address;
 
