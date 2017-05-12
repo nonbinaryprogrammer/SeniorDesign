@@ -2,9 +2,9 @@ SHELL           = /bin/bash
 
 PRG             = main
 
-OBJS            = $(PRG).o science.o idle.o retract.o safety.o RSXAVRD.o telemetry.o observation.o
+OBJS            = $(PRG).o science.o idle.o retract.o safety.o RSXAVRD.o telemetry.o observation.o off.o
 
-SRCS            = $(PRG).c science.c idle.c retract.c safety.c RSXAVRD.c telemetry.c observation.c
+SRCS            = $(PRG).c science.c idle.c retract.c safety.c RSXAVRD.c telemetry.c observation.c off.c
 
 #MCU_TARGET     = atmega64
 MCU_TARGET     = atmega128
