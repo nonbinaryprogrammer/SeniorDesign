@@ -24,9 +24,9 @@ void inline telemetry_send_code(uint8_t code) {
 }
 
 // Log a message to the EEPROM
-void eeprom_log(char* message, uint16_t len) {
-	eeprom_update_block(message, &current_address, len);
-	current_address += len;
+void eeprom_log(char* message) {
+	eeprom_update_block(message, &current_address, strlen(message));
+	current_address += strlen(message);
 	eeprom_update_word(0, current_address);
 }
 

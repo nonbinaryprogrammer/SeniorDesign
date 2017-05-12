@@ -42,7 +42,7 @@
 void inline telemetry_send_code(uint8_t code);
 
 // Log a message to the EEPROM
-void eeprom_log(char* message, uint16_t len);
+void eeprom_log(char* message);
 
 // Log a message to the SD card - DEPRECATED
 //void SD_log(char* message);
