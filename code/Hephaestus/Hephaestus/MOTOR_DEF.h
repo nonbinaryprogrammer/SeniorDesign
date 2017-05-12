@@ -17,5 +17,5 @@
 
 #define DEGREES_PER_STEP .225
 
-#define DEGREES_TO_STEPS (degrees) ((degrees) / DEGREES_PER_STEP)
+#define DEGREES_TO_STEPS(degrees) ((degrees) / DEGREES_PER_STEP)
 
