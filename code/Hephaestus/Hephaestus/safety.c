@@ -8,14 +8,13 @@
 
 #include <avr/io.h>
 #include "phases.h"
+#include "retract.h"
 
 int safety(void){
+    
 
-    // need to nail down what exactly safety is trying to do
-    // it's supposed to repeatedly attempt to pull in the payload if an issue is encountered
-    // need driver interfaces to move in the machine if something is detected to have gone wrong
-    // 
+    retract();
 
-
+    while(1){}; // abort mission, we are hanging here
 
 }
