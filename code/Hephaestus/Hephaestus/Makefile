@@ -111,4 +111,4 @@ esrec: $(PRG)_eeprom.srec
 	|| { echo empty $@ not generated; exit 0; }
 
 read_eeprom:
-	 avrdude -p $(PROGRAMMER_TARGET) -c usbasp -e -U eeprom:r:eeprom_dump.hex:i
+	 avrdude -p $(PROGRAMMER_TARGET) -c usbasp -U eeprom:r:eeprom_dump.hex:i
