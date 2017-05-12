@@ -2,7 +2,8 @@
 #include "phases.h"
 #include "RSXAVRD.h"
 #include "telemetry.h"
-
+#include <avr/interrupt.h>
+#include <util/delay.h>
 /*
 * Design of science phase: arm will move to touch sensor and press it. Upon moving the arm to the location, we will
 * check whether the touch sensor was pressed and change our status to represent whether or not it was pressed.
