@@ -4,6 +4,9 @@
  * Date: 04/25/17
  * Description: AVR ATmega64 I/O Drivers for RS-X Project
 */
+
+#include <avr/io.h>
+
 /******************Variables/Flags******************/
 //Returns time count in 0.1 seconds,
 //Can be 0-65535 in 0.1s precision
