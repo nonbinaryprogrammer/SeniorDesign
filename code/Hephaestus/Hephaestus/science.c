@@ -10,14 +10,6 @@
 * We will also write a code over the telemetry lines to represent whether or not the touch sensor was pressed.
 */
 
-//Interrupt for touch sensor being depressed (oh no, so sad)
-ISR(INT6_vect){
-	if(touch_sensor_check() != 0x01){
-		telemetry_send_code(TOUCH_SENSOR_1_ENGAGED); // For now, always send TOUCH_SENSOR_1_ENGAGED.
-		                                             // TODO: Differentiate between touch sensors
-	}
-}
-
 int science(){
 	int status = 0;
 	int M1_POS, M2_POS, M3_POS, M4_POS;
@@ -114,6 +106,10 @@ int science(){
 	M2_POS = M2_NXT;
 	M3_POS = M3_NXT;
 	M4_POS = M4_NXT;
+
+	if(touch_sensor_check() == 0x01){
+		telemetry_send_code(TOUCH_SENSOR_1_ENGAGED); // For now, always send TOUCH_SENSOR_1_ENGAGED.
+	}
 
 	// code to return arm to callibrated "home" position
 	if(get_calibration_status() != 0x01){ // or whichever motor refers to the home position
