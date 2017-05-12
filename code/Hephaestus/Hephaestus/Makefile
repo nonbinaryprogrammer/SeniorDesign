@@ -109,3 +109,6 @@ esrec: $(PRG)_eeprom.srec
 %_eeprom.bin: %.elf
 	$(OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O binary $< $@ \
 	|| { echo empty $@ not generated; exit 0; }
+
+read_eeprom:
+	 avrdude -p $(PROGRAMMER_TARGET) -c usbasp -e -U eeprom:r:eeprom_dump.hex:i
