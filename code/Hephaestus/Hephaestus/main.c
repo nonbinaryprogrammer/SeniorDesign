@@ -16,7 +16,7 @@ int main(void)
 	// Pin configuration
 	AVR_init();
 
-	int status = 0;
+	uint8_t status = 0;
 
 	//timer_counter_enable(1,1); // code that enables timer event - Jon says Michael wanted this?
 
@@ -41,6 +41,8 @@ int main(void)
 
 		// Phase 4: Off
 		status = off();
+		// Under normal circumstances, off never returns.
+		// Off only returns if there was an error.
 
 		// Phase 5: Safety
 		status = safety();

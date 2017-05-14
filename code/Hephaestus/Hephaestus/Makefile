@@ -1,10 +1,10 @@
 SHELL           = /bin/bash
 
-PRG             = sd_card_test
+PRG             = main
 
-OBJS            = $(PRG).o mmc_avr_spi.o RSXAVRD.o ff.o diskio.o
+OBJS            = $(PRG).o science.o idle.o retract.o safety.o RSXAVRD.o telemetry.o observation.o off.o
 
-SRCS            = $(PRG).c mmc_avr_spi.c RSXAVRD.c ff.c diskio.c
+SRCS            = $(PRG).c science.c idle.c retract.c safety.c RSXAVRD.c telemetry.c observation.c off.c
 
 #MCU_TARGET     = atmega64
 MCU_TARGET     = atmega128
@@ -109,3 +109,6 @@ esrec: $(PRG)_eeprom.srec
 %_eeprom.bin: %.elf
 	$(OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O binary $< $@ \
 	|| { echo empty $@ not generated; exit 0; }
+
+read_eeprom:
+	 avrdude -p $(PROGRAMMER_TARGET) -c usbasp -U eeprom:r:eeprom_dump.hex:i

@@ -2,27 +2,21 @@
 #include "phases.h"
 #include "RSXAVRD.h"
 #include "telemetry.h"
-
+#include <avr/interrupt.h>
+#include <util/delay.h>
 /*
 * Design of science phase: arm will move to touch sensor and press it. Upon moving the arm to the location, we will
 * check whether the touch sensor was pressed and change our status to represent whether or not it was pressed.
 * We will also write a code over the telemetry lines to represent whether or not the touch sensor was pressed.
 */
 
-//Interrupt for touch sensor being depressed (oh no, so sad)
-ISR(INT6_vect){
-	if(touch_sensor_check() != 0x01){
-		send_code(/*code indicating sensor was depressed*/);
-	}
-}
-
 int science(){
 	int status = 0;
 	int M1_POS, M2_POS, M3_POS, M4_POS;
 	int M1_NXT, M2_NXT, M3_NXT, M4_NXT;
 	int M1_DIF, M2_DIF, M3_DIF, M4_DIF;
-	int M1_DIF, M2_DIF, M3_DIF, M4_DIF;
-	int scale factor = 0.225;
+	int M1_STP, M2_STP, M3_STP, M4_STP;
+	int scale_factor = 0.225;
 
 	// init motor values to 0
 	M1_POS = 0;
@@ -31,7 +25,7 @@ int science(){
 	M4_POS = 0;
 
 	// turn on camera
-	camera_enable();
+	camera_enable(1);
 
 	// power on motors
 	motor_pwr(1, 1);
@@ -46,6 +40,10 @@ int science(){
 	motor_dir(4, 0);
 	
 	// TODO retrieve the next position
+	M1_NXT = -1;	// Dummy data
+	M2_NXT = -1;
+	M3_NXT = -1;
+	M4_NXT = -1;
 	
 	//change _NXT values to be less than 360
 	if(M1_NXT > 359) {
@@ -108,6 +106,10 @@ int science(){
 	M2_POS = M2_NXT;
 	M3_POS = M3_NXT;
 	M4_POS = M4_NXT;
+
+	if(touch_sensor_check() == 0x01){
+		telemetry_send_code(TOUCH_SENSOR_1_ENGAGED); // For now, always send TOUCH_SENSOR_1_ENGAGED.
+	}
 
 	// code to return arm to callibrated "home" position
 	if(get_calibration_status() != 0x01){ // or whichever motor refers to the home position
