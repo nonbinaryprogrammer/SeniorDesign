@@ -28,11 +28,16 @@ ISR(INT5_vect){
 
 int main() {
 	AVR_init(); //Setup system
-	DDRB = 0xFF;
-	timer_counter_enable(0x01,0x01); //Start 1 second timer
-	//camera_enable(0x01);
+	//DDRB = 0xFF;
+	timer_counter_enable(0x01,0x01); //Start 0.1 second timer
+	camera_enable(0x01);
 	//motor_pwr(0x05, 0x01);
 	//motor_dir(0x05, 0x00);
+	//PORTD = (1<<PD5);
+	while(1) {
+		send_code(0xFF, 0);
+		send_code(0x00, 0);
+	}
 	//while(1){motor_step(0x05, 1600, 0x01, 93);}
 	
 	/*while (get_time() < 5920){}

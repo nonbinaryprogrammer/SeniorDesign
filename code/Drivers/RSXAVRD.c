@@ -108,7 +108,7 @@ ISR(INT4_vect){
 
 //TIMER COUNTER 1 INT: Time Keeping Interrupt - increments time variable every 0.1 sec
 ISR(TIMER1_COMPA_vect){
-	PORTB ^= 0xFF;
+	time++;
 }
 
 /***********************************General***********************************/
@@ -131,7 +131,7 @@ void AVR_init(){
 	
 	//TimerCounter1: 16-bit CTC mode, 64 prescale, 12500 top, no output latching
 	TCCR1B |= (1<<WGM12 | 1<<CS11 | 1<<CS10);
-	OCR1A = 0x61AB;
+	OCR1A = 0x61AB; //25003 out of 65535
 
 	//TimerCounter0: 8-bit normal mode, using 32.768 kHz clock, 64 prescale, no output latching
 	ASSR |= (1<<AS0);
@@ -172,14 +172,15 @@ void timer_event_enable(uint8_t event, uint8_t flag){
 
 void send_code(uint8_t code, uint8_t ms){
 	uint8_t i;
-	while((*LINE_STROBE_PORT & (1<<LINE_STROBE_PIN)) == 0x00){} //wait for PRS
-	_delay_us(5); //wait for end of READ phase
-	*LINES_PORT |= ((code&0x01)<<LINE0_PIN | (code&0x02)<<LINE1_PIN | (code&0x04)<<LINE2_PIN | (code&0x08)<<LINE3_PIN); //send code
+	code = ((code & 0x0F)<<4);
+	while(bit_is_clear(*LINE_STROBE_PORT,LINE_STROBE_PIN)){} //wait for PRS
+	_delay_us(7); //wait for end of READ phase
+	PORTD |= code;
 	for(i=0;i<ms;i++)
 		_delay_ms(1);
-	while((*LINE_STROBE_PORT & (1<<LINE_STROBE_PIN)) == 0x00){} //wait for pulse
-	_delay_us(5); //wait for end of READ phase
-	*LINES_PORT &= ~(1<<LINE0_PIN | 1<<LINE1_PIN | 1<<LINE2_PIN | 1<<LINE3_PIN); //reset to 0's
+	while(bit_is_clear(*LINE_STROBE_PORT,LINE_STROBE_PIN)){} //wait for PRS
+	_delay_us(7); //wait for end of READ phase
+	PORTD &= ~(code);
 }
 
 /**************************************Device Functions**************************************/
