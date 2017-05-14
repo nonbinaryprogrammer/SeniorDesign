@@ -1,0 +1,101 @@
+https://github.com/balesh2/SeniorDesign/tree/master/code/
+├── CSpace
+│   ├── 0plot.png
+│   ├── CSpace_Mapping
+│   │   └── CSpace_Mapping.ino
+│   ├── a.out
+│   ├── cspace
+│   ├── cspacePlotData
+│   ├── data.py
+│   ├── parser.cpp
+│   ├── pathing.cpp
+│   └── test1
+│       ├── data1
+│       └── data2
+├── Drivers
+│   ├── Makefile
+│   ├── RSXAVRD.c
+│   ├── RSXAVRD.h
+│   └── test.c
+├── Hephaestus
+│   ├── Hephaestus
+│   │   ├── 00history.txt
+│   │   ├── 00readme.txt
+│   │   ├── Hephaestus.componentinfo.xml
+│   │   ├── Hephaestus.cproj
+│   │   ├── Makefile
+│   │   ├── RSXAVRD.c
+│   │   ├── RSXAVRD.d
+│   │   ├── RSXAVRD.h
+│   │   ├── RSXAVRD.o
+│   │   ├── diskio.c
+│   │   ├── diskio.d
+│   │   ├── diskio.h
+│   │   ├── diskio.o
+│   │   ├── ff.c
+│   │   ├── ff.d
+│   │   ├── ff.h
+│   │   ├── ff.o
+│   │   ├── ffconf.h
+│   │   ├── idle.c
+│   │   ├── integer.h
+│   │   ├── main-FAT.c
+│   │   ├── main.c
+│   │   ├── mmc_avr.h
+│   │   ├── mmc_avr_spi.c
+│   │   ├── mmc_avr_spi.d
+│   │   ├── mmc_avr_spi.o
+│   │   ├── observation.c
+│   │   ├── phases.h
+│   │   ├── retract.c
+│   │   ├── retract.h
+│   │   ├── rtc.c
+│   │   ├── rtc.h
+│   │   ├── safety.c
+│   │   ├── science.c
+│   │   ├── sd_card_test\ 2.bin.cpgz
+│   │   ├── sd_card_test.bin
+│   │   ├── sd_card_test.bin.cpgz
+│   │   ├── sd_card_test.c
+│   │   ├── sd_card_test.d
+│   │   ├── sd_card_test.elf
+│   │   ├── sd_card_test.hex
+│   │   ├── sd_card_test.lst
+│   │   ├── sd_card_test.map
+│   │   ├── sd_card_test.o
+│   │   ├── sd_card_test.srec
+│   │   ├── sd_card_test_eeprom.bin
+│   │   ├── sd_card_test_eeprom.hex
+│   │   ├── sd_card_test_eeprom.srec
+│   │   ├── src
+│   │   │   └── option
+│   │   │       ├── cc932.c
+│   │   │       ├── cc936.c
+│   │   │       ├── cc949.c
+│   │   │       ├── cc950.c
+│   │   │       ├── ccsbcs.c
+│   │   │       ├── syscall.c
+│   │   │       └── unicode.c
+│   │   ├── telemetry.c
+│   │   ├── telemetry.h
+│   │   ├── test.c
+│   │   ├── test.d
+│   │   ├── test.map
+│   │   ├── test.o
+│   │   ├── uart.h
+│   │   └── xitoa.h
+│   ├── Hephaestus.atsln
+│   └── MotorTest
+│       ├── Makefile
+│       ├── MotorTest.componentinfo.xml
+│       ├── MotorTest.cproj
+│       ├── RSXAVRD.c
+│       ├── RSXAVRD.d
+│       ├── RSXAVRD.h
+│       ├── RSXAVRD.o
+│       └── main.c
+└── SDRead
+    ├── CreateFakeFile.py
+    └── SDRead.py
+
+10 directories, 88 files

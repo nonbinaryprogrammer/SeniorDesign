@@ -142,7 +142,6 @@ int main() {
 	}
 	*/
 
-	/*
 	//store array in file
 	outfile.open("cspace");
 	for(a=0; a<x; a++) {
@@ -154,8 +153,8 @@ int main() {
 			}
 		}
 	}
-	*/
 
+	/*
 	//store 0 locations in file for plotting
 	outfile.open("cspacePlotData");
 	for(a=0; a<x; a++) {
@@ -172,5 +171,6 @@ int main() {
 		}
 		outfile << "\n";
 	}
+	*/
 	
 }
