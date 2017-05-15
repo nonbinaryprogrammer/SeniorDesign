@@ -1,102 +1,197 @@
 \subsubsection{Week 1}
-This week we attempted to gather ourselves after winter break and make a game plan for this coming term. We met as a 
-group and worked on figuring out what needs to get done within the next 5 weeks and set small goals for each coming 
-week. We are meeting with our EE collaborators next week to figure out telemetry codes. I've downloaded Atmel studio 
-so I can start writing code. We are divvying out work based on our design document from last term.
+\begin{itemize}
+\item{
+	\textbf{Progress}
 
-For the next week, I am hoping to begin work with the telemetry side of the project and help Michael.
+	Hi all.
 
-So far, we have not encountered any barriers. The only issue is coordinating schedules, which was an issue we 
-encountered last term as well. What mitigated that issue was clear and consistent communication across teams, which
-our newly established subteams should help with. I am serving as the representative for the Physical Integration team
-which is the team in charge of ensuring all the mechanical pieces get manufactured and put together properly. 
+	Sorry, but I had almost no progress this week due to being in Boise due to a family emergency. However, over spring break,
+	 I did look into the SD Card issues more and found out that the reason a function was having undefined behavior (returning
+	  success and failure seemingly simultaneously) I found that this function was actually being called in a previous library 
+	  function call that I had failed to take into account during my stack trace. This was a breakthrough in that it proved 
+	  this me and this function weren't losing our "minds" but also left me with the original problem I had of not knowing why 
+	  the function was failing in the first place.
+
+}
+
+
+\item{
+	\textbf{Plans}
+
+
+	The next plan is to continue investigating why this is failing to work and move implementation, hopefully, more
+	 towards the arm as the ME's and EE's are getting that in a good place for us to test it.
+}
+
+
+\item{
+	\textbf{Problems}
+
+
+	The main blocker was being out of town and having to focus on my family. Working remotely and while under a lot of 
+	emotional pressure is very difficult.
+}
+\end{itemize}
 
 \subsubsection{Week 2}
-This week was somewhat odd due to the short week the previous week because of snow throwing off our progress and the
- shortness of this week due to Martin Luther King Jr. day. Little progress was made this week. The only progress made
- was attempting to work on our team organizational skills and begin documenting our individual process through a 
- scrum document that Michael set up. 
+\begin{itemize}
+	\item{
+	\textbf{Progress}
 
-There was also a change in project delegation as the EE's decided that they want a local storage for the 
-microcontroller in the form of an SD card. I will begin looking into lightweight, Atmel-compliant storage systems
-that interface with an SD card.
 
-Our barriers have been limited to lack of time between all of us. Also, due to having irregular meetings, we are
-having issues knowing what each other are doing and how to keep track of differing obligations and deadlines.
-We are attempting to overcome this with the scrum document which should allow for less in-person meetings
-and more communication about what we are all doing on our own time. We also are waiting on the EE's for their driver 
-code they are writing for us. They have been tasked with writing the C code that will interface with the motors.
+		No notable progress was made week 2 of spring term. I was unfortunately mentally and academically recovering from
+		 my absence the week prior and didn't have a lot of time to spend on senior design work. I did meet up with my 
+		 team for the first time since the previous term and we designated tasks for the coming weeks including finishing 
+		 code implementation for the arm and finishing up the library implementation for the SD card.
+	}
+
+	\item{
+		\textbf{Plans}
+
+
+		Upcoming plans include meeting with the ME Brett to figure out where we will place the touch sensors on the arm body and implement code to move the arm to these touch sensor points.
+	}
+
+	\item{
+		\textbf{Problems}
+
+
+		Blockers are limited to just the fact that the arm is too heavy to lift and so it will be hard to test. 
+		Testing arm movement would require us to manually check the rotation of the motors using a compass. 
+		This is not ideal.
+	}
+
+\end{itemize}
 
 \subsubsection{Week 3}
-This week we got the code from the EE's for interfacing with the microcontroller. I also did research on SD card 
-interfaces with microcontrollers that we are now using to write data from the microcontroller to an SD card. This 
-code will be up on Github once we translate it from the Atmega 16 pins to the Atmega 64 (which we are using). I worked
-with the EE's to accomplish this translation as they are more familiar with the Atmega 64 archictecture than I am.
+\begin{itemize}
+\item{
+	\textbf{Progress}
 
-Our next step is to make the code compliant with the Atmega64 archictecture. I will also begin work on writing code
-that utilizes this library so that we can write telemetry codes, sensor touch data, and other log data to the card
-for post-mortem analysis.
 
-The problems we have encountered include illness and traveling. When we do not have teammates available, it can be
-difficult to be as productive due to reduced man power. These random holidays also slowed our initial progress, so
-it can feel like we are trying to play catch up. We are also nearing deadlines for our STR meeting with the Colorado
-RockSat-X group, so I am beginning to feel the pressure of that as I do not feel our team has accomplished as much
-as I would like us to.
+	This was a hard week, boys and girls. Mostly due to the fact I was very busy with my research job as we had a paper 
+	deadline on Friday and basically had to spend every "free" hour working towards that deadline. This left minimal time 
+	to work on senior design, but fortunately I was able to make some notable progress. I met up with Jonathan from the 
+	EE's to discuss the issues with the SD card as I was at a loss as to what to do next to determine why that function 
+	wasn't working. We reworked the SPI function call but that unfortunately didn't help anything. Our next step is to try 
+	reworking our approach and seeing if we can read from a file and perhaps find some commonality between reading and 
+	writing where the software breaks to pin-point an exact issue. Our other option is dropping this stretch goal (since 
+	that's essentially what it is) and focusing our efforts on writing stable data storage to EEPROM. If we can't get this 
+	stuff working soon enough that's probably what we'll have to do. Meanwhile, we also need to start focusing our energy 
+	on programming the arm to move. That's a big one.
+}
+
+\item{
+	\textbf{Plans}
+
+
+	Next steps are to find out where EXACTLY this code is breaking. And also to implement the retract and move out parts for the deck plate holding the mechanical arm as that's part of my requirements I was assigned ("emergency retraction").
+
+}
+
+\item{
+	\textbf{Problems}
+
+
+	Problems are that this SD card just won't cooperate and I'm so tired of it.
+}
+
+\end{itemize}
 
 \subsubsection{Week 4}
-This week, I was able to get all the code up on Github for the SD card interface with the microcontrollers. Me and 
-the EE's (namely Jonathan Hardman) are working on implementing the remaining functions and pre-processor directives 
-for our SD card interface file. We should have that done by next Tuesday. Jonathan also updated the drivers and 
-uploaded 
-them on Google Drive, so I will import those over to Github. Now that these drivers are almost completely ready, I am 
-looking forward to working on more implementation that actually utilizes the libraries and drivers that we have 
-gotten. This step, however, hinges on having motors and a working prototype ready so we can determine whether our
-arm movements are correct. This will not be ready soon as our funding has been delayed leaving us with no money for 
-purchasing these motors.
+\begin{itemize}
+	\item{
+		\textbf{Progress}
 
-Next steps include nailing down with Michael what information we are sending over telemetry and what of that 
-information should be sent to the SD Card. Next steps also include getting the updated code from Jonathan and getting
- the drivers up on Github and fully implemented.
 
-The CS 462 class is also requiring that we update some of our previous documents and get all our deliverables up onto
-One Note, so we will do that as well. Lastly, we have a big meeting with our sponsors in Colorado next week, so we
-have some slideshow slides that we need to complete. We are in a stage where we need to start divvying out tasks
-and better communicating as a team. We also have dependencies that are reliant upon other teams that we have no way 
-of controlling, such as the lack of motors.
+		This week we began working on some more implementation endeavors for the arm's movements. 
+		I implemented the touch sensor and deck plate extension and retraction (which were my designated tasks from the 
+		Requirements document) as interrupts that execute code upon receiving information from the hardware. 
+		
+		In the case of the deck plate, an interrupt will be sent upon a timer event line (part of the RSX rocket) going to 
+		LOW and signaling the end of our deployment period for the payload. The interrupt will trigger and power the motor 
+		attached to the bottom of the deck plate, change it's direction from outward to inwards, and step the motors to 
+		pull the plate in. The code for the touch sensors are signaled by the touch sensors being depressed, and will 
+		write a code to the telemetry line signaling that we made contact. The implementation for the touch sensor is in 
+		science.c while the retract/extend code is in its own file (retract.c and retract.h). Since this is now complete, 
+		I will be assisting Helena in her work to finish the arm pathing and movement. Unrelated to the implementation 
+		effort, I joined Sam Lundeen (from the MEs) to visit Garmin regarding doing environmental testing for the arm. We 
+		met up with Steve Horvath (my dad!) and Greg Fisher to see whether it was viable to mount our arm onto their 
+		vibration table and test how the arm faired in situations similar to what will be experienced at launch time. We 
+		are going to meet with our team to update them that this is viable and to determine what we want equipped to the 
+		arm during this time. While it would be ideal to have everything attached, we've also had funding issues and don't 
+		want to risk losing any motors or other valuable pieces that we may not be able to replace if they get damaged 
+		during the testing.
+	}
+	\item{
+		\textbf{Plans}
+
+
+		Future plans are to continue implementation efforts with Helena and I also hope to clean up our repository a bit 
+		and add some more documentation regarding how to test our code so when we have the code freeze, the TAs/McGrath 
+		aren't confused as to what's going on.
+	}
+	\item{
+		\textbf{Problems}
+
+
+		Blockers are that I still have been unable to actually test this code due to the motors and arm being not set up 
+		currently. Hopefully I will be able to do this by our (extended, thanks McGrath!) May 15th deadline.
+	}
+\end{itemize}
 
 \subsubsection{Week 5}
-This week I worked on furthering the progress on our SD card implementation. I updated the Makefile such that the 
-library now compiles with the rest of the program. Jonathan also updated the code such that it uses the correct pins
-and is designed with our Atmega64 in mind. Since the FatFS library is meant to be generalizable across different
-microcontrollers, there are some functions that are left as user-designed so that they can be written for specific
-microcontrollers. We completed those parts of the code, so the library should be fully functional now.
+\begin{itemize}
+	\item{
+		\textbf{Progress}
 
-Our next work will be to test the SD card library. We are also prepping for our STR presentation with our contacts
-in Colorado, so we have to complete an extensive PowerPoint skeleton that they provide us. We will also be meeting with
-Dr. Smart (a professor in the Mechanical Engineering department) to discuss path-finding for our mechanical arm.
 
-Our main blockers are lack of communication between team members. Despite putting a scrum document into affect and 
-requiring each individual team member to add to the document every Monday and Thursday, some members of the team
-have been failing to meet this requirement, so it is difficult to know what is going on between other subteams
-and what our individual team members are doing on their own time. We also have regularly scheduled meetings, but
-attendance has been rather lax on those with team members either forgetting or making excuses right before the meeting
-time. Despite us stressing the importance of attending these meetings and communicating relevant information, our team
-still struggles with this, so some measures must be taken. However, we are ensure at the time of writing this what
-those measures should be. 
+		This week I was extraordinarily busy with other classes so I was unable to do much on the project. I plan to get 
+		back to work after my midterm Tuesday of next week.
+	}
+	\item{
+		\textbf{Plans}
 
+
+		Next week, I plan on getting back into the code and performing minor bug fixes to get the code operational before 
+		our code freeze deadline of May 15th. We also have an upcoming meeting with our sponsors in Colorado and expo 
+		coming up so things are getting pretty exciting!
+	}
+	\item{
+		\textbf{Problems}
+
+
+		No stoppers are known as of now.
+	}
+
+\end{itemize}
 \subsubsection{Week 6}
-This week was focused primarily on prepping for our big STR presentation. This is a presentation where we review our 
-subsystem testing for the RockSat-X group in Colorado. The meeting was at 6 AM on Friday and required us to prepare a 
-lot of slides for a slideshow. We also met with Dr. Smart to learn more about preparing our C-Space for 
-pathing the arm's movement and determining what are and aren't legal movements for the arm. There are multiple ways
-to do this as we can either use inverse kinematics, manually moving the arm through different legal motions and 
-recording the different degrees of rotation the motors are in, or using sensors on the motors to determine their 
-rotation. We are hoping to do the last option.
+\begin{itemize}
+	\item{
+		\textbf{Progress}
 
-Next week we shall work on the presentation for this class. Fortunately, we can lift a lot of the work we did last 
-week so it shouldn't be too cumbersome. I will also be meeting with the EE's on Friday to work on testing the SD Card 
-implementation and also continue work on the code for moving the arm.
 
-Blockers this week were the fact that I was running a study at IBM so I was out of town most of the weekend and could 
-not do work for this since I was busy preparing for that. This should not be a problem now that the study is 
-concluded.
+		This week, Michael and I worked on fixing some bugs with our implementation of the different phases. We also 
+		enhanced the readability of the code by adding some defines within a .h file and refactoring the code to use these 
+		more readable names as opposed to the previous iteration which just used numbers like 0 and 1. We believe this 
+		makes the code easier for outsiders to understand and, if changes are made in how the implementation works, we can 
+		just change the value of the defines as opposed to having to go through and find every number to change. The 
+		remaining work is just finishing the science mode, which is Helena's responsibility. We trust her to get this over 
+		the finish line.
+	}
+	\item{
+		\textbf{Plans}
+
+
+		Future progress is to get ready for Expo (May 19th!) and FSMR which should be Wednesday (May 17th) at 11. We also
+		 need to finish recording our midterm progress update. Next week will be fun/stressful!
+	}
+	\item{
+		\textbf{Problems}
+
+		
+		Blockers are that the arm still isn't moving. We spoke with Huy (a representative from the EE team) who said that 
+		we don't know whether the arm will move even in space. This is concerning but ultimately out of our hands.
+	}
+
+\end{itemize}
