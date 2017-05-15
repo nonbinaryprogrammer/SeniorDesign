@@ -5,6 +5,9 @@
  * Description: AVR ATmega64 I/O Drivers for RS-X Project
 */
 /******************Variables/Flags******************/
+
+#include <stdint.h>
+
 //Returns time count in 0.1 seconds,
 //Can be 0-65535 in 0.1s precision
 uint16_t get_time(void);
