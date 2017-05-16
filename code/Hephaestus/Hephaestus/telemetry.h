@@ -38,6 +38,8 @@
 // Define line terminator for SD card.
 #define LINE_TERMINATOR '\n'
 
+void telemetry_init(void);
+
 // Sends a code with the predefined TELEMETRY_TIME constant.
 void inline telemetry_send_code(uint8_t code);
 
