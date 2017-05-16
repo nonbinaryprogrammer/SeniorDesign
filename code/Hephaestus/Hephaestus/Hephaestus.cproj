@@ -124,7 +124,16 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MOTOR_DEF.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="observation.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="phases.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="safety.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="telemetry.c">
