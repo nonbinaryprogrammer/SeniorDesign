@@ -9,9 +9,11 @@
 #include <avr/io.h>
 #include "phases.h"
 #include "retract.h"
+#include "telemetry.h"
 
 int safety(void){
     
+	eeprom_log("in safety - attempting retract");
 
     retract();
 

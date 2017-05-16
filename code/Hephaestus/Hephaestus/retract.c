@@ -5,6 +5,7 @@
 #include "phases.h"
 #include "retract.h"
 #include "MOTOR_DEF.h"
+#include "telemetry.h"
 
 uint8_t plate_retracted_flg; // flag to keep track of plate's position
 
@@ -33,6 +34,8 @@ void retract(){
 	motor_dir(MOTOR_DECK_PLATE, COUNTER_CLOCKWISE); // rotates the deck plate to 
 
 	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED + 19); // the amount of steps needed to pull the arm back in
+
+	eeprom_log("deck plate has been retracted");
 
 	plate_retracted_flg = 0x01;
 
