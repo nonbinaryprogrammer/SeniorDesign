@@ -16,11 +16,11 @@ ISR(INT5_vect){
 
 }
 
-void retract(){ // decide whether to make this as a void or not
+void retract(){ 
 
 	motor_pwr(MOTOR_DECK_PLATE, POWER_ON);
 	
-	_delay_ms(500); // allow motor to just Chill for a bit after turning on
+	_delay_ms(500); // delay for motor after powering on
 
 	motor_pwr(MOTOR_CAMERA, POWER_OFF); // turn off all other motors
 	motor_pwr(MOTOR_DECK_ARM, POWER_OFF);
