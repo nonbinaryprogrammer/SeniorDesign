@@ -23,6 +23,8 @@ int observation(){
 
       telemetry_send_code(OBSERVATION_PHASE); // let us know we finished Observation mode
 
+      eeprom_log("observation phase complete");
+
       return 0;
 
 

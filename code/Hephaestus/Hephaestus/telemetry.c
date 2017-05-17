@@ -12,9 +12,9 @@
 
 uint16_t current_address;
 
-void telemetry_init() {
+void telemetry_init(void) {
 	current_address = eeprom_read_word(0);
-	if (current_address < 2) {
+	if (current_address == 0xFFFF) {
 		current_address = 2;
 	}
 }
@@ -26,7 +26,7 @@ void inline telemetry_send_code(uint8_t code) {
 
 // Log a message to the EEPROM
 void eeprom_log(char* message) {
-	eeprom_update_block(message, &current_address, strlen(message));
+	eeprom_update_block(message, (void *) (uint16_t) current_address, strlen(message));
 	current_address += strlen(message);
 	eeprom_update_word(0, current_address);
 }

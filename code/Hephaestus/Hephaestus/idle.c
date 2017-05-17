@@ -8,6 +8,7 @@
 #include "RSXAVRD.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "telemetry.h"
 
 uint8_t ready = 0;
 
@@ -19,7 +20,11 @@ ISR(INT6_vect) {
  int idle(void) {
 	
 	// Infinite loop until receive signal to start
+
+
 	while (!ready) {}
+
+	eeprom_log("idle phase complete");
 
 	return 0;
 }

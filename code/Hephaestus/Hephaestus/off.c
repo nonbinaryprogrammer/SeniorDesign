@@ -1,4 +1,8 @@
+#include "telemetry.h"
+
 int off(void) {
+
+	eeprom_log("power off");
 
 	while(1){};
 

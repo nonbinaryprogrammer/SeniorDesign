@@ -5,6 +5,7 @@
 #include "phases.h"
 #include "retract.h"
 #include "MOTOR_DEF.h"
+#include "telemetry.h"
 
 uint8_t plate_retracted_flg; // flag to keep track of plate's position
 
@@ -16,11 +17,11 @@ ISR(INT5_vect){
 
 }
 
-void retract(){ // decide whether to make this as a void or not
+void retract(){ 
 
 	motor_pwr(MOTOR_DECK_PLATE, POWER_ON);
 	
-	_delay_ms(500); // allow motor to just Chill for a bit after turning on
+	_delay_ms(500); // delay for motor after powering on
 
 	motor_pwr(MOTOR_CAMERA, POWER_OFF); // turn off all other motors
 	motor_pwr(MOTOR_DECK_ARM, POWER_OFF);
@@ -33,6 +34,8 @@ void retract(){ // decide whether to make this as a void or not
 	motor_dir(MOTOR_DECK_PLATE, COUNTER_CLOCKWISE); // rotates the deck plate to 
 
 	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED + 19); // the amount of steps needed to pull the arm back in
+
+	eeprom_log("deck plate has been retracted");
 
 	plate_retracted_flg = 0x01;
 
