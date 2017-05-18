@@ -11,6 +11,8 @@
 #include "RSXAVRD.h"
 #include "MOTOR_DEF.h"
 
+void extend(void);
+void retract(void);
 
 int main(void)
 {
