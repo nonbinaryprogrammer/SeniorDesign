@@ -78,6 +78,12 @@ int science(){
 			}
 		}
 
+		if(M1_NXT == M1_POS && M2_NXT == M2_POS && M3_NXT == M3_POS && M4_NXT == M4_POS) {
+			//end of path has been reached
+			//TODO send eop telemetry signal
+			return 0;
+		}
+
 		//change _NXT values to be less than 360
 		if(M1_NXT > 359) {
 			M1_NXT = M1_NXT - 359;
