@@ -83,21 +83,24 @@ int main() {
 			cout << "end of file reached" << endl;
 		}
 
-		//calculate k1, k2, and gamma
-		k1 = l1 + (l2 * cos(theta2));
-		k2 = l2 * sin(theta2);
-		gamma = atan2(k1, k2);
-
-		//calculate theta2 and theta1
+		//calculate variables
 		t = (xo*xo) + (yo*yo) - (l1*l1) - (l2*l2);
 		b = 2 * l1 * l2;
 		fraction1 = t/b;
 		pt1 = sqrt(1 - (fraction1 * fraction1));
 		pt2 = fraction1;
 
-		theta3 = atan(yo/xo);
-		theta2 = atan2(pt1, pt2);
-		theta1 = atan2(yo, xo) - gamma;
+		//calcualte theta2
+		theta2 = atan2(zo, sqrt((yo*yo) + (xo*xo)));
+
+		//calculate k1, k2, and gamma
+		k1 = l1 + (l2 * cos(theta2));
+		k2 = l2 * sin(theta2);
+		gamma = atan2(k1, k2);
+
+		//calculate theta0, theta1, theta3
+		theta1 = atan(yo/xo);
+		theta3 = atan2(yo, xo) - gamma;
 		theta0 = 0; //TODO move this motor to change the plane
 
 		//print the thetas to the file
