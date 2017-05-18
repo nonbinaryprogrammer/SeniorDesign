@@ -34,14 +34,14 @@ int main() {
 	float af, bf, cf, df;
 	bool endOfFile = 0;
 
-	int CSpace[37][37][37][37];
+	unsigned char CSpace[37][37][37][37];
 
 	//init C-Space with 1's
 	for(a=0; a<x; a++) {
 		for(b=0; b<x; b++) {
 			for(c=0; c<x; c++) {
 				for(d=0; d<x; d++) {
-					CSpace[a][b][c][d] = 1;
+					CSpace[a][b][c][d] = 255;
 				}
 			}
 		}
@@ -148,7 +148,7 @@ int main() {
 		for(b=0; b<x; b++) {
 			for(c=0; c<x; c++) {
 				for(d=0; d<x; d++) {
-					outfile << CSpace[a][b][c][d];
+					outfile << (int)CSpace[a][b][c][d];
 				}
 			}
 		}
