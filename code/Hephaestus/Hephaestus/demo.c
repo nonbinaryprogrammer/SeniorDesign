@@ -27,9 +27,11 @@ int main(void)
 
     while (1) 
     {
-	    motor_dir(MOTOR_CAMERA, CLOCKWISE);
+		extend();
 
-	    motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(360), 28, 95);
+		motor_dir(MOTOR_CAMERA, CLOCKWISE);
+
+		motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(180), 28, 95);
 
 		_delay_ms(500); // Don't give the poor camera whiplash.
 		
@@ -37,7 +39,6 @@ int main(void)
 
 		motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(360), 28, 95);
 
-		extend();
 
 		_delay_ms(2500);
 
@@ -51,21 +52,21 @@ void retract(){
 	
 	_delay_ms(500); // delay for motor after powering on
 
-	motor_pwr(MOTOR_CAMERA, POWER_OFF); // turn off all other motors
+/*	motor_pwr(MOTOR_CAMERA, POWER_OFF); // turn off all other motors
 	motor_pwr(MOTOR_DECK_ARM, POWER_OFF);
 	motor_pwr(MOTOR_PAN, POWER_OFF);
 	motor_pwr(MOTOR_SHOULD, POWER_OFF);
 	motor_pwr(MOTOR_ELB, POWER_OFF);
-
+*/
 	camera_enable(POWER_OFF);
 	
 	motor_dir(MOTOR_DECK_PLATE, COUNTER_CLOCKWISE); // rotates the deck plate to
 
-	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED + 19); // the amount of steps needed to pull the arm back in
+	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED); // the amount of steps needed to pull the arm back in
 }
 
 void extend(){
 	motor_dir(MOTOR_DECK_PLATE, CLOCKWISE); // push the deck plate out
 
-	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED + 19); // the amount of steps needed to move the deck plate at a good speed
+	motor_step(MOTOR_DECK_PLATE, 1650, 28, 99); // the amount of steps needed to move the deck plate at a good speed
 }
