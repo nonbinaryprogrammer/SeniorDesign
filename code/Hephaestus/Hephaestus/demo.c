@@ -20,7 +20,7 @@ int main(void)
 	AVR_init();
 
 	camera_enable(POWER_ON);				// Turn on camera
-	motor_pwr(MOTOR_DECK_PLATE, POWER_ON);	// Power on deck plate motor
+//	motor_pwr(MOTOR_DECK_PLATE, POWER_ON);	// Power on deck plate motor
 	motor_pwr(MOTOR_CAMERA, POWER_ON);		// Power on the motor for the camera
 
 	_delay_ms(1000);
@@ -31,13 +31,13 @@ int main(void)
 
 		motor_dir(MOTOR_CAMERA, CLOCKWISE);
 
-		motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(180), 28, 95);
+		motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(180), 1, 85);
 
 		_delay_ms(500); // Don't give the poor camera whiplash.
 		
 		motor_dir(MOTOR_CAMERA, COUNTER_CLOCKWISE);
 
-		motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(360), 28, 95);
+		motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(360), 1, 85); // slowed down camera motors to give more strength
 
 
 		_delay_ms(2500);
@@ -62,11 +62,19 @@ void retract(){
 	
 	motor_dir(MOTOR_DECK_PLATE, COUNTER_CLOCKWISE); // rotates the deck plate to
 
-	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED); // the amount of steps needed to pull the arm back in
+	motor_step(MOTOR_DECK_PLATE, 1650, 28, 99); // the amount of steps needed to pull the arm back in
+
+	motor_pwr(MOTOR_DECK_PLATE, POWER_OFF);
 }
 
 void extend(){
-	motor_dir(MOTOR_DECK_PLATE, CLOCKWISE); // push the deck plate out
+
+        motor_pwr(MOTOR_DECK_PLATE, POWER_ON);
+
+        motor_dir(MOTOR_DECK_PLATE, CLOCKWISE); // push the deck plate out
 
 	motor_step(MOTOR_DECK_PLATE, 1650, 28, 99); // the amount of steps needed to move the deck plate at a good speed
+
+        motor_pwr(MOTOR_DECK_PLATE, POWER_OFF); 
+
 }
