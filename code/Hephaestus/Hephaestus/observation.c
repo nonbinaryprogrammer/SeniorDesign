@@ -19,7 +19,21 @@ int observation(){
 
       motor_dir(MOTOR_CAMERA, CLOCKWISE); // set the camera to move clockwise
 
-      motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(360), 28, 95); 
+      motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(180), 1, 85);
+
+      _delay_ms(500);
+
+      motor_dir(MOTOR_CAMERA, COUNTER_CLOCKWISE);
+
+      motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(360), 1, 85);
+
+      _delay_ms(500);
+
+      motor_dir(MOTOR_CAMERA, CLOCKWISE);
+
+      motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(180), 1, 85);
+
+      _delay_ms(500); 
 
       telemetry_send_code(OBSERVATION_PHASE); // let us know we finished Observation mode
 
