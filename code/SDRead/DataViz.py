@@ -8,6 +8,8 @@ class App:
 		self.root = tk.Tk() #first create root widget, bare window
 		self.root.title("Title")
 		tk.Label(self.root, text="Hephaestus").pack() #main window header
+		logo = tk.PhotoImage(file="logo.png")
+		tk.Label(self.parent, image=logo).photo.pack()
 		
 		#self.list = Tk.Listbox(self.root)
 		#self.list.pack(side=LEFT, fill=BOTH, expand=True)
