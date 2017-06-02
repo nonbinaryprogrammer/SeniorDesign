@@ -5,8 +5,9 @@ from tkinter.constants import *
 
 class App:
 	def __init__(self):
-		self.root = tk.Tk()
+		self.root = tk.Tk() #first create root widget, bare window
 		self.root.title("Title")
+		tk.Label(self.root, text="Hephaestus").pack() #main window header
 		
 		#self.list = Tk.Listbox(self.root)
 		#self.list.pack(side=LEFT, fill=BOTH, expand=True)
