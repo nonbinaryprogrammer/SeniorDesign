@@ -1,40 +1,204 @@
 \subsubsection{Week 1}
 \subsubsubsection{Helena Bales}
-\subsubsubsection{Amber Horvath}
-\subsubsubsection{Michael Humphrey}
-\subsubsection{Week 2}
-\subsubsubsection{Helena Bales}
+\textbf{Progress} \\ 
+I made no progress over winter break, other than actually managing to take a vacation. I am very proud of myself.
+
+Since the start of week 1, I met with the Software Team to discuss the schedule that we will have for the term. We decided that we would have an hour long meeting on Mondays after our TA meeting and an hour long meeting with the whole Hephaestus team on Thursdays at 6pm. We have not yet had a Monday meeting because the past two mondays have been cancelled due to weather and MLK Day.
+
+We accomplished some tasks for week 1, which includes adding more content to the System Architecture for the Software Subsystem. In addition to this planning I began development of the test cases that will be used to test the Software Subsystem. Specifically, I am focusing on developing experiments to test the three functional requirements that I was assigned last term.
+
+\textbf{Plans} \\ 
+The plan for next week is to finish up the architecture diagram and the test cases and beginning the implementation phase of the project. We need to have a prototype completed and tested by mid February, so we are planning on implementing for three weeks then testing.
+
+\textbf{Problems} \\ 
+My biggest problem is that I do not have a working computer right now. I have been trying to fix my computer but it has just been a time sink so far. I don't have a solution to this problem.
+
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
 \subsubsection{Week 3}
 \subsubsubsection{Helena Bales}
+\textbf{Progress} \\ 
+This week we started really diving into the motion planning in the Pathing and Automation cross-functional team. I checked out books from the library to help with research into motion planning for robotics, robotics in space, and inverse kinematics.
+
+\textbf{Plans} \\ 
+Over the next weeks I will be doing research into the issues of path planning and motion tracking on earth and in space.
+
+\textbf{Problems} \\ 
+I still don't have a working computer with which to do the research.
+
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
 \subsubsection{Week 4}
 \subsubsubsection{Helena Bales}
+\textbf{Progress} \\ 
+This week was continuing research into the pathing and automation portion of the software. I have found that the A* algorithm for pathfinding within a configuration space will be a good solution. Additionally, we will be breaking up the arm into its individual links in order to move the arm to a valid configuration. Essentially, we will start at the base of the arm and move that first, then move up the arm to the next link and move that.
+
+\textbf{Plans} \\ 
+The next week will be finishing up the research phase for pathing and automation and starting implementations. We will be starting with building the Configuration Space.
+
+\textbf{Problems} \\ 
+We still haven't figured out a good way to build a C-Space.
+
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
 \subsubsection{Week 5}
 \subsubsubsection{Helena Bales}
+\textbf{Progress} \\ 
+This week was focusing on figuring out how to build the configuration space (C-Space) in which to perform the path-finding algorithm for the arm's motion. We found that the C-Space need to be in \(R^4\) because we have 4 degrees of freedom in the arm. We also know that for each possible configuration of the arms' motors, we need to know if the configuration is valid in order to map the C-Space. This week we are also starting on the slide for STR.
+
+\textbf{Plans} \\ 
+The next week will focus on finalizing the slides for STR. Our STR presentation will be at 6am on Friday of week 6. In addition to STR, the Pathing and Automation and Software groups will be meeting with Dr. Smart during week 6 to discuss methods for building the configuration space.
+
+\textbf{Problems} \\ 
+I am blocked from progressing further with the code for motion planning because we do not yet know enough about the C-Space and how to build it. This should be resolved next week after meeting with Dr. Smart.
+
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
 \subsubsection{Week 6}
 \subsubsubsection{Helena Bales}
+\textbf{Progress} \\ 
+This week involved finishing the presentation for STR, a all-team social event, presenting STR, and meeting with Dr. Smart. The meeting with Dr. Smart was on Monday and provided a lot of useful information for pathfinding and automation. We discussed methods for creating the Configuration Space. Dr. Smart explained the ways in which we should limit the payload to keep the configuration space as a plane in R4. We also discussed the best way to generate the configuration space. The options that we discussed were calculating it mathematically using Inverse Kinematics, running a simulation in solid works, or physically moving the arm to valid configurations and mapping those. Each of these methods has benefits and drawbacks. STR occured on friday. In preparation we created the slides throughout the week. On thursday, at our all-team meeting, we went through all the slides in preparation for the presentation on Friday at 6am. The presentation went very well on Friday. The project reviewer said that she was excited to see our project and that our presentation and progress were both very good. The all-team social was at the All-Team meeting on Thursday after we finished all relevant business. We ordered pizza and played board games. The Software team was divided between the two teams with Michael and I against Amber. Amber's team won the first two rounds, but Michael and I brought in a win in the last round. All in all, it was an effective evening of work and team bonding.
+
+\textbf{Plans} \\ 
+The next week will focus on creating and recording our presentation for the Senior Design class. We will be working on the presentation on Tuesday, finishing it on Wednesday in order to record the video on Wednesday or Thursday. We will finish the project with editing and posting the video on Thursday and Friday to have it done by Friday. I will also be updating the design documents from last term to reflect the changes we have made. I do not expect there to be significant changes, however there may be some slight modifications to the pathfinding and automation section to reflect what Dr. Smart taught us this week.
+
+\textbf{Problems} \\ 
+The motors have arrived, so I am no longer blocked on progressing in the code. Following the completion of the presentation for CS462, I will be able to dive into the pathfinding code.
+
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
 \subsubsection{Week 7}
 \subsubsubsection{Helena Bales}
+\textbf{Progress} \\ 
+This week was focused on preparing the Midterm project update for the Senior Design course. I started the slides on Monday using our STR presentation as a base and added more details on the software side of the project and deleted many of the slides from STR that were focused on the hardware side. On Thursday we met as a group to finalize the slides and record the audio. Michael then edited the audio while I worked on updating our written documents for last term, compiling my blog posts, and starting the retrospective. Also on Thursday was the all-team meeting. We discussed funding issues because AIAA will not be contributing as much money to the project as they initially said they would, so we now have about \$30,000 to fund raise. We will all be reaching out to previous employers, etc. to raise the remainder of the funds.
+
+\textbf{Plans} \\ 
+The next week will focus on building the configuration space. We are still trying to get motors to use for this step since they need to be back-driven and have encoders. We will be buying foam to line the payload. We will then line the payload with foam to provide a buffer of forbidden space in the C-Space before any collision occurs between the arm and payload. Next we will attach the motors to the arm and an arduino. We will use the arduino to read values from the motors as we back-drive them through every valid configuration. Finally, we will use this data to build the c-space. This will take up most of the week. The only other plan is that the Tuesday Senior Design class is required attendance.
+
+\textbf{Problems} \\ 
+We have not yet found motors to use for building the C-Space.
+
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
 \subsubsection{Week 8}
 \subsubsubsection{Helena Bales}
+\textbf{Progress} \\ 
+This week was focused on preparing the payload to build the configuration space. On Tuesday I went to the required Senior Design class. I wrote and practiced pitching and talking about the Hephaestus project. After class I talked to McGrath about getting motors with encoders to build the Configuration Space. He gave us three motors that we can back-drive and hook up to an arduino. Later in the day on Tuesday I worked with the Pathfinding and Automation team to prepare the payload to build the C-Space. I bought foam board and cut out pieces of it to line the payload. With this complete, we need to attach the motors to the arm and the arduino then read the values from the motor.
+
+\textbf{Plans} \\ 
+The next week will mostly be working on the C-Space more and the arm control software. I will be starting by writing arduino code that we can use to build the C-Space. I will be working on that this weekend. Once that is complete, we will build the C-Space. After we have the C-Space, I will start the arm control software that will plot the path through the C-Space and move the arm along the path.
+
+\textbf{Problems} \\ 
+None.
+
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
 \subsubsection{Week 9}
 \subsubsubsection{Helena Bales}
+\textbf{Progress} \\ 
+My primary goal this week was to get an initial mapping of the C-Space. I met this goal. On Tuesday I met with Pathing and Automation to start work on the Arduino code to map the C-Space. They had a start to it with three motors on interrupts and printing their values to Serial out. Unfortunately, the Arduino UNO only has two interrupt pins, so I had to switch one of the motors to poll instead of interrupt. This took a few tries, but by Thursday, which is when we met next, I had a motor polling instead of interrupting. I had also fixed the print statements to be more useful to us. However the code still had some bugs. We ran out of time on Thursday and had to go to the All-Team meeting, so we met up the next day as well. On Friday I finished debugging the Arduino code and we were finally ready to map the C-Space. I ran the arm all around the payload so we now have an initial data set on the shape of the C-Space to play with.
+
+\textbf{Plans} \\ 
+My next step in the software is to write a parser for the C-Space data. It is currently in the form of one motor angle per line, with the triples separated by a line with a semicolon on it. So I will go from:
+
+\[ theta1 theta2 theta3 ;\]
+
+to:
+
+\[ point_n = <0, theta1, theta2, theta3> \]
+
+I will have a 4D array of 1's, then fill in a 0 in every location indicated by point\_n above. The 4D C-Space will then contain a 0 for every valid configuration of motors and a 1 for every invalid configuration.
+
+Once I have an initial C-Space, I will need to do some repair on it to smooth out the C-Space. This will account for angles that are valid but were not sampled.
+
+My other goal for Week 10 is to help the ME's test the payload. They are all finishing up their capstone class, so they need to have a bunch of tests done to show that their parts of the project work. They will need some help from CS and EE in order to test how their hardware parts all work in motion. I will be helping them to write code to move the arm and to devise test cases.
+
+
+\textbf{Problems} \\ 
+I currently have way too many projects going on. All of my classes have final projects, so I am worried that I will not have time to get it all done.
+
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
 \subsubsection{Week 10}
 \subsubsubsection{Helena Bales}
+\textbf{Progress} \\ 
+This week has been an extremely stressful one. All of my classes have final projects. I have not had time to write the parser for the C-Space data. I did update the presentation for the Final Update video. I have some more visuals to add, but I have recorded most of my audio.
+
+We are also working on the presentation today. We did not realize that it was due tonight, so we will be getting most of it done at 4pm today. Needless to say, we are are stressed by this looming deadline.
+
+\textbf{Plans} \\ 
+Configuration Space: \\ 
+My next step in the software is still to write a parser for the C-Space data. It is currently in the form of one motor angle per line, with the triples separated by a line with a semicolon on it. So I will go from:
+
+\[ theta1 theta2 theta3 ; \]
+
+to:
+
+\[ point_n = <0, theta1, theta2, theta3> \]
+
+I will have a 4D array of 1's, then fill in a 0 in every location indicated by point\_n above. The 4D C-Space will then contain a 0 for every valid configuration of motors and a 1 for every invalid configuration.
+
+Once I have an initial C-Space, I will need to do some repair on it to smooth out the C-Space. This will account for angles that are valid but were not sampled.
+
+Fundraising: \\ 
+My other goal for Finals Week is to contact people to ask for funding for our project. We also have ISTR on Friday of Finals week, so we will be spending some time during Finals week working on the presentation for that. We will also be finishing up our presentation and video for this class.
+
+Expo Poster: \\ 
+Finally, we will be completing the Expo poster next week as we got an extension from Kirsten. I have defined the general sections on the poster in the poster template. This will cover the sections of the poster, the images on the poster, and the assignments for text and graphics.
+
+Poster Sections: \\
+\begin{enumerate}
+\item{Panel 1 - Achieving Detailed Autonomous Movement in Space}
+\item{Panel 1 - a - Building the Configuration Space}
+\item{Panel 1 - a - i - Creating the Configuration Space from Real Space Data}
+\item{Panel 1 - b - Pathfinding in an IR 4 Configuration Space}
+\item{Panel 1 - b - i - Dijkstra's Algorithm}
+\item{Panel 1 - c - Accuracy and Obstacle Avoidance}
+\item{Panel 1 - c - i - Accuracy}
+\item{Panel 1 - c - ii - Obstacle Avoidance}
+\item{Panel 2 - A Rocket-Mounted Autonomous Robotic Arm for Construction in Space}
+\item{Panel 2 - a - Hephaestus Mission}
+\item{Panel 2 - b - Mission Success Criteria}
+\item{Panel 2 - b - i - Minimum Success Criteria}
+\item{Panel 2 - b - ii - Maximum Success Criteria}
+\item{Panel 2 - c - i - Overview}
+\item{Panel 2 - c - ii - Telemetry}
+\item{Panel 2 - c - iii - Data Storage}
+\item{Panel 3 - Programmatics}
+\item{Panel 3 - a - Launch Details}
+\item{Panel 3 - b - Sponsors}
+\end{enumerate}
+
+Section Assignments: \\
+\begin{enumerate}
+\item{1 - Helena}
+\item{2 - a - Amber}
+\item{2 - b - Amber}
+\item{2 - c - i - Michael and Amber}
+\item{2 - c - ii - Michael}
+\item{2 - c - iii - Amber}
+\item{3 - a - Michael}
+\item{3 - b - Michael}
+\end{enumerate}
+
+Images: \\ 
+\begin{enumerate}
+\item{1 - Landscape - Pathfinding through IR4 Graphic}
+\item{2 - Landscape - Hephaestus Payload}
+\item{3 - Portrait - ???}
+\item{4 - Landscape - Team Photo}
+\end{enumerate}
+
+Image Assignments: \\ 
+\begin{enumerate}
+\item{1 - Helena}
+\item{2 - Amber}
+\item{3 - Amber/Michael}
+\item{4 - Michael}
+\end{enumerate}
+
+\textbf{Problems} \\ 
+I currently have way too many projects going on. All of my classes have final projects, so I am worried that I will not have time to get it all done. Additionally, I feel the stress of the end of the term is affecting the effectiveness of our team. Spring break will help with that.
+
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
