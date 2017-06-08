@@ -1,0 +1,2 @@
+First two bytes: 16 bit (2 byte) number indicating current location to write to (or end of the data), in little endien
+All remaining bytes: a sequence of null terminated, ASCII encoded strings. 
