@@ -1,19 +1,952 @@
 \subsection{Pre-Processing}
 \subsubsection{CSpace\_Mapping.ino}
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+
+//=========DEFINITIONS==================
+int encA_pin1 = 6;
+int encB_pin1 = 7;
+long encA_ticks1 = 0;
+//for polling implementation
+int n = LOW;
+int encA_pin1_prev = LOW;
+
+unsigned long time;
+char buffer [50];
+int i = 0;
+
+int encA_pin2 = 2;
+int encB_pin2 = 4;
+volatile long encA_ticks2 = 0;
+
+int encA_pin3 = 3;
+int encB_pin3 = 5;
+volatile long encA_ticks3 = 0;
+
+const float pi = 3.14;
+
+volatile int state = HIGH;
+
+volatile float encA_degree1 = 0;
+volatile float encA_degree2 = 0;
+volatile float encA_degree3 = 0;
+
+/*
+2 - Motor 1: A
+3 - Motor 1: B
+4 - Motor 2: A
+5 - Motor 2: B
+6 - Motor 3: A
+7 - Motor 3: B
+
+
+*/
+//=========SET-UP==================
+void setup() {
+  // put your setup code here, to run once:
+pinMode(encA_pin1, INPUT);
+pinMode(encA_pin2, INPUT);
+pinMode(encA_pin3, INPUT);
+
+digitalWrite(encA_pin1, HIGH);
+digitalWrite(encA_pin2, HIGH);
+digitalWrite(encA_pin3, HIGH);
+
+pinMode(13, OUTPUT);
+
+// INIT interrups
+
+//switch motor 1 to polling
+//attachInterrupt(digitalPinToInterrupt(encA_pin1),encoderA1,RISING);
+attachInterrupt(digitalPinToInterrupt(encA_pin2),encoderA2,RISING);
+attachInterrupt(digitalPinToInterrupt(encA_pin3),encoderA3,RISING);
+
+Serial.begin(9600);
+}
+
+
+//========= LOOP ==================
+void loop() {
+  // put your main code here, to run repeatedly:
+
+  time = millis();
+
+  //Poll innermost motor to circumvent limited number
+  //of Arduino UNO interupts
+  n = digitalRead(encA_pin1);
+   if ((encA_pin1_prev == LOW) && (n == HIGH)) {
+     if (digitalRead(encB_pin1) == LOW) {
+       encA_ticks1 -= 1.0;
+     } else {
+       encA_ticks1 += 1.0;
+     }
+   } 
+   encA_pin1_prev = n;
+
+  digitalWrite(13,state);
+
+  //if enough time has passed, print a status update
+  //print status update every .5 seconds
+
+  //output the valid configurations to Serial which will then be stored in a file
+  encA_degree1 = encA_ticks1*2.25;
+  encA_degree2 = encA_ticks2*2.25;
+  encA_degree3 = encA_ticks3*2.25;
+
+  Serial.println("0");
+  Serial.println(encA_degree1);
+  Serial.println(encA_degree2);
+  Serial.println(encA_degree3);
+  Serial.println(";");
+
+  delay(500);
+}
+
+//Arduino UNO only has two interupts
+//Switch innermost motor to polling
+
+//void encoderA1(){
+//  state=!state;
+//  if(digitalRead(encB_pin1)==HIGH){
+//    encA_ticks1=encA_ticks1+1.0;
+//  }else{
+//    encA_ticks1=encA_ticks1-1.0;
+//  }
+//  }
+
+void encoderA2(){
+  state=!state;
+  if(digitalRead(encB_pin2)==HIGH){
+    encA_ticks2=encA_ticks2+1.0;
+  }else{
+    encA_ticks2=encA_ticks2-1.0;
+  }
+}
+  
+void encoderA3(){
+  state=!state;
+  if(digitalRead(encB_pin3)==HIGH){
+    encA_ticks3=encA_ticks3+1.0;
+  }else{
+    encA_ticks3=encA_ticks3-1.0;
+  }
+  }
+
+\end{lstlisting}
 \subsubsection{parser.cpp}
+\begin{lstlisting}[language=C++]
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstring>
+#include <time.h>
+#include <unistd.h>
+#include <math.h>
+
+using namespace std;
+
+/************************************************************************************************
+ * Program: C-Space Data Parser
+ * Author: Helena Bales
+ * Date: April 12th, 2017
+ * Description: A C++ implementation of a parser for the Hephaestus Configuration Space data. The 
+ * 	parser creates a 4-D array of boolean values with a 0 representing a valid configuration 
+ * 	and a 1 representing an invalid configuration.
+ * Input: ./test1/data1 - Hephaestus C-Space data as defined in project docs
+ * Output: ./cspace.out - Output file containing boolean data from 37x37x37x37 array
+ ***********************************************************************************************/
+
+int main() {
+	char* myFile;
+	ifstream sourceFile;
+	ofstream outfile;
+	string line;
+
+	int accuracyFactor = 10;
+	int MAX_ANGLE = 360;
+	int x = MAX_ANGLE/accuracyFactor;
+	int a, b, c, d;
+	float af, bf, cf, df;
+	bool endOfFile = 0;
+
+	unsigned char CSpace[37][37][37][37];
+
+	//init C-Space with 1's
+	for(a=0; a<x; a++) {
+		for(b=0; b<x; b++) {
+			for(c=0; c<x; c++) {
+				for(d=0; d<x; d++) {
+					CSpace[a][b][c][d] = 255;
+				}
+			}
+		}
+	}
+
+	//open file
+	myFile = "./test1/data1";
+	sourceFile.open(myFile);
+	
+	//loop for length of file
+	while(!endOfFile) {
+		//read 5 lines from the file
+		
+		//line 1 == a
+		getline(sourceFile, line);
+		af = stof(line, NULL);
+		//cout << "af = " << af << endl; //FOR TESTING
+
+		//line 2 == b
+		getline(sourceFile, line);
+		bf = stof(line, NULL);
+		//cout << "bf = " << bf << endl; //FOR TESTING
+
+		//line 3 == c
+		getline(sourceFile, line);
+		cf = stof(line, NULL);
+		//cout << "cf = " << cf << endl; //FOR TESTING
+
+		//line 4 == d
+		getline(sourceFile, line);
+		df = stof(line, NULL);
+		//cout << "df = " << df << endl; //FOR TESTING
+
+		//line 5 == ; divider between coordinates
+		getline(sourceFile, line);
+		//cout << ";" << endl;
+
+		//convert negative degrees to corresponding positive angle
+		if(af < 0) {
+			af = 360 + af;
+		}
+
+		if(bf < 0) {
+			bf = 360 + bf;
+		}
+
+		if(cf < 0) {
+			cf = 360 + cf;
+		}
+
+		if(df < 0) {
+			df = 360 + df;
+		}
+
+		//convert to ints
+		a = floor(af/10);
+		b = floor(bf/10);
+		c = floor(cf/10);
+		d = floor(df/10);
+
+		//check floored values against original FOR TESTING
+		cout << a << "/" << af << " - " << b << "/" << bf << " - " << c << "/" << cf << " - " << d << "/" << df << endl;
+
+		//mark array[a][b][c][d] = 0
+		CSpace[a][b][c][d] = 0;
+
+		//check if eof has been reached
+		if(sourceFile.eof()) {
+			cout << "Reached eof - check 3" << endl;
+			endOfFile = 1;
+		}
+
+		//check if eof has been reached
+		if(sourceFile.peek() == 10) {
+			cout << "Reached eof - check 2" << endl;
+			endOfFile = 1;
+		}
+	}
+
+	//close source file
+	if(sourceFile.is_open()) {
+		sourceFile.close();
+	}
+
+	/*
+	//print array
+	for(a=0; a<1; a++) {
+		for(b=0; b<37; b++) {
+			for(c=0; c<37; c++) {
+				for(d=0; d<37; d++) {
+					cout << CSpace[a][b][c][d];
+				}
+				cout << endl;
+			}
+			cout << endl;
+			cout << endl;
+		}
+	}
+	*/
+
+	//store array in file
+	outfile.open("cspace");
+	for(a=0; a<x; a++) {
+		for(b=0; b<x; b++) {
+			for(c=0; c<x; c++) {
+				for(d=0; d<x; d++) {
+					outfile << (int)CSpace[a][b][c][d];
+				}
+			}
+		}
+	}
+
+	/*
+	//store 0 locations in file for plotting
+	outfile.open("cspacePlotData");
+	for(a=0; a<x; a++) {
+		for(b=0; b<x; b++) {
+			for(c=0; c<x; c++) {
+				for(d=0; d<x; d++) {
+					if(CSpace[a][b][c][d] == 0){
+						outfile << b << " " << c << " " << d 
+							<< endl;
+
+					}
+				}
+			}
+		}
+		outfile << "\n";
+	}
+	*/
+	
+}
+
+\end{lstlisting}
 \subsubsection{convert.cpp}
+\begin{lstlisting}[language=C++]
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
+#include <string.h>
+#include <cstring>
+#include <time.h>
+#include <unistd.h>
+#include <math.h>
+
+using namespace std;
+
+/************************************************************************************************
+ * Program: Target point converter
+ * Author: Helena Bales (Inverse Kinematics by Brett Moffatt)
+ * Date: May 17th, 2017
+ * Description: For the RockSat-X Hephaestus payload. Converts our target points from cartesian 
+ * 	form into a representation within the configuration space. This is accomplished through 
+ * 	Inverse Kinematics with theta0 isolated to four discrete values, allowing us to resolve 
+ * 	the results of IK from a 4D area in the configuration space to four possible solutions,
+ * 	of which at least one must be marked as 0 in the cspace.
+ * Input: ./targets - A text document containing one target (in the form: x y z) per line, in 
+ * 		cartesian form
+ * Output: ./thetaTargets - A text document containing one target per line (in the form: 
+ * 	theta0 theta1 theta2 theta3), where theta0-3 refers to the rotational angle from the 
+ * 	defined normal
+ ***********************************************************************************************/
+
+/************************************
+ * theta1 = roll = {0, 90, 180, 270}
+ * theta2 = yaw = tan-1(yo/xo)
+ * theta3 = pitch1
+ * theta4 = pitch2
+ ***********************************/
+
+int main() {
+	char* myFile;
+	ifstream sourceFile;
+	ofstream outfile;
+	char line[24];
+	char* tokens;
+
+	int xo, yo, zo;	//real target point
+	int theta0, theta1, theta2, theta3; //cspace target point
+	double l1, l2; //arm segment lengths
+	double k1, k2, gamma; //variables for calculating pitch
+	double t, b, fraction1, pt1, pt2; //some more variables for calculations
+	bool endOfFile = 0; //marker for eof
+
+	//define arm lengths
+	l1 = 3.99;
+	l2 = 4.49;
+
+	//open the file of targets
+	myFile = "./targets";
+	sourceFile.open(myFile);
+
+	//open the file for theta targets
+	myFile = "./thetaTargets";
+	outfile.open(myFile);
+
+
+	while(!endOfFile) {
+		//read a line
+		sourceFile.getline(line, 24);
+
+		//break the line on spaces
+		tokens = strtok(line, " ");
+
+		//store the values as integers
+		xo = stoi(tokens);
+		tokens = strtok(NULL, " ");
+
+		yo = stoi(tokens);
+		tokens = strtok(NULL, " ");
+
+		zo = stoi(tokens);
+		tokens = strtok(NULL, " ");
+
+		//check if it is eof
+		if(sourceFile.eof() || sourceFile.peek() == 10) {
+			endOfFile = 1;
+			cout << "end of file reached" << endl;
+		}
+
+		//calculate variables
+		t = (xo*xo) + (yo*yo) - (l1*l1) - (l2*l2);
+		b = 2 * l1 * l2;
+		fraction1 = t/b;
+		pt1 = sqrt(1 - (fraction1 * fraction1));
+		pt2 = fraction1;
+
+		//calcualte theta2
+		theta2 = atan2(zo, sqrt((yo*yo) + (xo*xo)));
+
+		//calculate k1, k2, and gamma
+		k1 = l1 + (l2 * cos(theta2));
+		k2 = l2 * sin(theta2);
+		gamma = atan2(k1, k2);
+
+		//calculate theta0, theta1, theta3
+		theta1 = atan(yo/xo);
+		theta3 = atan2(yo, xo) - gamma;
+		theta0 = 0; //TODO move this motor to change the plane
+
+		//print the thetas to the file
+		outfile << theta0 << " " << theta1 << " " << theta2 << " " << theta3 << " " << endl;
+
+	}
+
+	//close the file
+	if(sourceFile.is_open()) {
+		sourceFile.close();
+	}
+
+	//close the file
+	if(outfile.is_open()) {
+		outfile.close();
+	}
+
+
+	return 0;
+}
+\end{lstlisting}
 \subsubsection{pathing.cpp}
+\begin{lstlisting}[language=C++]
+\end{lstlisting}
 \subsection{Data Storage}
 \subsubsection{SDRead.py}
+\begin{lstlisting}[language=Python]
+import matplotlib.pyplot as plt
+import sys
+
+if len(sys.argv) != 2:			# Make sure filename is specified on command line
+	print("No file specified.")	
+	print("USAGE:", sys.argv[0], "<filename>")
+	sys.exit(1)
+
+temps = []							# Create an empty list of temperatures
+
+with open(sys.argv[1], "br") as f:	# Open output file for binary reading
+	data = bytes(f.read(3))			# Read three bytes
+	while data != bytes(b""):		# Make sure we have input (i.e. not EOF)
+		num = (data[0] * pow(2, 8))	# Load the most significant byte
+		num += (data[1])			# Load the least significant byte
+		temps.append(num)			# Store the number in the array
+		data = bytes(f.read(3))		# Get thee next three bytes
+	
+scaled = [(i/(2**10)) for i in temps] # Scale the temperature values to between 0-1
+plt.plot(scaled)					# Create the plot
+plt.ylabel("Relative temperature")	# Always label your axises
+plt.xlabel("Sample number")			
+plt.show()							# Display the plot
+\end{lstlisting}
 \subsubsection{telemetry.c}
+\begin{lstlisting}[language=C]
+/*
+ * telemetry.c
+ *
+ * Created: 1/18/2017 10:44:49 AM
+ *  Author: Michael Humphrey
+ */ 
+
+#include "telemetry.h"
+#include "RSXAVRD.h"
+#include <avr/eeprom.h>
+#include <string.h>
+
+uint16_t current_address;
+
+void telemetry_init(void) {
+	current_address = eeprom_read_word(0);
+	if (current_address == 0xFFFF) {
+		current_address = 2;
+	}
+}
+
+// Sends a code with the predefined TELEMETRY_TIME constant.
+void inline telemetry_send_code(uint8_t code) {
+	send_code(code, TELEMTRY_TIME);
+}
+
+// Log a message to the EEPROM
+void eeprom_log(char* message) {
+	eeprom_update_block(message, (void *) (uint16_t) current_address, strlen(message)+1);
+	current_address += strlen(message)+1;
+	eeprom_update_word(0, current_address);
+}
+
+
+// Log a message to the SD card - DEPRECATED
+/*
+void SD_log(char* message) {
+	// Write elapsed time to SD card
+	char *result = (char*) malloc(6*sizeof(char)); // Max value of get_time() is 65535, which is 5 characters, plus 1 for null terminator
+
+	if (result == NULL)
+		return;
+
+	itoa(get_time(), result, 10);
+	// Write result string to SD card
+	free(result);
+
+	// Write separator to SD card
+
+	// Write message to SD card
+
+	// Write line terminator to SD card
+}
+*/
+\end{lstlisting}
 \subsection{Main}
-\subsubsection{RSXAVRD.c}
 \subsubsection{main.c}
-\subsubsection{phases.c}
+\begin{lstlisting}[language=C]
+/*
+ * Hephaestus.c
+ *
+ * Created: 1/17/2017 6:05:07 PM
+ * Author : Michael Humphrey
+ */ 
+
+#include <avr/io.h>
+#include "phases.h"
+#include "RSXAVRD.h"
+#include "retract.h"
+
+
+int main(void)
+{
+	// Pin configuration
+	AVR_init();
+
+	uint8_t status = 0;
+
+	//timer_counter_enable(1,1); // code that enables timer event - Jon says Michael wanted this?
+
+	timer_event_enable(0,1); // enables timer event line 0
+
+	timer_event_enable(1,1); // enables timer event line 1
+
+    /* Replace with your application code */
+    while (1) 
+    {
+		// Phase 1: Idle
+		status = idle();
+
+		// Phase 2: Observation
+		status = observation();
+
+		// Phase 3: Science
+		status = science();
+		if (status != 0) { // if our arm is not calibrated i.e. collapsed and in home position...
+			retract(); // turn off all motors and retract into a safe position
+		}
+
+		// Phase 4: Off
+		status = off();
+		// Under normal circumstances, off never returns.
+		// Off only returns if there was an error.
+
+		// Phase 5: Safety
+		status = safety();
+    }
+}
+\end{lstlisting}
+\subsubsection{phases.h}
+\begin{lstlisting}[language=C]
+/*
+ * phases.h
+ *
+ * Created: 1/20/2017 3:36:58 PM
+ *  Author: Michael Humphrey
+ */ 
+
+
+#ifndef PHASES_H_
+#define PHASES_H_
+
+int idle(void);			// Phase 1
+int observation(void);	// Phase 2
+int science(void);		// Phase 3
+int off(void);			// Phase 4
+int safety(void);		// Phase 5
+void retract(void);  // retract phase
+
+#endif /* PHASES_H_ */
+\end{lstlisting}
 \subsubsection{Modes of Operation}
 \subsubsubsection{idle.c}
+\begin{lstlisting}[language=C]
+/*
+ * idle.c
+ *
+ * Created: 1/20/2017 3:36:32 PM
+ *  Author: Michael Humphrey
+ */
+
+#include "RSXAVRD.h"
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include "telemetry.h"
+
+uint8_t ready = 0;
+
+ISR(INT6_vect) {
+	ready = 1;
+}
+
+ // First phase of payload deployment. Wait for TE-R lines to go high, then return.
+ int idle(void) {
+	
+	// Infinite loop until receive signal to start
+
+
+	while (!ready) {}
+
+	eeprom_log("idle phase complete");
+
+	return 0;
+}
+\end{lstlisting}
 \subsubsubsection{observation.c}
+\begin{lstlisting}[language=C]
+
+/*  observation.c
+ *  Created: 1/22/2017 5:12:25 PM
+ *  Author: Amber Horvath
+ */
+
+#include <avr/io.h>
+#include "phases.h"
+#include "RSXAVRD.h"
+#include "telemetry.h"
+#include "MOTOR_DEF.h"
+
+int observation(){
+
+     
+      camera_enable(POWER_ON); // turns on camera
+
+      motor_pwr(MOTOR_CAMERA, POWER_ON); // power on the motor for the camera
+
+      motor_dir(MOTOR_CAMERA, CLOCKWISE); // set the camera to move clockwise
+
+      motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(180), 1, 85);
+
+      _delay_ms(500);
+
+      motor_dir(MOTOR_CAMERA, COUNTER_CLOCKWISE);
+
+      motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(360), 1, 85);
+
+      _delay_ms(500);
+
+      motor_dir(MOTOR_CAMERA, CLOCKWISE);
+
+      motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(180), 1, 85);
+
+      _delay_ms(500); 
+
+      telemetry_send_code(OBSERVATION_PHASE); // let us know we finished Observation mode
+
+      eeprom_log("observation phase complete");
+
+      return 0;
+
+
+}
+
+\end{lstlisting}
 \subsubsubsection{science.c}
+\begin{lstlisting}[language=C]
+#include <avr/io.h>
+#include "phases.h"
+#include "RSXAVRD.h"
+#include "telemetry.h"
+#include <avr/interrupt.h>
+#include <util/delay.h>
+/*
+* Design of science phase: arm will move to touch sensor and press it. Upon moving the arm to the location, we will
+* check whether the touch sensor was pressed and change our status to represent whether or not it was pressed.
+* We will also write a code over the telemetry lines to represent whether or not the touch sensor was pressed.
+*/
+
+int science(){
+	int status = 0;
+	int M1_POS, M2_POS, M3_POS, M4_POS;
+	int M1_NXT, M2_NXT, M3_NXT, M4_NXT;
+	int M1_DIF, M2_DIF, M3_DIF, M4_DIF;
+	int M1_STP, M2_STP, M3_STP, M4_STP;
+	int scale_factor = 0.225;
+	char path_step;
+
+	//TODO reference CSpace in program memory (the address of a 4D array in program memory)
+	char**** cspace;
+		
+	// init motor values to 0
+	M1_POS = 0;
+	M2_POS = 0;
+	M3_POS = 0;
+	M4_POS = 0;
+
+	// turn on camera
+	camera_enable(1);
+
+	// power on motors
+	motor_pwr(1, 1);
+	motor_pwr(2, 1);
+	motor_pwr(3, 1);
+	motor_pwr(4, 1);
+
+	//repeat for length of path
+	while(1) {
+		//set motor direction to be forward
+		motor_dir(1, 0);
+		motor_dir(2, 0);
+		motor_dir(3, 0);
+		motor_dir(4, 0);
+		
+		//find the next point in the path
+		path_step = cspace[M1_POS][M2_POS][M3_POS][M4_POS];
+
+		//set the lower and upper bounds for the loops so only indeces 
+		//in range are checked
+		if(M1_POS == 0) { sw = 0; } else { sw = -1; }
+		if(M2_POS == 0) { sx = 0; } else { sx = -1; }
+		if(M3_POS == 0) { sy = 0; } else { sy = -1; }
+		if(M4_POS == 0) { sz = 0; } else { sz = -1; }
+
+		if(M1_POS == 36) { ew = 1; } else { ew = 2; }
+		if(M2_POS == 36) { ex = 1; } else { ex = 2; }
+		if(M3_POS == 36) { ey = 1; } else { ey = 2; }
+		if(M4_POS == 36) { ez = 1; } else { ez = 2; }
+
+
+		//check each of the neighboring points
+		for(int w=sw; w<ew; w++) {
+			for(int x=sx; x<ex; x++) {
+				for(int y=sy; y<ey; y++) {
+					for(int z=sz; z<ez; z++) {
+						if(cspace[M1_POS+w][M2_POS+x][M3_POS+y][M4_POS+z] == path_step + 1) {
+							M1_NXT = M1_POS + w;
+							M2_NXT = M2_POS + x;
+							M3_NXT = M3_POS + y;
+							M4_NXT = M4_POS + z;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		if(M1_NXT == M1_POS && M2_NXT == M2_POS && M3_NXT == M3_POS && M4_NXT == M4_POS) {
+			//end of path has been reached
+			//TODO send eop telemetry signal
+			return 0;
+		}
+
+		//change _NXT values to be less than 360
+		if(M1_NXT > 359) {
+			M1_NXT = M1_NXT - 359;
+		}
+
+		if(M2_NXT > 359) {
+			M2_NXT = M2_NXT - 359;
+		}
+
+		if(M3_NXT > 359) {
+			M3_NXT = M3_NXT - 359;
+		}
+
+		if(M4_NXT > 359) {
+			M4_NXT = M4_NXT - 359;
+		}
+		
+		// calculate change in each motor (in degrees)
+		M1_DIF = M1_NXT - M1_POS;
+		M2_DIF = M2_NXT - M2_POS;
+		M3_DIF = M3_NXT - M3_POS;
+		M4_DIF = M4_NXT - M4_POS;
+
+		// reverse motor direction for negative difference
+		if(M1_DIF < 0) {
+			motor_dir(1, 1);
+			M1_DIF = M1_DIF * -1;
+		}
+
+		if(M2_DIF < 0) {
+			motor_dir(2, 1);
+			M2_DIF = M2_DIF * -1;
+		}
+
+		if(M3_DIF < 0) {
+			motor_dir(3, 1);
+			M3_DIF = M3_DIF * -1;
+		}
+
+		if(M4_DIF < 0) {
+			motor_dir(4, 1);
+			M4_DIF = M4_DIF * -1;
+		}
+
+		// convert degress to steps
+		M1_STP = M1_DIF / scale_factor;
+		M2_STP = M2_DIF / scale_factor;
+		M3_STP = M3_DIF / scale_factor;
+		M4_STP = M4_DIF / scale_factor;
+
+		// move each motor that many steps
+		motor_step(1, M1_STP, 28, 99);
+		motor_step(2, M2_STP, 28, 99);
+		motor_step(3, M3_STP, 28, 99);
+		motor_step(4, M4_STP, 28, 99);
+
+		// set the current position
+		M1_POS = M1_NXT;
+		M2_POS = M2_NXT;
+		M3_POS = M3_NXT;
+		M4_POS = M4_NXT;
+
+		if(touch_sensor_check() == 0x01){
+			telemetry_send_code(TOUCH_SENSOR_1_ENGAGED); // For now, always send TOUCH_SENSOR_1_ENGAGED.
+		}
+
+		// code to return arm to callibrated "home" position
+		if(get_calibration_status() != 0x01){ // or whichever motor refers to the home position
+			status = 1;
+		}
+
+	}
+
+	return status;
+
+}
+\end{lstlisting}
 \subsubsubsection{retract.c}
+\begin{lstlisting}[language=C]
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include "RSXAVRD.h"
+#include "phases.h"
+#include "retract.h"
+#include "MOTOR_DEF.h"
+#include "telemetry.h"
+
+uint8_t plate_retracted_flg; // flag to keep track of plate's position
+
+ISR(INT5_vect){
+	
+	if(plate_retracted_flg == 0x00){
+		retract();
+	}
+
+}
+
+void retract(){ 
+
+	motor_pwr(MOTOR_DECK_PLATE, POWER_ON);
+	
+	_delay_ms(500); // delay for motor after powering on
+
+	motor_pwr(MOTOR_CAMERA, POWER_OFF); // turn off all other motors
+	motor_pwr(MOTOR_DECK_ARM, POWER_OFF);
+	motor_pwr(MOTOR_PAN, POWER_OFF);
+	motor_pwr(MOTOR_SHOULD, POWER_OFF);
+	motor_pwr(MOTOR_ELB, POWER_OFF);
+
+	camera_enable(POWER_OFF); 
+	
+	motor_dir(MOTOR_DECK_PLATE, COUNTER_CLOCKWISE); // rotates the deck plate to 
+
+	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED + 19); // the amount of steps needed to pull the arm back in
+
+	eeprom_log("deck plate has been retracted");
+
+	plate_retracted_flg = 0x01;
+
+
+}
+
+void extend(){
+
+	motor_pwr(MOTOR_DECK_PLATE, POWER_ON); // powers on deck plate motor
+
+	_delay_ms(500); // delays to allow motor to power on
+
+	motor_dir(MOTOR_DECK_PLATE, CLOCKWISE); // push the deck plate out
+
+	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED + 19); // the amount of steps needed to move the deck plate at a good speed
+
+	plate_retracted_flg = 0x00; // plate is NOT retracted
+
+
+}
+\end{lstlisting}
 \subsubsubsection{safety.c}
+\begin{lstlisting}[language=C]
+/* safety.c
+ * 
+ * Created by: Amber Horvath
+ * Date Created: 1/22/17 5:36:47
+ *
+ *
+ */
+
+#include <avr/io.h>
+#include "phases.h"
+#include "retract.h"
+#include "telemetry.h"
+
+int safety(void){
+    
+	eeprom_log("in safety - attempting retract");
+
+    retract();
+
+    while(1){}; // abort mission, we are hanging here
+
+}
+\end{lstlisting}
 \subsubsubsection{off.c}
+\begin{lstlisting}[language=C]
+#include "telemetry.h"
+
+int off(void) {
+
+	eeprom_log("power off");
+
+	while(1){};
+
+	// This return statement should never be reaches, so return error.
+	return 1;
+}
+\end{lstlisting}
