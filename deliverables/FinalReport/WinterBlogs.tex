@@ -28,6 +28,34 @@ I still don't have a working computer with which to do the research.
 
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
+This is a cumulative update for the first three weeks of Winter term.
+
+\textbf{Progress} \\
+The progress we've made up to this point includes installing Atmel Studio, 
+setting up a solution for our class, and setting up several skeleton files. 
+I've created a file for the first phase of the program; the idle phase. It is 
+mostly filled out except for the code to interface with the pin. I've also set
+up a file in our Google Drive detailing rules and instructions for laying out 
+our project and how we will develop. We also had a meeting with the EEs about 
+any telemetry data they need transmitted. They reported that they have no 
+special need for transmitting telemetry via the microcontroller (all the data 
+they need will be hard-wired to the telemetry interface), so I can freely 
+design and implement the telemetry code without any outside interference.
+
+\textbf{Plans} \\
+My plan for the next week is to become up to speed with the driver and 
+interface that the EE team has created for us, so that I can begin full-time 
+development on the project. I plan to finish designing and start implementing 
+the telemetry code, as well as finalize the idle phase of the code.
+
+\textbf{Problems} \\
+Problems I encountered these first few weeks include waiting for the EEs to 
+develop the motor drivers and telemetry interface. Other problems include team
+members not showing up to cross-functional team meetings, so we couldn't get 
+information on how to use the drivers and interface. We had to schedule a 
+special meeting much later with the EEs so we can start using the code they 
+wrote.
+
 \subsubsection{Week 4}
 \subsubsubsection{Helena Bales}
 \textbf{Progress} \\ 
@@ -41,6 +69,27 @@ We still haven't figured out a good way to build a C-Space.
 
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
+\textbf{Progress} \\
+This week I hit a major personal milestone for this project. I finally was 
+able to compile the (mostly useless) code we've all written so far this term 
+and run it on the actual microcontroller! It compiled successfully for me, and
+although it didn't do much it was a relief to see the fruits of our labor to 
+work. The code did not compile on Amber's computer, but that was probably 
+because she is using a mac and mac's are not directly supported by the avr 
+compiler. I helped her troubleshoot a little bit, but she eventually figured 
+it out on her own. I also added to our Description of Operations to detail 
+more about the telemetry codes. Other than that, this week was spent waiting 
+for drivers from the EE team for motors and pin inputs.
+
+\textbf{Plans} \\
+My plan for the next 
+week is to create some constants in the telemetry header file that will encode
+telemetry codes as well as constants for telemetry operation (such as the 
+length of time codes will be broadcasted).
+
+\textbf{Problems} \\
+No problems encountered.
+
 \subsubsection{Week 5}
 \subsubsubsection{Helena Bales}
 \textbf{Progress} \\ 
@@ -54,6 +103,21 @@ I am blocked from progressing further with the code for motion planning because 
 
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
+\textbf{Progress} \\
+This week I updated my three sections of the design document. Additionally, I 
+reviewed the tech and requirements, but no changes were required to either of 
+these documents. Additionally, I met with our TA to review feedback on these 
+documents last time they were graded, but there was not much feedback. I 
+communicated the feedback there was to the rest of the team.
+
+\textbf{Plans} \\
+For the next week, I hope to finish the idle phase by implementing the flags 
+provided in the drivers. Additionally, I would like to complete writing 
+definitions for codes in the telemetry header file.
+
+\textbf{Problems} \\
+No problems encountered.
+
 \subsubsection{Week 6}
 \subsubsubsection{Helena Bales}
 \textbf{Progress} \\ 
@@ -67,6 +131,23 @@ The motors have arrived, so I am no longer blocked on progressing in the code. F
 
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
+\textbf{Progress} \\
+The bulk of this week's work was spent editing the software slides for the STR
+presentation. In addition to this, I implemented the remaining portions of the
+idle phase code and sat in on a meeting with Dr. Smart about robotic arm 
+movement and pathing. From that I have a much better idea on how the pathing 
+algorithm will work.
+
+\textbf{Plans} \\
+My plan for next week will be slightly smaller in scope due to personal 
+obligations. However, I will make sure my portions of the requirements and 
+design documents are up to date and that we're on track to complete the 
+assignment we received an extension on. I also plan on finally completing the 
+telemetry header file, as well as signing up our team for the expo.
+
+\textbf{Problems} \\
+Nothing currently blocking.
+
 \subsubsection{Week 7}
 \subsubsubsection{Helena Bales}
 \textbf{Progress} \\ 
@@ -80,6 +161,17 @@ We have not yet found motors to use for building the C-Space.
 
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
+\textbf{Progress} \\
+This week I have made absolutely no progress. I have been kept busy with grad 
+school application and other personal issues. Progress will resume after March
+1st.
+
+\textbf{Plans} \\
+Goal for next week is start writing telemetry header file.ash
+
+\textbf{Problems} \\
+No issues.
+
 \subsubsection{Week 8}
 \subsubsubsection{Helena Bales}
 \textbf{Progress} \\ 
@@ -93,6 +185,20 @@ None.
 
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
+\textbf{Progress} \\
+Not much progress this week. Can't develop without a prototype to test on. 
+Can't write code if we can't run it. (I mean we could but that would be a 
+colossally awful idea.)
+
+\textbf{Plans} \\
+Plan for next week is to design and begin implementation of motor test. This 
+test (or tests) won't be used during the payload deployment on the rocket, but 
+they will be used to demonstrate the payload actually works on earth, for 
+various design requirements.
+
+\textbf{Problems} \\
+Only problems are that the Pathing team is hogging the only working prototype.
+
 \subsubsection{Week 9}
 \subsubsubsection{Helena Bales}
 \textbf{Progress} \\ 
@@ -119,6 +225,22 @@ I currently have way too many projects going on. All of my classes have final pr
 
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
+\textbf{Progress} \\
+This week I worked with Jonathan Hardman from the electrical team to create a 
+test program to run the arm. It operates each motor individually to 
+demonstrate its full range of motion. The Robots team said they needed the 
+file as soon as possible, so I dropped everything to make it. They did not end
+up using it.
+
+\textbf{Plans} \\
+Next week I plan on working on the slides for our next big presentation, 
+Integrated Subsystem Test Review. It is on Friday of finals week. I also plan 
+to do the majority of the work for the final presentation and report for this 
+class.
+
+\textbf{Problems} \\
+Nothing blocking.
+
 \subsubsection{Week 10}
 \subsubsubsection{Helena Bales}
 \textbf{Progress} \\ 
@@ -202,3 +324,27 @@ I currently have way too many projects going on. All of my classes have final pr
 
 \subsubsubsection{Amber Horvath}
 \subsubsubsection{Michael Humphrey}
+\textbf{Progress} \\
+This week I developed an application to read data from a file (ostensibly 
+temperature data from a file on the on-board SD card) and display a graph of 
+that data. This program is a prototype for our final application to fulfill 
+the Data Visualization component of the requirements. The program is a Python 
+script with the graph created using the matplotlib library. The program was 
+made now to help the Electrical team fulfill a requirement for their senior 
+design class.
+
+In addition to the program described above to display the data file, I created
+a helper program (also in Python) to generate the data file with random data. 
+The temperature sensor that will generate the data only produces 10-bit 
+values, so the random data generator must simulate that output. The program 
+generates a random value between 0 and 1,023 (inclusive) and outputs it as a 
+two byte sequence to a file specified in the arguments to the script. The 
+program repeats this 100 times, outputting a null byte (0) as a separator 
+between each value. This file can then be used as an input file for the data 
+processing program.
+
+\textbf{Plans} \\
+Next week will be spent working on the senior design report and presentation. 
+
+\textbf{Problems} \\
+Nothing blocking. 
