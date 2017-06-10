@@ -439,9 +439,12 @@ int main() {
 	return 0;
 }
 \end{lstlisting}
+
 \subsubsection{pathing.cpp}
+TODO
 \begin{lstlisting}[language=C++]
 \end{lstlisting}
+
 \subsection{Data Storage}
 \subsubsection{SDRead.py}
 \begin{lstlisting}[language=Python]
@@ -469,6 +472,7 @@ plt.ylabel("Relative temperature")	# Always label your axises
 plt.xlabel("Sample number")			
 plt.show()							# Display the plot
 \end{lstlisting}
+
 \subsubsection{telemetry.c}
 \begin{lstlisting}[language=C]
 /*
@@ -526,6 +530,7 @@ void SD_log(char* message) {
 }
 */
 \end{lstlisting}
+
 \subsection{Main}
 \subsubsection{main.c}
 \begin{lstlisting}[language=C]
@@ -580,6 +585,7 @@ int main(void)
     }
 }
 \end{lstlisting}
+
 \subsubsection{phases.h}
 \begin{lstlisting}[language=C]
 /*
@@ -602,6 +608,7 @@ void retract(void);  // retract phase
 
 #endif /* PHASES_H_ */
 \end{lstlisting}
+
 \subsubsection{Modes of Operation}
 \subsubsubsection{idle.c}
 \begin{lstlisting}[language=C]
@@ -636,6 +643,7 @@ ISR(INT6_vect) {
 	return 0;
 }
 \end{lstlisting}
+
 \subsubsubsection{observation.c}
 \begin{lstlisting}[language=C]
 
@@ -685,6 +693,7 @@ int observation(){
 }
 
 \end{lstlisting}
+
 \subsubsubsection{science.c}
 \begin{lstlisting}[language=C]
 #include <avr/io.h>
@@ -850,6 +859,7 @@ int science(){
 
 }
 \end{lstlisting}
+
 \subsubsubsection{retract.c}
 \begin{lstlisting}[language=C]
 #include <avr/io.h>
@@ -911,6 +921,7 @@ void extend(){
 
 }
 \end{lstlisting}
+
 \subsubsubsection{safety.c}
 \begin{lstlisting}[language=C]
 /* safety.c
@@ -936,6 +947,7 @@ int safety(void){
 
 }
 \end{lstlisting}
+
 \subsubsubsection{off.c}
 \begin{lstlisting}[language=C]
 #include "telemetry.h"
