@@ -122,15 +122,13 @@ Date \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
 \clearpage
 
 \section{Introduction}
-The Hephaestus Payload is a rocketry \gls{payload} that will fly onboard the 2016-2017 RockSat-X rocket. 
-The rocket will be launched from Wallops Flight Facility filled with
-student-made \glspl{payload}. 
-The Hephaestus \gls{payload} will be made up of a \gls{deployable} arm and a video camera. The arm will perform 
-a series of motions that will be recorded by the video camera and sensors. Following the experiment, the 
-arm will retract back into the rocket. The Hephaestus mission will be Oregon State University's first 
-space mission and will prove not only our ability to develop a space-ready
-\gls{payload}, but also the 
-viability of construction in space using a robotic arm.
+The Hephaestus project is a 2016-2017 Senior Design project involving Computer Science, Electrical Engineering, and Mechanical Engineering seniors. The project is a proof-of-concept for construction in a space-like environment. The concept that we have chosen to pursue will be described over the course of this document but is, at its core, a high \gls{dof} robotic arm mounted on a rocketry payload. At the next level of detail, the Hephaestus payload is an autonomously controlled 4 \gls{dof} steel arm capable of precise, collision-less operations in microgravity and vacuumm conditions. 
+
+This concept will be proven in August, following the 2017 RockSat-X launch from Wallops Flight Center in West Virginia. RockSat-X is an educational ride-sharing program for student exploration of Low Earth Orbit. The RockSat-X program is run by the Colorado Space Grant Consortium and provides students with a standard rocketry platform for space experiments. This will be Oregon's first participation in the program, and Oregon State University's first space mission. This project is also supported by the OSU AIAA club.
+
+The success of this project will be determined following the launch in August. Due to gravity, we are unable to test the function of the arm on earth. The weight of the motors prohibits the arm from moving, even using a plastic version of the arm segments to reduce weight. Success of the mission will be measured in several ways. The most direct way that we will see our success is by recording a video of the payload's operation on orbit using a GoPro camera. We will also receive telemetry data during the flight about the experiment's state and status of the on-board touch sensors. Finally, we will be storing data throughout the experiment to the \gls{obc} for evaluation after the rocket's recovery.
+
+The success of this mission will show the success of the Hephaestus Senior Design groups, will take a step towards proving the viability of construction on orbit using a small autonomous robotic arm, and will show Oregon State University's ability to put an experiment in space. The goal for this project is mission success and technical and professional development.
 
 \subsection{Document Overview}
 
@@ -142,13 +140,40 @@ The technical actions performed by this demonstration will illustrate a proof of
 autonomous repairs, and performing experiments in space.
 
 \subsection{Mission Success Criteria}
+The following criteria determine if the Hephaestus mission will be considered successful post-flight.
+The minimum mission success criteria represent the lowest criteria to be met in order for the mission to be considered successful.
+If the minimum mission success criteria are not met, then the mission may not be considered successful.
+The maximum success criteria define the highest goals for the mission.
+Fulfilling any or all of these criteria, in addition to the minimum success criteria, would constitute a highly successful mission.
+The success of the mission shall be evaluated by means of video recordings recovered post-flight and telemetry data received during the flight.
+
 \subsubsection{Minimum Mission Success Criteria}
+\begin{itemize}
+\item{The arm assembly body shall deploy and a video sweep shall be successfully recorded.}
+\item{The arm assembly body shall be fully retracted after data collection.}
+\end{itemize}
+
 \subsubsection{Maximum Mission Success Criteria}
+\begin{itemize}
+\item{The arm assembly body shall deploy and a video sweep is successfully recorded.}
+\item{The arm shall make contact with predetermined targets around the payload.}
+\item{The camera shall record all instances of contact between the arm and the targets.}
+\item{The arm assembly body shall be fully retracted after data collection.}
+\end{itemize}
+
 
 \subsection{Concept of Operations}
+\includegraphics[width=\textwidth]{./images/conops}
+
+\includegraphics[width=\textwidth]{./images/conopsTable}
+\begin{center}
+	Concept of Operations for the 2017 RockSat-X Rocket Launch.
+\end{center}
 
 \subsection{Programmatics}
 \subsubsection{Organizational Chart}
+\includegraphics[width=\textwidth]{./images/orgChart.png}
+
 \subsubsection{Sponsors}
 
 \section{Requirements Document}
