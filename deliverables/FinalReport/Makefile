@@ -1,4 +1,4 @@
-all: Report.tex Glossary.tex logo.png
+all: Report.tex Glossary.tex logo.jpg
 	pdflatex Report.tex
 	makeindex -s Report.ist -t Report.glg -o Report.gls Report.glo
 	pdflatex Report.tex
