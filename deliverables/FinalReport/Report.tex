@@ -13,9 +13,12 @@
 \newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
 
 \titleclass{\subsubsubsection}{straight}[\subsection]
+\titleclass{\subsubsubsubsection}{straight}[\subsection]
 
 \newcounter{subsubsubsection}[subsubsection]
+\newcounter{subsubsubsubsection}[subsubsubsection]
 \renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\renewcommand\thesubsubsubsubsection{\thesubsubsubsection.\arabic{subsubsubsubsection}}
 \renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
 
 \titleformat{\subsubsubsection}
@@ -23,25 +26,35 @@
 \titlespacing*{\subsubsubsection}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
+\titleformat{\subsubsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsubsection}
+{0pt}{3.25ex plus 1ex minus .4ex}{1.5ex}
+
 \makeatletter
-\renewcommand\paragraph{\@startsection{paragraph}{5}{\z@}%
+\renewcommand\paragraph{\@startsection{paragraph}{6}{\z@}%
   {3.25ex \@plus1ex \@minus.2ex}%
   {-1em}%
   {\normalfont\normalsize\bfseries}}
-\renewcommand\subparagraph{\@startsection{subparagraph}{6}{\parindent}%
+
+\renewcommand\subparagraph{\@startsection{subparagraph}{7}{\parindent}%
   {3.25ex \@plus1ex \@minus .2ex}%
   {-1em}%
   {\normalfont\normalsize\bfseries}}
+
 \def\toclevel@subsubsubsection{4}
-\def\toclevel@paragraph{5}
+\def\toclevel@subsubsubsubsection{5}
 \def\toclevel@paragraph{6}
+\def\toclevel@paragraph{7}
+
 \def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
-\def\l@paragraph{\@dottedtocline{5}{10em}{5em}}
-\def\l@subparagraph{\@dottedtocline{6}{14em}{6em}}
+\def\l@subsubsubsubsection{\@dottedtocline{5}{9em}{5em}}
+\def\l@paragraph{\@dottedtocline{6}{10em}{6em}}
+\def\l@subparagraph{\@dottedtocline{7}{14em}{7em}}
 \makeatother
 
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}

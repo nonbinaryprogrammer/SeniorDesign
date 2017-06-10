@@ -1,33 +1,33 @@
-\subsection{Introduction}
-\subsubsection{Document Overview}
-\subsubsubsection{Helena Bales}
+\subsubsection{Introduction}
+\subsubsubsection{Document Overview}
+\subsubsubsubsection{Helena Bales}
 \begin{enumerate}
 \item{Target Generation}
 \item{Arm Movement}
 \item{Arm Position Tracking}
 \end{enumerate}
-\subsubsubsection{Amber Horvath}
+\subsubsubsubsection{Amber Horvath}
 \begin{enumerate}
 \item{Emergency Payload Expulsion}
 \item{Program Modes of Operation}
 \item{Target Success Sensors}
 \end{enumerate}
-\subsubsubsection{Michael Humphrey}
+\subsubsubsubsection{Michael Humphrey}
 \begin{enumerate}
 \item{Telemetry}
 \item{Video Camera}
 \item{Data Visualization and Processing}
 \end{enumerate}
 
-\subsection{Technologies}
-\subsubsection{Target Generation}
-\subsubsubsection{Requirement Overview}
+\subsubsection{Technologies}
+\subsubsubsection{Target Generation}
+\subsubsubsubsection{Requirement Overview}
 The software shall generate points to be used in testing the Hephaestus arm.
 The points will constitute the total test of the arm, and should therefore include points
 representative of standard and edge cases.
 These points shall be used as targets for the arm body.
 
-\subsubsubsection{Solution Design}
+\subsubsubsubsection{Solution Design}
 \textbf{The points shall be generated in 3-D polar form}, including an angle from normal, a radius, 
 and a height. 
 The angle shall be in the range of 0 and 359 degrees.
@@ -48,15 +48,15 @@ around the normal, a radius close to zero, and a height of zero. In this way, th
 will test a functionality of the arm. The test points will be generated prior to launch in order to 
 insure that the points adequately cover the desired tests.
 
-\subsubsection{Arm Movement}
-\subsubsubsection{Requirement Overview}
+\subsubsubsection{Arm Movement}
+\subsubsubsubsection{Requirement Overview}
 The software shall control the movement of the arm body assembly. 
 The position of the tip of the arm shall be tracked in the coordinate notation described in subsection 2.2 above.
 The software shall rotate the arm body assembly in a full 360 degrees.
 The software shall additionally control the movement the height of the arm body assembly.
 The arm should descend and touch the baseplate of the payload at any rotation.
 
-\subsubsubsection{Solution Design}
+\subsubsubsubsection{Solution Design}
 \textbf{The movement of the arm shall follow a path through a 4-degree of freedom (dof) configuration
 space.} The path of the arm shall be generated using the A* pathfinding algorithm. The configuration 
 		space shall be in \(\rm I\!R^4\). Valid points in the configuration space will be represented by a 0, 
@@ -84,11 +84,11 @@ limited to prevent damage to the arm, the payload, the rocket, and the motors. I
 will be able to detect it by measuring the torque that the motor must apply in order to move the arm. If 
 the torque increases dangerously, we can stop, unstick the arm, and continue with the operations.
 
-\subsubsection{Arm Position Tracking}
-\subsubsubsection{Requirement Overview}
+\subsubsubsection{Arm Position Tracking}
+\subsubsubsubsection{Requirement Overview}
 The position of the arm shall be tracked using the same coordinate system described in the Target Generation requirement.
 The position of the arm shall be calculated using the known start position and the rotation of the motors.
-\subsubsubsection{Solution Design}
+\subsubsubsubsection{Solution Design}
 \textbf{The position of the arm shall be tracked using the motor movement to calculate \(p\) and 
 \(p_{m2}\).}
 The initial position of the arm shall be defined in advance, and a sensor will be placed at that location. 
@@ -114,14 +114,14 @@ where we are compared to where we started by storing the motion applied by the m
 we actually are through the triggering of sensors. Finally, we can verify the sensor data using the video
  camera.
 
-\subsubsection{Emergency Payload Expulsion}
+\subsubsubsection{Emergency Payload Expulsion}
 \textbf{Author:} Amber Horvath
-\subsubsubsection{Requirement Overview}
+\subsubsubsubsection{Requirement Overview}
 The software shall eject the arm upon system failure. 
 System failure in this case is defined as the arm becoming lodged or stuck in a state where it is unable to retract.
 The software will enter Safety mode (defined in subsection 2.5.2) and attempt to retract the arm. If it is unable to complete this step,
  the system will continue attempting to eject the arm until ejection is completed.
-\subsubsubsection{Solution Design}
+\subsubsubsubsection{Solution Design}
 Upon entering the Shutdown state, the system should succeed in closing the arm, the Arm Assembly Body should be retracted, 
 and the \gls{OBC} should be powered off. 
 The system shall determine shutdown was not completed correctly (as seen in state 7 defined in subsection 2.5.2) by determining that one 
@@ -148,9 +148,9 @@ The system shall determine this by a pin being set from low to high upon entry i
 If the arm is unable to be ejected safely, the arm will be stuck outside the canister and the mission shall be counted
 as a failure.
 
-\subsubsection{Program Modes of Operation}
+\subsubsubsection{Program Modes of Operation}
 \textbf{Author:} Amber Horvath
-\subsubsubsection{Requirement Overview}
+\subsubsubsubsection{Requirement Overview}
 The software shall have the Modes of Operation necessary to insure the mission success.
 The software shall first deploy the payload, then the arm. Next the software shall activate the 
 camera and perform a video sweep. The software shall then perform the science experiment.
@@ -159,7 +159,7 @@ If observation mode fails, it shall return to idle.
 Once the experiment time has been exhausted, the payload shall shut down.
 If it shuts down correctly, everything will poweroff. If not, the payload shall attempt to retract 
 again, or expel the payload from the rocket.
-\subsubsubsection{Solution Design}
+\subsubsubsubsection{Solution Design}
 \input{./images/state_diagram2}
 \begin{center}
 Diagram of software states of operation and transition between states [2].
@@ -194,14 +194,14 @@ will power off.}
 \end{enumerate}
 \end{center}
 
-\subsubsection{Target Success Sensors}
+\subsubsubsection{Target Success Sensors}
 \textbf{Author:} Amber Horvath
 \label{subsec:tests}
-\subsubsubsection{Requirement Overview}
+\subsubsubsubsection{Requirement Overview}
 The software shall know whether or not the arm succeeded in touching the targets generated, as described in subsection 2.1. The sensors
 shall report back whether or not contact was made. This data can be used in post-mortem analysis to determine whether
 certain targets were faulty or whether the range of motion on the arm was faulty.
-\subsubsubsection{Solution Design}
+\subsubsubsubsection{Solution Design}
 The payload shall be equipped with pre-placed sensors that the arm shall make contact with. The arm shall have generated targets
 as described in subsection 2.1. These coordinates shall be stored within the system and used as inputs for the function controlling
 the arms' movements, with the target position being where the tip of the arm should be located. The arm shall exert force to touch
@@ -209,12 +209,12 @@ the sensor, and the sensor shall go high if contact is made. The sensors high or
 line and written to our SD card. If the arm gets stuck during this process, it will enter Safety mode, as described in subsection 2.5. The telemetry data shall
 later be visualized using Python's UI package, TK. 
 
-\subsubsection{Telemetry}
+\subsubsubsection{Telemetry}
 \textbf{Author:} Michael Humphrey
-\subsubsubsection{Requirement Overview}
+\subsubsubsubsection{Requirement Overview}
 The telemetry component shall report via telemetry all error codes and test results.
 
-\subsubsubsection{Solution Design}
+\subsubsubsubsection{Solution Design}
 The telemetry component is responsible for collecting and sending data through the
 telemetry ports on the \gls{payload}.
 
@@ -247,20 +247,20 @@ powered on.
 The description shall be a sequence of \gls{ASCII} characters of arbitrary length,
 and terminated with a carriage return character.
 
-\subsubsection{Video Handling}
+\subsubsubsection{Video Handling}
 \textbf{Author:} Michael Humphrey
-\subsubsubsection{Requirement Overview}
+\subsubsubsubsection{Requirement Overview}
 Video footage of the \gls{payload}'s operations shall be recorded and saved to the
 SD card.
 
-\subsubsubsection{Solution Design}
+\subsubsubsubsection{Solution Design}
 The Hephaestus Electrical Engineering team shall design the payload such that the 
 camera will power on and off at the appropriate times, as well as save footage to
 the SD card. 
 
-\subsubsection{Data Visualization and Processing}
+\subsubsubsection{Data Visualization and Processing}
 \textbf{Author:} Michael Humphrey
-\subsubsubsection{Requirement Overview}
+\subsubsubsubsection{Requirement Overview}
 The data visualization and processing component shall provide visualizations
 for the collected data.
 This component shall be able to show whether the mission success criteria have
@@ -268,7 +268,7 @@ been met or not.
 If the mission success criteria have not been met, this component shall show how
 and why they have not been met.
 
-\subsubsubsection{Solution Design}
+\subsubsubsubsection{Solution Design}
 The component shall have a \gls{gui} written in Tkinter with graphs generated by
 \gls{matplotlib}.
 The \gls{gui} shall consist of two graphs, a table, and a timeline.
@@ -296,7 +296,7 @@ The timeline shall be a visualization with time on the y axis, with significant 
 marked at various positions along the axis, according to when that event happened.
 
 
-\subsection{Conclusion}
+\subsubsection{Conclusion}
 This concludes the design of our project. Further questions or concerns can be addressed to the authors of this document.
 This document may be subject to changes in the future as more design constraints are found, or designs are found to not work the way
 

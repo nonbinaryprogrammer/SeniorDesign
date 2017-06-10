@@ -1,19 +1,19 @@
-\subsection{Introduction}
-\subsubsection{Purpose of Document}
+\subsubsection{Introduction}
+\subsubsubsection{Purpose of Document}
 This document shall describe in detail the Hephaestus RockSat-X payload.
 It shall specify the software behavior of the payload.
 This document will not discuss the specific implementations of the hardware or the software.
 It will specify the behavior by describing the Functional and Non Functional requirements of the software.
 This document will be updated throughout the project and should be considered a living document.
 
-\subsubsection{Overview of Document}
+\subsubsubsection{Overview of Document}
 This document will first cover the functional requirements of the project, then the non functional requirements.
 The Functional Requirements will include descriptions of the main behavior, target generation, movement, operation modes, and telemetry.
 Each of these topics will include descriptions of the behavioral requirements for each.
 The Non Functional requirements will cover the performance, security, and telemetry.
 Each of the non functional topics covered will include the requirements for the quality of each of the topics.
 
-\subsubsection{Overview of Payload}
+\subsubsubsection{Overview of Payload}
 The Hephaestus RockSat-X payload is a deployable rocketry payload that will fly on the 2016 RockSat-X launch.
 The payload's main function is to provide a proof of concept for delicate construction in a space environment.
 The Hephaestus payload shall perform the following operations:
@@ -31,7 +31,7 @@ The Hephaestus payload shall perform the following operations:
 \item{Power off}
 \end{itemize}
 
-\subsubsection{Overview of Physical Payload}
+\subsubsubsection{Overview of Physical Payload}
 While this document focuses on the software of the Hephaestus payload, the project also includes hardware
  and electrical systems. 
 Understanding the physical appearance of the payload will help with understanding the software system. 
@@ -41,7 +41,7 @@ As such, Figure 1 should serve as a reference for the physical appearance of the
 \caption{Model of Hephaestus Payload}
 \end{figure}
 
-\subsubsection{Mission Success Criteria}
+\subsubsubsection{Mission Success Criteria}
 The following criteria determine if the Hephaestus mission will be considered successful post-flight.
 The minimum mission success criteria represent the lowest criteria to be met in order for the mission to be considered successful.
 If the minimum mission success criteria are not met, then the mission may not be considered successful.
@@ -49,13 +49,13 @@ The maximum success criteria define the highest goals for the mission.
 Fulfilling any or all of these criteria, in addition to the minimum success criteria, would constitute a highly successful mission.
 The success of the mission shall be evaluated by means of video recordings recovered post-flight and telemetry data received during the flight.
 
-\subsubsubsection{Minimum Mission Success Criteria}
+\subsubsubsubsection{Minimum Mission Success Criteria}
 \begin{itemize}
 \item{The arm assembly body shall deploy and a video sweep is successfully recorded.}
 \item{The arm assembly body shall be fully retracted after data collection.}
 \end{itemize}
 
-\subsubsubsection{Maximum Mission Success Criteria}
+\subsubsubsubsection{Maximum Mission Success Criteria}
 \begin{itemize}
 \item{The arm assembly body shall deploy and a video sweep is successfully recorded.}
 \item{The arm shall make contact with predetermined targets around the payload.}
@@ -63,30 +63,30 @@ The success of the mission shall be evaluated by means of video recordings recov
 \item{The arm assembly body shall be fully retracted after data collection.}
 \end{itemize}
 
-\subsubsection{Requirements Apportioning}
+\subsubsubsection{Requirements Apportioning}
 
-\subsubsubsection{Priority 1}
+\subsubsubsubsection{Priority 1}
 This is the highest priority level. In order for the software system to be considered complete and ready for launch, all requirements of this level must be met.
 The completion of only Priority 1 requirements marks the completion of Minimum Mission Success criteria, as defined in subsection 1.4.
 
-\subsubsubsection{Priority 2}
+\subsubsubsubsection{Priority 2}
 Requirements of Priority 2 are not required for the release of the software system.
 Not completing these requirements must not present a risk to mission success.
 The completion of these requirements and successful performance on orbit marks completion of part of the Maximum Success Criteria, as defined in subsection 1.4.
 
-\subsubsubsection{Priority 3}
+\subsubsubsubsection{Priority 3}
 Requirements of Priority 3 are not required for the release of the software system.
 Not completing these requirements must not present a risk to mission success.
 Completion of all priority 3 requirements and those of higher priority, with successful performance on orbit, marks the completion of the Maximum Mission Success Criteria, as defined in subsection 1.4.
 
-\subsection{Functional Requirements}
+\subsubsection{Functional Requirements}
 
-\subsubsection{Main Behavior}
+\subsubsubsection{Main Behavior}
 \textbf{Priority 1:}
 The software shall control the movement of the arm assembly body to make contact with the payload base
 at locations generated by the Software (subsection 2.2). 
 
-\subsubsection{Target Generation}
+\subsubsubsection{Target Generation}
 \textbf{Priority 1:}
 The software shall generate points to be used in testing the Hephaestus arm.
 The points will constitute the total test of the arm, and should therefore include points
@@ -99,7 +99,7 @@ The height of the point, for the purpose of target generation, shall be constant
 However the points will always be stored in a triple of angle from normal (\(\theta\)), radius (\(r\)), and height (\(h\)).
 These points shall be used as targets for the arm body.
 
-\subsubsection{Movement}
+\subsubsubsection{Movement}
 The software shall control the movement of the arm body assembly. 
 The position of the tip of the arm shall be tracked in the coordinate notation described in subsection 2.2 above.
 
@@ -110,46 +110,46 @@ The software shall rotate the arm body assembly in a full 360 degrees.
 The software shall additionally control the movement the height of the arm body assembly.
 The arm should descend and touch the baseplate of the payload at any rotation.
 
-\subsubsection{Modes}
+\subsubsubsection{Modes}
 During the course of the flight, the software will progress though several different modes of operation.
 
-\subsubsubsection{Launch}
+\subsubsubsubsection{Launch}
 \textbf{Priority 1:}
 The software shall remain idle during launch.
 
-\subsubsubsection{Deployment}
+\subsubsubsubsection{Deployment}
 \textbf{Priority 1:}
 The software shall power on the arm assembly body and video camera.
 The software shall begin saving the video feed from the camera to a persistent storage location.
 The software shall generate target points, as defined in subsection 2.2.
 
-\subsubsubsection{Science}
+\subsubsubsubsection{Science}
 \textbf{Priority 1:}
 The software shall collect data to serve as a proof-of-concept for construction of structures in flight.
 
-\subsubsubsection{Safety}
+\subsubsubsubsection{Safety}
 \textbf{Priority 1:}
 The software shall ensure that the arm assembly body can be fully retracted after completing the mission.
 The software shall, in case of a failure, eject the arm to prevent damage to the arm assembly body and the rocket during descent.
 
-\subsubsubsection{Observation}
+\subsubsubsubsection{Observation}
 \textbf{Priority 1:}
 The software shall report all telemetry data (as defined in 2.5) to the ground station.
 
 \textbf{Priority 2:}
 The software shall be responsible for turning the camera on and off.
 
-\subsubsubsection{Power Off}
+\subsubsubsubsection{Power Off}
 \textbf{Priority 1:}
 The software shall power down all subsystems of the payload in preparation for descent.
 
-\subsubsubsection{State Diagram}
+\subsubsubsubsection{State Diagram}
 \input{./images/state_diagram}
 \begin{center}
 State diagram for transition between operational modes.
 \end{center}
 
-\subsubsection{Telemetry}
+\subsubsubsection{Telemetry}
 Let the telemetry interface be defined as 5 of the ten analog pins provided by Wallops Flight Facility.
 Let telemetry be defined as the data transmitted from the payload to the ground station via the telemetry interface.
 The software shall report all telemetry data to the ground station.
@@ -158,17 +158,17 @@ The software shall report all telemetry data to the ground station.
 The software shall report via telemetry all the target points it generates, as defined in subsection 2.2.
 The software shall also report which code branch it takes to facilitate debugging and post-mortem analysis, if necessary. 
 
-\subsection{Non Functional Requirements}
-\subsubsection{Performance}
+\subsubsection{Non Functional Requirements}
+\subsubsubsection{Performance}
 \textbf{Priority 1}: The system shall perform efficiently. The maximum response service time should be long enough for the robotic arm to move from one target to another.
  The system should have a maximum throughput that allows for processing of input arguments about the arm's actions and processing for the telemetry data output. 
  Resource usage should be limited to account for the storing of telemetry data. Power consumption must be limited to 28V.
-\subsubsection{Security}
+\subsubsubsection{Security}
 \textbf{Priority 1}: The system shall be secure. Since it is a closed system, the device will be programmed such that it cannot be accessed remotely and will only output sanitized data.
-\subsubsection{Telemetry}
+\subsubsubsection{Telemetry}
 \textbf{Priority 1}: The system will perform telemetry. The data will be transmitted with a delay of up to 10 seconds.
 
-\subsection{Gantt Chart}
+\subsubsection{Gantt Chart}
 \includegraphics[width=\textwidth]{./images/gantttable}
 \includegraphics[width=\textwidth]{./images/ganttchart}
 
