@@ -1,1 +1,64 @@
+\subsubsection{Target Generation}
 TODO
+
+\subsubsection{Arm Movement}
+TODO
+
+\subsubsection{Arm Position Tracking}
+TODO
+
+\subsubsection{Emergency Payload Expulsion}
+TODO
+
+\subsubsection{Program Modes of Operation}
+TODO
+
+\subsubsection{Target Success Sensors}
+TODO
+
+\subsubsection{Telemetry}
+The design of the telemetry interface has changed multiple times over the
+course of the year, mainly due to the poor understand of how telemetry systems
+work on the rocket.
+
+The design was originally going to transmit the result of a series of tests
+that the \gls{payload} would perform.
+However, when the arm pathing design changed from dynamically generating target 
+points to using a set of predefined target points, we also changed the way the
+result of these operations would be reported via telemetry.
+We ultimately decided on a set of 4 digit codes to transmit through telemetry,
+since we had four pins to transmit data through the rocket's telemetry system.
+Each code would represent a milestone in the program, like transitioning to a
+new phase or successfully touching touch sensor.
+
+Additionally, we did not plan on storing a log file.
+However, later in the design process we decided to add an SD card to the
+\gls{payload} to store data on.
+To take advantage of the huge amount of data storage available to us, we
+decided to store a detailed log of all operations to better assist in debugging
+after the flight.
+However, after significant implementation difficulties, we were forced to
+abandon the SD card.
+Instead of aborting the log file, we changed the storage target of the logging
+\gls{api} from the SD card to an on-board \gls{eeprom} chip.
+This introduced a new constraint, as the \gls{eeprom} chip had only 4 kB of
+storage space, as opposed to the near limitless storage capacity of the SD 
+card.
+We had to reduce the total amount of logging done in order to remain under
+the 4 kB limit.
+The logging format will remain the same.
+
+\subsubsection{Video Camera}
+When this document was first drafted, the video was originally designed to be
+handled by the \gls{obc}.
+However, as the electrical system was designed and finalized, it became easier
+to have the video completely handled in hardware.
+As a result, the \gls{obc} does not interact with the video camera beyond
+turning it on at the beginning of the experiment and turning it off at the end.
+The electrical system manages storing the data.
+
+\subsubsection{Data Visualization and Processing}
+The only change to the design of the data visualization and processing
+component is the parsing component for the log file. 
+Instead of opening an \gls{ascii} text file stored on the SD card, this
+component must parse a raw binary file copied from the \gls{eeprom} chip.
