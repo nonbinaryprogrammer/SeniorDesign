@@ -10,6 +10,22 @@ I plan to finish the C-Space parser next week and move on to pathfinding. I will
 The main problem for this week is a funding shortage that may mean that we will not be able to send everyone that we need to the integration testing and launch at Wallops.
 
 \subsubsubsection{Amber Horvath}
+\textbf{Progress} \\
+Hi all.
+
+Sorry, but I had almost no progress this week due to being in Boise due to a family emergency. However, over spring break, I did look into the SD Card 
+issues more and found out that the reason a function was having undefined behavior (returning success and failure seemingly simultaneously) I found that 
+this function was actually being called in a previous library function call that I had failed to take into account during my stack trace. This was a 
+breakthrough in that it proved this me and this function weren't losing our "minds" but also left me with the original problem I had of not knowing why 
+the function was failing in the first place.
+
+\textbf{Plans} \\
+The next plan is to continue investigating why this is failing to work and move implementation, hopefully, more towards the arm as the ME's and EE's are 
+getting that in a good place for us to test it.
+
+\textbf{Problems} \\
+Being out of town forced me to spend less time on this work than I would have liked, but now that I'm back in town I should be able to work more.
+
 \subsubsubsection{Michael Humphrey}
 \textbf{Progress} \\
 No progress this week.
@@ -32,6 +48,19 @@ Next week will involve finishing up the second draft of the RockSat-X poster and
 The problems that I am currently facing are in receiving enough support from the group at large for my pathfinding and automation tasks. I think this will improve next week as our schedules all become more normal.
 
 \subsubsubsection{Amber Horvath}
+\textbf{Progress} \\
+No notable progress was made week 2 of spring term. I was unfortunately mentally and academically recovering from my absence the week prior and didn't 
+have a lot of time to spend on senior design work. I did meet up with my team for the first time since the previous term and we designated tasks for the 
+coming weeks including finishing code implementation for the arm and finishing up the library implementation for the SD card.
+
+\textbf{Plans} \\
+Upcoming plans include meeting with the ME Brett to figure out where we will place the touch sensors on the arm body and implement code to move the arm 
+to these touch sensor points.
+
+\textbf{Problems} \\
+Blockers are limited to just the fact that the arm is too heavy to lift and so it will be hard to test. Testing arm movement would require us to manually 
+check the rotation of the motors using a compass. This is not ideal.
+
 \subsubsubsection{Michael Humphrey}
 \textbf{Progress} \\
 No progress this week.
@@ -54,6 +83,23 @@ Next week will be continuing work on the pathing and automation tasks. I will al
 I am currently having problems communicating how to make a visualization of a 4D array with James over text.
 
 \subsubsubsection{Amber Horvath}
+\textbf{Progress} \\ 
+This was a hard week, boys and girls. Mostly due to the fact I was very busy with my research job as we had a paper deadline on Friday and basically had 
+to spend every "free" hour working towards that deadline. This left minimal time to work on senior design, but fortunately I was able to make some 
+notable progress. I met up with Jonathan from the EE's to discuss the issues with the SD card as I was at a loss as to what to do next to determine why 
+that function wasn't working. We reworked the SPI function call but that unfortunately didn't help anything. Our next step is to try reworking our 
+approach and seeing if we can read from a file and perhaps find some commonality between reading and writing where the software breaks to pin-point an 
+exact issue. Our other option is dropping this stretch goal (since that's essentially what it is) and focusing our efforts on writing stable data storage 
+to EEPROM. If we can't get this stuff working soon enough that's probably what we'll have to do. Meanwhile, we also need to start focusing our energy on 
+programming the arm to move. That's a big one.
+
+\textbf{Plans} \\ 
+Next steps are to find out where EXACTLY this code is breaking. And also to implement the retract and move out parts for the deck plate holding the 
+mechanical arm as that's part of my requirements I was assigned ("emergency retraction").
+
+\textbf{Problems} \\
+Problems are that this SD card just won't cooperate and I'm so tired of it.
+
 \subsubsubsection{Michael Humphrey}
 \textbf{Progress} \\
 This week, in light of the SD card still being unfinished, I implemented logging to the eeprom on the microcontroller. The eeprom only has 4 kilobytes of available memory, so it is only a mediocre replacement. We no longer have time to fix the SD card library we are using, so we must pursue other means of telemetry. Telemetry via the provided telemetry pins is fully implemented. Telemetry via SD card is partially implemented, but cannot be finished if the SD card library can't be fixed. Telemetry via eeprom is fully implemented. Until SD card is unblocked, the telemetry component is complete.
@@ -76,6 +122,28 @@ On Monday I will submit the final expo poster for printing and turn in the photo
 I am having trouble getting support from the Electrical Engineers. They are also very busy with work and classes.
 
 \subsubsubsection{Amber Horvath}
+\textbf{Progress} \\ 
+This week we began working on some more implementation endeavors for the arm's movements. I implemented the touch sensor and deck plate extension and 
+retraction (which were my designated tasks from the Requirements document) as interrupts that execute code upon receiving information from the hardware. 
+In the case of the deck plate, an interrupt will be sent upon a timer event line (part of the RSX rocket) going to LOW and signaling the end of our 
+deployment period for the payload. The interrupt will trigger and power the motor attached to the bottom of the deck plate, change it's direction from 
+outward to inwards, and step the motors to pull the plate in. The code for the touch sensors are signaled by the touch sensors being depressed, and will 
+write a code to the telemetry line signaling that we made contact. The implementation for the touch sensor is in science.c while the retract/extend code 
+is in its own file (retract.c and retract.h). Since this is now complete, I will be assisting Helena in her work to finish the arm pathing and movement. 
+Unrelated to the implementation effort, I joined Sam Lundeen (from the MEs) to visit Garmin regarding doing environmental testing for the arm. We met up 
+with Steve Horvath (my dad!) and Greg Fisher to see whether it was viable to mount our arm onto their vibration table and test how the arm faired in 
+situations similar to what will be experienced at launch time. We are going to meet with our team to update them that this is viable and to determine 
+what we want equipped to the arm during this time. While it would be ideal to have everything attached, we've also had funding issues and don't want to 
+risk losing any motors or other valuable pieces that we may not be able to replace if they get damaged during the testing.
+
+\textbf{Plans} \\ 
+Future plans are to continue implementation efforts with Helena and I also hope to clean up our repository a bit and add some more documentation 
+regarding how to test our code so when we have the code freeze, the TAs/McGrath aren't confused as to what's going on.
+
+\textbf{Problems} \\ 
+Blockers are that I still have been unable to actually test this code due to the motors and arm being not set up currently. Hopefully I will be able to 
+do this by our (extended, thanks McGrath!) May 15th deadline.
+
 \subsubsubsection{Michael Humphrey}
 \textbf{Progress} \\
 This week I am making sure me and my team is ready for expo. I am following up with important people and assignments to make sure everything is complete and deadlines are being met. This includes but is not limited to making finals edits on our poster, getting out client's signature for the poster, submitting the poster, and making sure everyone has signed the necessary forms for expo.
@@ -98,6 +166,17 @@ Next week I will be finishing the Pathing and Automation code. I will continue t
 I am still having trouble getting the support I need from the other engineers. Hopefully things improve next week.
 
 \subsubsubsection{Amber Horvath}
+\textbf{Progress} \\ 
+This week I was extraordinarily busy with other classes so I was unable to do much on the project. I plan to get back to work after my midterm Tuesday of 
+next week.
+
+\textbf{Plans} \\ 
+Next week, I plan on getting back into the code and performing minor bug fixes to get the code operational before our code freeze deadline of May 15th. 
+We also have an upcoming meeting with our sponsors in Colorado and expo coming up so things are getting pretty exciting!
+
+\textbf{Problems} \\
+No stoppers are known as of now.
+
 \subsubsubsection{Michael Humphrey}
 \textbf{Progress} \\
 This week I made some minor changes to the telemetry code.
@@ -120,6 +199,21 @@ Next week I will be finishing up the code for the Pathing and Automation, as wel
 Not enough hours in the day. Also my computer has some issues with AVR so I have to find another computer to use. I have also had a hard time getting in contact with the Electrical Engineer who can help me with the Program Memory part of my code, which is something that I am not particularly skilled or practiced at, so I could really use the help.
 
 \subsubsubsection{Amber Horvath}
+\textbf{Progress} \\ 
+This week, Michael and I worked on fixing some bugs with our implementation of the different phases. We also enhanced the readability of the code by 
+adding some defines within a .h file and refactoring the code to use these more readable names as opposed to the previous iteration which just used 
+numbers like 0 and 1. We believe this makes the code easier for outsiders to understand and, if changes are made in how the implementation works, we can 
+just change the value of the defines as opposed to having to go through and find every number to change. The remaining work is just finishing the science 
+mode, which is Helena's responsibility. We trust her to get this over the finish line.
+
+\textbf{Plans} \\ 
+Future progress is to get ready for Expo (May 19th!) and FSMR which should be Wednesday (May 17th) at 11. We also need to finish recording our midterm 
+progress update. Next week will be fun/stressful!
+
+\textbf{Problems} \\ 
+Blockers are that the arm still isn't moving. We spoke with Huy (a representative from the EE team) who said that we don't know whether the arm will move 
+even in space. This is concerning but ultimately out of our hands.
+
 \subsubsubsection{Michael Humphrey}
 \textbf{Progress} \\
 This week I made some more minor tweaks to the telemetry code. I also sat down with Amber for 2 hours and worked on making the code in the repo to compiler. We also added a bunch of missing code in the off and retract phases. We also refactored a bunch of code to make it more readable.
@@ -142,6 +236,49 @@ TODO
 TODO
 
 \subsubsubsection{Amber Horvath}
+\textbf{Progress} \\
+So, we did expo! And with respect to Vee's email, I'll be answering the questions given in that email. So here we go!
+
+\textbf{If you were to redo the project from Fall term, what would you tell yourself?}
+I'd tell myself to work harder, earlier. While the timeline of our project was different from most teams and prevented us from starting implementation 
+until later in the project life cycle, I believe there's more that could've been done to prevent the last-minute rushed feeling that I felt towards the 
+end of the project. However, I also have enough experience working in large group projects to know that sometimes this is just the way it is. I'd also 
+tell myself to work more on establishing good team working dynamics earlier on. Our team had some internal strife between members due to lack of clear 
+communication of expectations and work balancing. If I could've said some magic words to Past-Amber to prevent this, I would have.
+
+\textbf{What's the biggest skill you've learned?}
+In my technical skill-set, I'd say this project got me even more comfortable with embedded C programming. My previous experience with C was mostly higher 
+level with a bit of pointers and system calls thrown in there. However, programming directly onto an Atmega128 allowed me to become more comfortable with 
+working very close to the hardware. In terms of team dynamic, I'd want to work on advocating for myself. I have a lot of stuff on my plate but sometimes 
+I left myself get more stuff placed on me due to not saying "no". This is something I can work on both inside and outside of school.
+
+\textbf{What skills do you see yourself using in the future?}
+Since I plan on doing more user-facing software development in the future, I don't see myself using much of the technical skills I gained during this 
+project. However, I do plan on using some of the team strategy skills we learned such as the retrospective table, effective inter-team communication, and 
+the documentation creating skills we learned fall term.
+
+\textbf{What did you like about the project, and what did you not?}
+I liked the cross-disciplinary aspect of the project a lot. I had never gotten to work with electrical engineers and mechanical engineers before, so 
+getting a peek into their work life was really cool. I also have always been fascinated by space so knowing that my software will be sent into low-Earth 
+orbit is really exciting. What I didn't like about the project is that the software component was at the end of the project's life-cycle so a lot of 
+winter term felt I felt under-utilized since we were still waiting on the EE's and ME's to finish up their work, along with having no motors to test on 
+due to funding issues. Overall, the timeline of the project proved to be one of the most frustrating aspects of the work.
+
+\textbf{What did you learn from your teammates?}
+A lot! Especially from my ME and EE teammates since I knew almost nothing about either of those disciplines. But, specifically from Michael and Helena, I 
+learned a lot about how to ask for help when I need it. Michael was awesome at always being there to lend me a hand if I was really running out of steam 
+on the SD card implementation. Helena was great at sitting down and doing her work with little input or oversight from me or Michael. I could trust in 
+her to do good work.
+
+\textbf{If you were the client for this project, would you be satisfied with the work done?}
+Absolutely! And I'm not just saying that for my grade. Nancy Squires has been to all of our meetings with our sponsors in Colorado and has been 
+consistently impressed and pleased with the work we've done. If I was Nancy Squires, I'd be happy. We've accomplished a lot since September and it shows.
+
+\textbf{If your project were to be continued next year, what do you think needs to be working on?}
+If this project were to be continued, I believe we would want to expand the scope to allow for more fine grained movements of the arm and allow for 
+dynamic loading of points for the arm to move to in space. Currently, we pre-process movements but in the future it would be cool to just say "hey arm, 
+go to this point" while in flight and have it actually move there.
+
 \subsubsubsection{Michael Humphrey}
 Undoubtedly I have learned more from this class in the past year then I have learned from any other class or life experience. Working with a team of twelve engineers with a common goal is a task that is almost certainly destined for failure, but in the case of this project it was a spectacular experience. Each subteam—two mechanical engineering, one electrical engineering, and one computer science team—was a pleasure to work with. Typically collaborations with this many people are bogged down with red tape and communication mishaps, but we were able to all work together to get work done. Each team was responsible for a specific portion of the project, but made sure that all other teams were on board with any major decisions. Even though we as the CS team didn't care how the physical payload was designed, both ME teams made sure to include us on all decisions that were made. The EE team was especially helpful in making sure we had all the drivers and tools necessary to develop the code for the payload. I can only hope that my future coworkers will be as considerate and helpful as my team members were on this project.
 
