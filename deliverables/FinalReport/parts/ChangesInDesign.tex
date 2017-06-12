@@ -8,17 +8,41 @@ TODO
 TODO
 
 \subsubsection{Emergency Payload Expulsion}
-TODO
+The design of the emergency payload expulsion changed multiple times due to
+changing requirements and understanding of how the \gls{payload} and arm itself would fit into the rocket's limited space.
+
+Originally, the plan was to disattach the arm and eject it into space upon
+encountering an issue that prevented us from being able to properly retract the arm into the body of the payload,
+such as the arm getting stuck on some object. However, upon request from our contacts at the RockSat-X facility in 
+Colorado, we changed the design such that, in the event of the arm getting stuck or the experiment timing out, 
+we power off all motors except the motor attached to the lower deck plate, and just pull the arm in. This
+implementation works with the inclusion of an interrupt vector that is triggered by the event timer
+going high, signalling the end of our time in apogee or the previous modes failing to return a value indicating
+that the arm is in its callibrated, home position.
 
 \subsubsection{Program Modes of Operation}
-TODO
+The design for the program modes of operation hardly changed throughout the course of the project.
+The only difference from our initial design and final design was the inclusion of a state representing the
+retract phase. The reason for adding the retract phase is that we originally imagined retraction would only happen during the beginning
+and end of the flight and thus would be included within the Observation and Off phases, respectively. However, since we changed our
+emergency payload expulsion to essentially a retraction mechanism, we wanted to include this relationship within our design of the
+program structure.
 
 \subsubsection{Target Success Sensors}
-TODO
+The design of the target success sensors has changed multiple times over the course of the year,
+mostly due to time constraints and evolving understanding of the problem and how to move a robotic arm with 4
+degrees of motion.
+
+The original design included the automatic generation of randomly selected points within the confines of the payload,
+and the \gls{obc} performing an automatic check to determine after motor movements whether it's made it to that point. While
+this could be future work for later students and would allow for a more flexible design, our team did not have the capacity
+to perform this dynamic moving aboard the \gls{payload}. Instead, early on within the project, we changed the design to its current state
+where we have pre-placed sensors onboard the \gls{payload}. Upon a sensor being depressed, a signal is sent and a code is sent over 
+the telemetry lines and a message is written to EEPROM.
 
 \subsubsection{Telemetry}
 The design of the telemetry interface has changed multiple times over the
-course of the year, mainly due to the poor understand of how telemetry systems
+course of the year, mainly due to the poor understanding of how telemetry systems
 work on the rocket.
 
 The design was originally going to transmit the result of a series of tests
