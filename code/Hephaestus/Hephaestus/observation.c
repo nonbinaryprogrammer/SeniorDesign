@@ -5,6 +5,7 @@
  */
 
 #include <avr/io.h>
+#include <util/delay.h>
 #include "phases.h"
 #include "RSXAVRD.h"
 #include "telemetry.h"
