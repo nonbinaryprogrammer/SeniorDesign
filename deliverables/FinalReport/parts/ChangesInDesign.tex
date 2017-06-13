@@ -8,7 +8,8 @@ due to limits imposed by the configuration space and the hardware.
 
 \subsubsection{Arm Movement}
 There have been fairly limited changes to the arm movement following the development of the 
-configuration space, however we were able to switch
+configuration space, however we were able to switch from using A* to using Dijkstra's algorithm 
+thanks to the evenly spaced nodes in the configuration space, accomplished in parser.cpp.
 
 \subsubsection{Arm Position Tracking}
 Arm position tracking is the section of this project that has changed the most since the initial 
