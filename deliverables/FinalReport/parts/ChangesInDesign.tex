@@ -11,7 +11,12 @@ There have been fairly limited changes to the arm movement following the develop
 configuration space, however we were able to switch
 
 \subsubsection{Arm Position Tracking}
-TODO
+Arm position tracking is the section of this project that has changed the most since the initial 
+design document. The biggest change was the addition of the 4D configuration space as the storage 
+method for information regarding the physical shape of the payload. The configuration space is now 
+what is used to track the position of the arm and the path which it follows. These coordinates have 
+four values, one of yaw, one of roll, and two of pitch, representing the theta values of each one of 
+the four arm motors on Hephaestus.
 
 \subsubsection{Emergency Payload Expulsion}
 The design of the emergency payload expulsion changed multiple times due to
