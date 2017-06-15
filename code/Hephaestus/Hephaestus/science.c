@@ -158,7 +158,7 @@ int science(){
 		if(get_calibration_status() != 0x01){ // or whichever motor refers to the home position
 			status = 1;
 		}
-
+		asdfasdjfal;skdjf
 	}
 
 	return status;

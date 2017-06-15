@@ -22,7 +22,7 @@ ISR(INT6_vect) {
 	// Infinite loop until receive signal to start
 
 
-	while (!ready) {}
+	//while (!ready) {}
 
 	eeprom_log("idle phase complete");
 

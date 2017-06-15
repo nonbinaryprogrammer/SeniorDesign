@@ -13,8 +13,6 @@
 
 #define SPEED 80
 
-#define STEPS_PER_ROTATION 1600
-
 #define DEGREES_PER_STEP .225
 
 #define DEGREES_TO_STEPS(degrees) ((degrees) / DEGREES_PER_STEP)

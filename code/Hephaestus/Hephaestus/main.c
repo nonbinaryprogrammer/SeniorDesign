@@ -9,6 +9,7 @@
 #include "phases.h"
 #include "RSXAVRD.h"
 #include "retract.h"
+#include "telemetry.h"
 
 
 int main(void)
@@ -24,17 +25,22 @@ int main(void)
 
 	timer_event_enable(1,1); // enables timer event line 1
 
+	eeprom_log("Program start.");
+
     /* Replace with your application code */
     while (1) 
     {
 		// Phase 1: Idle
 		status = idle();
 
+		//retract();
+
 		// Phase 2: Observation
 		status = observation();
 
 		// Phase 3: Science
-		status = science();
+		// Disabled for integration
+		//status = science();
 		
 		if (status != 0) { // if our arm is not calibrated i.e. collapsed and in home position...
 			safety(); // turn off all motors and retract into a safe position

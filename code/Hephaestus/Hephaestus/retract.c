@@ -23,7 +23,7 @@ void retract(){
 	
 	_delay_ms(500); // delay for motor after powering on
 
-	motor_pwr(MOTOR_CAMERA, POWER_OFF); // turn off all other motors
+	 // turn off all other motors
 	motor_pwr(MOTOR_DECK_ARM, POWER_OFF);
 	motor_pwr(MOTOR_PAN, POWER_OFF);
 	motor_pwr(MOTOR_SHOULD, POWER_OFF);
@@ -34,6 +34,11 @@ void retract(){
 	motor_dir(MOTOR_DECK_PLATE, COUNTER_CLOCKWISE); // rotates the deck plate to 
 
 	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED + 19); // the amount of steps needed to pull the arm back in
+
+	// Finally, disable the camera motor.
+	motor_pwr(MOTOR_CAMERA, POWER_OFF);
+	motor_pwr(MOTOR_DECK_PLATE, POWER_OFF);
+
 
 	eeprom_log("deck plate has been retracted");
 

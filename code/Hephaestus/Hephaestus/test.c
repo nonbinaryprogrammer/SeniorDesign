@@ -5,20 +5,33 @@
 */
 
 #include <avr/io.h>
+#include <util/delay.h>
 #include "telemetry.h"
+#include "retract.h"
 #include "RSXAVRD.h"
+#include "MOTOR_DEF.h"
 
 int main() {
-	telemetry_init();
+	AVR_init();
 
-	eeprom_log("Testing1");
-	eeprom_log("Test2");
-	eeprom_log("TestingTesting3");
+	/*
+	extend();
+	_delay_ms(1500);
+	retract();
+	*/
 
-	uint8_t i;
-	for (i=0; i<=0x0F;i++) {
-		send_code(i, 0xFF);
-	}
+	uint8_t motor = MOTOR_ELB;
+
+	motor_pwr(motor, POWER_ON);
+	motor_dir(motor, CLOCKWISE);
+	motor_step(motor, DEGREES_TO_STEPS(360), 1, SPEED);
+
+	_delay_ms(1000);
+	
+	motor_dir(motor, COUNTER_CLOCKWISE);
+	motor_step(motor, DEGREES_TO_STEPS(360), 1, SPEED);
+	motor_pwr(motor, POWER_OFF);
+
 	
 	while(1){} // Don't let the main() run off, just idle instead
 	return 0;
