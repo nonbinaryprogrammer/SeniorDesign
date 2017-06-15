@@ -33,14 +33,21 @@ int main() {
 	int a, b, c, d;
 	float af, bf, cf, df;
 	bool endOfFile = 0;
+	int x1, x2, x3, x4;
 
-	unsigned char CSpace[37][37][37][37];
+	//define cspace size
+	x1 = 1;
+	x2 = 37;
+	x3 = 37;
+	x4 = 37;
 
-	//init C-Space with 1's
-	for(a=0; a<x; a++) {
-		for(b=0; b<x; b++) {
-			for(c=0; c<x; c++) {
-				for(d=0; d<x; d++) {
+	unsigned char CSpace[1][37][37][37];
+
+	//init C-Space with 255's to mark as invalid
+	for(a=0; a<x1; a++) {
+		for(b=0; b<x2; b++) {
+			for(c=0; c<x3; c++) {
+				for(d=0; d<x4; d++) {
 					CSpace[a][b][c][d] = 255;
 				}
 			}
@@ -144,10 +151,10 @@ int main() {
 
 	//store array in file
 	outfile.open("cspace");
-	for(a=0; a<x; a++) {
-		for(b=0; b<x; b++) {
-			for(c=0; c<x; c++) {
-				for(d=0; d<x; d++) {
+	for(a=0; a<x1; a++) {
+		for(b=0; b<x2; b++) {
+			for(c=0; c<x3; c++) {
+				for(d=0; d<x4; d++) {
 					outfile << (int)CSpace[a][b][c][d];
 				}
 			}
