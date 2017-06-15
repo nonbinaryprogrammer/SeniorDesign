@@ -7,6 +7,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "phases.h"
+#include "retract.h"
 #include "RSXAVRD.h"
 #include "telemetry.h"
 #include "MOTOR_DEF.h"
@@ -15,6 +16,8 @@ int observation(){
 
      
       camera_enable(POWER_ON); // turns on camera
+
+	  extend();
 
       motor_pwr(MOTOR_CAMERA, POWER_ON); // power on the motor for the camera
 

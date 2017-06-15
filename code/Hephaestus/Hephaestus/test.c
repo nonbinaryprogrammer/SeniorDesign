@@ -20,6 +20,6 @@ int main() {
 		send_code(i, 0xFF);
 	}
 	
-	while(1){} //Don't let the main() run off, just idle instead
+	while(1){} // Don't let the main() run off, just idle instead
 	return 0;
 }
