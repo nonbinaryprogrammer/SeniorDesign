@@ -4,6 +4,8 @@
 #include "telemetry.h"
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include <avr/pgmspace.h>
+
 /*
 * Design of science phase: arm will move to touch sensor and press it. Upon moving the arm to the location, we will
 * check whether the touch sensor was pressed and change our status to represent whether or not it was pressed.
@@ -11,12 +13,12 @@
 */
 
 int science(){
-	int status = 0;
-	int M1_POS, M2_POS, M3_POS, M4_POS;
-	int M1_NXT, M2_NXT, M3_NXT, M4_NXT;
-	int M1_DIF, M2_DIF, M3_DIF, M4_DIF;
-	int M1_STP, M2_STP, M3_STP, M4_STP;
-	int scale_factor = 0.225;
+	uint8_t status = 0;
+	uint8_t M1_POS, M2_POS, M3_POS, M4_POS;
+	uint8_t M1_NXT, M2_NXT, M3_NXT, M4_NXT;
+	uint8_t M1_DIF, M2_DIF, M3_DIF, M4_DIF;
+	uint8_t M1_STP, M2_STP, M3_STP, M4_STP;
+	float scale_factor = 0.225;
 	char path_step;
 
 	//TODO reference CSpace in program memory (the address of a 4D array in program memory)
@@ -48,7 +50,9 @@ int science(){
 		//find the next point in the path
 		path_step = cspace[M1_POS][M2_POS][M3_POS][M4_POS];
 
-		//set the lower and upper bounds for the loops so only indeces 
+		uint8_t w, y, x, z, sx, sw, sy, sz, ew, ex, ey, ez;
+
+		//set the lower and upper bounds for the loops so only indices 
 		//in range are checked
 		if(M1_POS == 0) { sw = 0; } else { sw = -1; }
 		if(M2_POS == 0) { sx = 0; } else { sx = -1; }
@@ -62,10 +66,10 @@ int science(){
 
 
 		//check each of the neighboring points
-		for(int w=sw; w<ew; w++) {
-			for(int x=sx; x<ex; x++) {
-				for(int y=sy; y<ey; y++) {
-					for(int z=sz; z<ez; z++) {
+		for(w=sw; w<ew; w++) {
+			for(x=sx; x<ex; x++) {
+				for(y=sy; y<ey; y++) {
+					for(z=sz; z<ez; z++) {
 						if(cspace[M1_POS+w][M2_POS+x][M3_POS+y][M4_POS+z] == path_step + 1) {
 							M1_NXT = M1_POS + w;
 							M2_NXT = M2_POS + x;
@@ -128,7 +132,7 @@ int science(){
 			M4_DIF = M4_DIF * -1;
 		}
 
-		// convert degress to steps
+		// convert degrees to steps
 		M1_STP = M1_DIF / scale_factor;
 		M2_STP = M2_DIF / scale_factor;
 		M3_STP = M3_DIF / scale_factor;
@@ -150,7 +154,7 @@ int science(){
 			telemetry_send_code(TOUCH_SENSOR_1_ENGAGED); // For now, always send TOUCH_SENSOR_1_ENGAGED.
 		}
 
-		// code to return arm to callibrated "home" position
+		// code to return arm to calibrated "home" position
 		if(get_calibration_status() != 0x01){ // or whichever motor refers to the home position
 			status = 1;
 		}
