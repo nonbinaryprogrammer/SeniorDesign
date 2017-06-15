@@ -37,6 +37,7 @@ int main() {
 	int a, b, c, d, pos, temp[4];
 	bool endOfFile = 0;
 	int c0, c1, c2, c3, n0, n1, n2, n3;
+	int x1, x2, x3, x4;
 
 	//for getting the targets
 	char cline[24];
@@ -44,22 +45,28 @@ int main() {
 	int theta0, theta1, theta2, theta3;
 	queue<int> targets0, targets1, targets2, targets3;
 
-	unsigned char CSpace[37][37][37][37], tempchar;
+	unsigned char CSpace[1][37][37][37], tempchar;
 
 	pos = 0;
 
 	//open file
 	myFile = "./cspace";
 	sourceFile.open(myFile);
+
+	//define size of CSpace
+	x1 = 1;
+	x2 = 37;
+	x3 = 37;
+	x4 = 37;
 	
 	//read the line from the file (it is one line long)
 	getline(sourceFile, line);
 
 	//loop through the array and line, copying the line to the array
-	for(a=0; a<x; a++) {
-		for(b=0; b<x; b++) {
-			for(c=0; c<x; c++) {
-				for(d=0; d<x; d++) {
+	for(a=0; a<x1; a++) {
+		for(b=0; b<x2; b++) {
+			for(c=0; c<x3; c++) {
+				for(d=0; d<x4; d++) {
 					tempchar = line.at(pos);
 					CSpace[a][b][c][d] = tempchar;
 					pos++;
@@ -146,7 +153,7 @@ int main() {
 	//store the number of targets for later use
 	a = targets0.size();
 
-	//for each target do dijkstra's algorithm from c0-4 to n0-4 through CSpace[37][37][37][37]
+	//for each target do dijkstra's algorithm from c0-4 to n0-4 through CSpace[1][37][37][37]
 	for(int i=0; i<a; i++) {
 		//get the next target
 		n0 = targets0.front();
@@ -164,10 +171,12 @@ int main() {
 	outfile.open("./path");
 
 	//print the cspace
-	for(a=0; a<x; a++) {
-		for(b=0; b<x; b++) {
-			for(c=0; c<x; c++) {
-				for(d=0; d<x; d++) {
+	for(a=0; a<x1; a++) {
+		for(b=0; b<x2; b++) {
+			for(c=0; c<x3; c++) {
+				for(d=0; d<x4; d++) {
+					// Print the final C-Space to load to program memory
+					// TODO - change to hex output
 					outfile << (int)CSpace[a][b][c][d] << " ";
 				}
 			}
