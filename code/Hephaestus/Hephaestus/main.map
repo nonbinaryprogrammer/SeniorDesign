@@ -145,7 +145,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0xace
+.text           0x0000000000000000      0x93a
  *(.vectors)
  .vectors       0x0000000000000000       0x8c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/crtm128.o
                 0x0000000000000000                __vectors
@@ -229,118 +229,118 @@ END GROUP
                 0x00000000000000ca                __vector_18
                 0x00000000000000ca                __vector_20
  .text          0x00000000000000ce        0x0 main.o
- .text          0x00000000000000ce      0x24c science_hardcoded.o
+ .text          0x00000000000000ce       0xb4 science_hardcoded.o
                 0x00000000000000ce                science
- .text          0x000000000000031a       0x2c idle.o
-                0x000000000000031a                __vector_7
-                0x0000000000000338                idle
- .text          0x0000000000000346      0x108 retract.o
-                0x0000000000000346                retract
-                0x00000000000003be                __vector_6
-                0x0000000000000416                extend
- .text          0x000000000000044e        0xe safety.o
-                0x000000000000044e                safety
- .text          0x000000000000045c      0x48a RSXAVRD.o
-                0x000000000000045c                get_time
-                0x0000000000000466                get_calibration_status
-                0x000000000000046c                __vector_1
-                0x000000000000048e                __vector_2
-                0x00000000000004b0                __vector_3
-                0x00000000000004d2                __vector_4
-                0x00000000000004f4                __vector_5
-                0x0000000000000516                __vector_12
-                0x0000000000000544                AVR_init
-                0x0000000000000592                timer_counter_enable
-                0x00000000000005d4                timer_event_enable
-                0x0000000000000624                send_code
-                0x000000000000066c                camera_enable
-                0x00000000000006ac                touch_sensor_check
-                0x00000000000006b4                temperature_probe_sample
-                0x00000000000006ca                motor_calibration_enable
-                0x0000000000000734                motor_pwr
-                0x000000000000079a                motor_dir
-                0x00000000000007fa                motor_step
- .text          0x00000000000008e6       0x6e telemetry.o
-                0x00000000000008e6                telemetry_init
-                0x0000000000000904                telemetry_send_code
-                0x0000000000000906                eeprom_log
- .text          0x0000000000000954       0xb6 observation.o
-                0x0000000000000954                observation
- .text          0x0000000000000a0a        0xa off.o
-                0x0000000000000a0a                off
- .text          0x0000000000000a14        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
- .text          0x0000000000000a14        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
- .text          0x0000000000000a14        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
- .text          0x0000000000000a14        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_word_atmega128.o)
- .text          0x0000000000000a14        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_block_atmega128.o)
- .text          0x0000000000000a14        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_byte_atmega128.o)
- .text          0x0000000000000a14        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_word_atmega128.o)
- .text          0x0000000000000a14        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_block_atmega128.o)
-                0x0000000000000a14                . = ALIGN (0x2)
+ .text          0x0000000000000182       0x2c idle.o
+                0x0000000000000182                __vector_7
+                0x00000000000001a0                idle
+ .text          0x00000000000001ae      0x108 retract.o
+                0x00000000000001ae                retract
+                0x0000000000000226                __vector_6
+                0x000000000000027e                extend
+ .text          0x00000000000002b6        0xe safety.o
+                0x00000000000002b6                safety
+ .text          0x00000000000002c4      0x48a RSXAVRD.o
+                0x00000000000002c4                get_time
+                0x00000000000002ce                get_calibration_status
+                0x00000000000002d4                __vector_1
+                0x00000000000002f6                __vector_2
+                0x0000000000000318                __vector_3
+                0x000000000000033a                __vector_4
+                0x000000000000035c                __vector_5
+                0x000000000000037e                __vector_12
+                0x00000000000003ac                AVR_init
+                0x00000000000003fa                timer_counter_enable
+                0x000000000000043c                timer_event_enable
+                0x000000000000048c                send_code
+                0x00000000000004d4                camera_enable
+                0x0000000000000514                touch_sensor_check
+                0x000000000000051c                temperature_probe_sample
+                0x0000000000000532                motor_calibration_enable
+                0x000000000000059c                motor_pwr
+                0x0000000000000602                motor_dir
+                0x0000000000000662                motor_step
+ .text          0x000000000000074e       0x6e telemetry.o
+                0x000000000000074e                telemetry_init
+                0x000000000000076c                telemetry_send_code
+                0x000000000000076e                eeprom_log
+ .text          0x00000000000007bc       0xb6 observation.o
+                0x00000000000007bc                observation
+ .text          0x0000000000000872        0xa off.o
+                0x0000000000000872                off
+ .text          0x000000000000087c        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
+ .text          0x000000000000087c        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
+ .text          0x000000000000087c        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
+ .text          0x000000000000087c        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_word_atmega128.o)
+ .text          0x000000000000087c        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_block_atmega128.o)
+ .text          0x000000000000087c        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_byte_atmega128.o)
+ .text          0x000000000000087c        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_word_atmega128.o)
+ .text          0x000000000000087c        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_block_atmega128.o)
+                0x000000000000087c                . = ALIGN (0x2)
  *(.text.*)
- .text.startup  0x0000000000000a14       0x3c main.o
-                0x0000000000000a14                main
+ .text.startup  0x000000000000087c       0x40 main.o
+                0x000000000000087c                main
  .text.libgcc.mul
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
- .text.libgcc   0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc   0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.div
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
- .text.libgcc   0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.prologue
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.builtins
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.fmul
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.fixed
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.mul
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
- .text.libgcc   0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
-                0x0000000000000a50        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000008bc        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_clear_bss.o)
  .text.avr-libc
-                0x0000000000000a50        0xc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_word_atmega128.o)
-                0x0000000000000a50                __eerd_word_m128
+                0x00000000000008bc        0xc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_word_atmega128.o)
+                0x00000000000008bc                __eerd_word_m128
  .text.avr-libc
-                0x0000000000000a5c       0x20 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_block_atmega128.o)
-                0x0000000000000a5c                __eeupd_block_m128
+                0x00000000000008c8       0x20 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_block_atmega128.o)
+                0x00000000000008c8                __eeupd_block_m128
  .text.avr-libc
-                0x0000000000000a7c       0x22 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_byte_atmega128.o)
-                0x0000000000000a7c                __eeupd_byte_m128
-                0x0000000000000a7e                __eeupd_r18_m128
+                0x00000000000008e8       0x22 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_byte_atmega128.o)
+                0x00000000000008e8                __eeupd_byte_m128
+                0x00000000000008ea                __eeupd_r18_m128
  .text.avr-libc
-                0x0000000000000a9e        0xc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_word_atmega128.o)
-                0x0000000000000a9e                __eeupd_word_m128
+                0x000000000000090a        0xc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_word_atmega128.o)
+                0x000000000000090a                __eeupd_word_m128
  .text.avr-libc
-                0x0000000000000aaa       0x20 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_block_atmega128.o)
-                0x0000000000000aaa                __eerd_block_m128
-                0x0000000000000aae                __eerd_blraw_m128
-                0x0000000000000aca                . = ALIGN (0x2)
+                0x0000000000000916       0x20 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_block_atmega128.o)
+                0x0000000000000916                __eerd_block_m128
+                0x000000000000091a                __eerd_blraw_m128
+                0x0000000000000936                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000aca        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
-                0x0000000000000aca                exit
-                0x0000000000000aca                _exit
+ .fini9         0x0000000000000936        0x0 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
+                0x0000000000000936                exit
+                0x0000000000000936                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -359,11 +359,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000aca        0x4 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
+ .fini0         0x0000000000000936        0x4 /usr/lib/gcc/avr/4.8.2/avr51/libgcc.a(_exit.o)
  *(.fini0)
-                0x0000000000000ace                _etext = .
+                0x000000000000093a                _etext = .
 
-.data           0x0000000000800100       0xe0 load address 0x0000000000000ace
+.data           0x0000000000800100       0xe0 load address 0x000000000000093a
                 0x0000000000800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800100        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/crtm128.o
@@ -438,8 +438,8 @@ END GROUP
  COMMON         0x00000000008001e6        0x2 telemetry.o
                 0x00000000008001e6                current_address
                 0x00000000008001e8                PROVIDE (__bss_end, .)
-                0x0000000000000ace                __data_load_start = LOADADDR (.data)
-                0x0000000000000bae                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000000000000093a                __data_load_start = LOADADDR (.data)
+                0x0000000000000a1a                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00000000008001e8        0x0
                 0x00000000008001e8                PROVIDE (__noinit_start, .)
@@ -467,36 +467,36 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x0000000000000000     0x3ad4
+.stab           0x0000000000000000     0x3828
  *(.stab)
  .stab          0x0000000000000000      0x6cc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/crtm128.o
- .stab          0x00000000000006cc      0x528 main.o
-                                        0x534 (size before relaxing)
- .stab          0x0000000000000bf4      0x618 science_hardcoded.o
-                                        0x7e0 (size before relaxing)
- .stab          0x000000000000120c      0x378 idle.o
+ .stab          0x00000000000006cc      0x534 main.o
                                         0x540 (size before relaxing)
- .stab          0x0000000000001584      0x498 retract.o
+ .stab          0x0000000000000c00      0x360 science_hardcoded.o
+                                        0x528 (size before relaxing)
+ .stab          0x0000000000000f60      0x378 idle.o
+                                        0x540 (size before relaxing)
+ .stab          0x00000000000012d8      0x498 retract.o
                                         0x660 (size before relaxing)
- .stab          0x0000000000001a1c      0x300 safety.o
+ .stab          0x0000000000001770      0x300 safety.o
                                         0x4c8 (size before relaxing)
- .stab          0x0000000000001d1c      0xed0 RSXAVRD.o
+ .stab          0x0000000000001a70      0xed0 RSXAVRD.o
                                        0x1098 (size before relaxing)
- .stab          0x0000000000002bec      0x45c telemetry.o
+ .stab          0x0000000000002940      0x45c telemetry.o
                                         0x624 (size before relaxing)
- .stab          0x0000000000003048      0x3fc observation.o
+ .stab          0x0000000000002d9c      0x3fc observation.o
                                         0x5c4 (size before relaxing)
- .stab          0x0000000000003444      0x2d0 off.o
+ .stab          0x0000000000003198      0x2d0 off.o
                                         0x450 (size before relaxing)
- .stab          0x0000000000003714       0x6c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_word_atmega128.o)
+ .stab          0x0000000000003468       0x6c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_word_atmega128.o)
                                          0x78 (size before relaxing)
- .stab          0x0000000000003780       0xe4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_block_atmega128.o)
+ .stab          0x00000000000034d4       0xe4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_block_atmega128.o)
                                          0xf0 (size before relaxing)
- .stab          0x0000000000003864      0x108 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_byte_atmega128.o)
+ .stab          0x00000000000035b8      0x108 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_byte_atmega128.o)
                                         0x114 (size before relaxing)
- .stab          0x000000000000396c       0x60 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_word_atmega128.o)
+ .stab          0x00000000000036c0       0x60 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eeupd_word_atmega128.o)
                                          0x6c (size before relaxing)
- .stab          0x00000000000039cc      0x108 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_block_atmega128.o)
+ .stab          0x0000000000003720      0x108 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr51/libc.a(eerd_block_atmega128.o)
                                         0x114 (size before relaxing)
 
 .stabstr        0x0000000000000000     0x1285

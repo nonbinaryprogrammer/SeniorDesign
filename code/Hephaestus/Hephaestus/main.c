@@ -39,8 +39,7 @@ int main(void)
 		status = observation();
 
 		// Phase 3: Science
-		// Disabled for integration
-		//status = science();
+		status = science();
 		
 		if (status != 0) { // if our arm is not calibrated i.e. collapsed and in home position...
 			safety(); // turn off all motors and retract into a safe position

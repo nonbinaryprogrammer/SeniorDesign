@@ -136,12 +136,26 @@
     <Compile Include="safety.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="science.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="science_hardcoded.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="telemetry.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="telemetry.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="test.c">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile">
+      <SubType>compile</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

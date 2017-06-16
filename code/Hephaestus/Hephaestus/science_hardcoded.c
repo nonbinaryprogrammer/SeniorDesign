@@ -43,44 +43,46 @@ int science(void) {
 	//motor_step(MOTOR_PAN, DEGREES_TO_STEPS(360), 1, SPEED_FAST);
 
 
+
+
 	// Extend shoulder
-	motor_dir(MOTOR_SHOULD, CLOCKWISE);
-	motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(120), 1, SPEED_FAST);
+	//motor_dir(MOTOR_SHOULD, CLOCKWISE);
+	//motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(120), 1, SPEED_FAST);
 
 	// Extend elbow
-	motor_dir(MOTOR_ELB, CLOCKWISE);
-	motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED_FAST);
+	//motor_dir(MOTOR_ELB, CLOCKWISE);
+	//motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED_FAST);
 
 	_delay_ms(500);
 
 	// Do a little spinny spin
-	motor_dir(MOTOR_PAN, CLOCKWISE);
-	motor_step(MOTOR_PAN, DEGREES_TO_STEPS(90), 1, SPEED_FAST);
+	//motor_dir(MOTOR_PAN, CLOCKWISE);
+	//motor_step(MOTOR_PAN, DEGREES_TO_STEPS(90), 1, SPEED_FAST);
 	_delay_ms(100);
 
-	motor_dir(MOTOR_PAN, COUNTER_CLOCKWISE);
-	motor_step(MOTOR_PAN, DEGREES_TO_STEPS(180), 1, SPEED_FAST);
+	//motor_dir(MOTOR_PAN, COUNTER_CLOCKWISE);
+	//motor_step(MOTOR_PAN, DEGREES_TO_STEPS(180), 1, SPEED_FAST);
 	_delay_ms(100);
 
-	motor_dir(MOTOR_PAN, CLOCKWISE);
-	motor_step(MOTOR_PAN, DEGREES_TO_STEPS(90), 1, SPEED_FAST);
+	//motor_dir(MOTOR_PAN, CLOCKWISE);
+	//motor_step(MOTOR_PAN, DEGREES_TO_STEPS(90), 1, SPEED_FAST);
 
 	_delay_ms(500);
 
 	// Do a little floppy flop
-	motor_dir(MOTOR_DECK_ARM, CLOCKWISE);
-	motor_step(MOTOR_DECK_ARM, DEGREES_TO_STEPS(45), 1, SPEED_SLOW);
+	//motor_dir(MOTOR_DECK_ARM, CLOCKWISE);
+	//motor_step(MOTOR_DECK_ARM, DEGREES_TO_STEPS(45), 1, SPEED_SLOW);
 	_delay_ms(100);
 
-	motor_dir(MOTOR_DECK_ARM, COUNTER_CLOCKWISE);
-	motor_step(MOTOR_DECK_ARM, DEGREES_TO_STEPS(90), 1, SPEED_SLOW);
+	//motor_dir(MOTOR_DECK_ARM, COUNTER_CLOCKWISE);
+	//motor_step(MOTOR_DECK_ARM, DEGREES_TO_STEPS(90), 1, SPEED_SLOW);
 	_delay_ms(100);
 
-	motor_dir(MOTOR_DECK_ARM, CLOCKWISE);
-	motor_step(MOTOR_DECK_ARM, DEGREES_TO_STEPS(45), 1, SPEED_SLOW);
+	//motor_dir(MOTOR_DECK_ARM, CLOCKWISE);
+	//motor_step(MOTOR_DECK_ARM, DEGREES_TO_STEPS(45), 1, SPEED_SLOW);
 
 	_delay_ms(1500);
-
+	/*
 	// Wave arm
 	motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
 	motor_step(MOTOR_ELB, DEGREES_TO_STEPS(30), 1, SPEED_FAST);
@@ -106,7 +108,7 @@ int science(void) {
 	// Retract elbow
 	motor_dir(MOTOR_SHOULD, COUNTER_CLOCKWISE);
 	motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(120), 1, SPEED_FAST);
-
+	*/
 
 	eeprom_log("Exiting science mode.");
 
