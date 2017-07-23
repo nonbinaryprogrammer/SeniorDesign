@@ -17,7 +17,9 @@ ISR(INT5_vect){
 
 }
 
-void retract(){ 
+void retract(){
+
+	eeprom_log("Retracting deck plate");
 
 	motor_pwr(MOTOR_DECK_PLATE, POWER_ON);
 	
@@ -49,6 +51,8 @@ void retract(){
 
 void extend(){
 
+	eeprom_log("Extending deck plate");
+
 	motor_pwr(MOTOR_DECK_PLATE, POWER_ON); // powers on deck plate motor
 
 	_delay_ms(500); // delays to allow motor to power on
@@ -59,5 +63,5 @@ void extend(){
 
 	plate_retracted_flg = 0x00; // plate is NOT retracted
 
-
+	eeprom_log("Deck plate extended");
 }

@@ -14,9 +14,8 @@
 
 int observation(){
       camera_enable(POWER_ON); // turns on camera
-	  motor_pwr(MOTOR_CAMERA, POWER_ON);
+	  motor_pwr(MOTOR_CAMERA, POWER_ON); // turns on camera motor
 	  eeprom_log("Camera enabled");
-
 
 	  extend();
 	  eeprom_log("Arm extended.");
@@ -41,7 +40,7 @@ int observation(){
 
       _delay_ms(500); 
 
-      //telemetry_send_code(OBSERVATION_PHASE); // let us know we finished Observation mode
+      telemetry_send_code(OBSERVATION_PHASE); // let us know we finished Observation mode
 
       eeprom_log("observation phase complete");
 

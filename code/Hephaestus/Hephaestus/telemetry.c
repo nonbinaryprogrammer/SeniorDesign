@@ -20,10 +20,12 @@ void telemetry_init(void) {
 }
 
 // Sends a code with the predefined TELEMETRY_TIME constant.
+// Define in telemetry.h
+/*
 void inline telemetry_send_code(uint8_t code) {
-	//TODO: Uncomment
-	//send_code(code, TELEMTRY_TIME);
+	send_code(code, TELEMTRY_TIME);
 }
+*/
 
 // Log a message to the EEPROM
 void eeprom_log(char* message) {
@@ -31,25 +33,3 @@ void eeprom_log(char* message) {
 	current_address += strlen(message)+1;
 	eeprom_update_word(0, current_address);
 }
-
-
-// Log a message to the SD card - DEPRECATED
-/*
-void SD_log(char* message) {
-	// Write elapsed time to SD card
-	char *result = (char*) malloc(6*sizeof(char)); // Max value of get_time() is 65535, which is 5 characters, plus 1 for null terminator
-
-	if (result == NULL)
-		return;
-
-	itoa(get_time(), result, 10);
-	// Write result string to SD card
-	free(result);
-
-	// Write separator to SD card
-
-	// Write message to SD card
-
-	// Write line terminator to SD card
-}
-*/

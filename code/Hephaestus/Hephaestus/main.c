@@ -42,10 +42,11 @@ int main(void)
 		status = science();
 		
 		if (status != 0) { // if our arm is not calibrated i.e. collapsed and in home position...
-			safety(); // turn off all motors and retract into a safe position
-		} else {		   // otherwise, just retract the arm and end the experiment
-			retract();
+			safety(); // turn off all motors, retract into a safe position, and turn off.
 		}
+		
+		// otherwise, just retract the arm and end the experiment
+		retract();
 
 		// Phase 4: Off
 		status = off();

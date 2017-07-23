@@ -4,11 +4,9 @@ PRG             = main
 
 #OBJS            = $(PRG).o science.o idle.o retract.o safety.o RSXAVRD.o telemetry.o observation.o off.o
 OBJS            = $(PRG).o science_hardcoded.o idle.o retract.o safety.o RSXAVRD.o telemetry.o observation.o off.o
-#OBJS            = $(PRG).o RSXAVRD.o telemetry.o
 
 #SRCS            = $(PRG).c science.c idle.c retract.c safety.c RSXAVRD.c telemetry.c observation.c off.c
 SRCS            = $(PRG).c science_hardcoded.c idle.c retract.c safety.c RSXAVRD.c telemetry.c observation.c off.c
-#SRCS            = $(PRG).c RSXAVRD.c telemetry.c
 
 #MCU_TARGET     = atmega64
 MCU_TARGET     = atmega128
@@ -30,7 +28,7 @@ CC             = avr-gcc
 
 # Override is only needed by avr-lib build system.
 
-override CFLAGS        = -g -Wall $(OPTIMIZE) -mmcu=$(MCU_TARGET) $(DEFS) -DF_CPU=$(F_CPU)
+override CFLAGS        = -g -Wall -Werror $(OPTIMIZE) -mmcu=$(MCU_TARGET) $(DEFS) -DF_CPU=$(F_CPU) -std=c99
 override LDFLAGS       = -Wl,-Map,$(PRG).map
 
 OBJCOPY        = avr-objcopy
