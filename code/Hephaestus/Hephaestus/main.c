@@ -17,6 +17,8 @@ int main(void)
 	// Pin configuration
 	AVR_init();
 
+	motor_calibration_enable(4, 1);
+
 	uint8_t status = 0;
 
 	//timer_counter_enable(1,1); // code that enables timer event - Jon says Michael wanted this?
@@ -27,7 +29,8 @@ int main(void)
 
 	eeprom_log("Program start.");
 
-    /* Replace with your application code */
+    // We should never have to loop, but just in case something goes horribly wrong we don't want 
+	// the program to end, so the loop is for just in case
     while (1) 
     {
 		// Phase 1: Idle

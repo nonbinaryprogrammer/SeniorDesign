@@ -130,7 +130,19 @@
     <Compile Include="observation.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="off.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="phases.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="retract.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="RSXAVRD.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="RSXAVRD.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="safety.c">

@@ -13,20 +13,34 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
+volatile uint8_t done = 0;
+
 uint8_t inline is_calibrated(void);
+
+// Out of time interrupt
+ISR(INT5_vect){
+	done = 1;
+}
 
 int science(void) {
 	eeprom_log("Entered science mode");
 
+	// Turn on motors
 	motor_pwr(MOTOR_DECK_ARM, 1);
 	motor_pwr(MOTOR_PAN, 1);
 	motor_pwr(MOTOR_SHOULD, 1);
 	motor_pwr(MOTOR_ELB, 1);
 
+	motor_calibration_enable(MOTOR_DECK_ARM, 1);
+	motor_calibration_enable(MOTOR_PAN, 1);
+	motor_calibration_enable(MOTOR_SHOULD, 1);
+	motor_calibration_enable(MOTOR_ELB, 1);
+
 	// Template
 	//motor_dir(motor, dir);
 	//motor_step(motor, steps, mult, SPEED);
 
+	// Try this two times
 	for (int i=0; i<2; i++) {
 		// Fully extend arm (shoulder – 180, elbow – 180)
 		motor_dir(MOTOR_SHOULD, CLOCKWISE);
@@ -64,18 +78,15 @@ int science(void) {
 
 	
 	// Wave arm
-	for (int i=0; i<8; i++) {
+	while (!done) {
 		motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
-		motor_step(MOTOR_ELB, DEGREES_TO_STEPS(30), 1, SPEED);
-		_delay_ms(100);
+		motor_step(MOTOR_ELB, DEGREES_TO_STEPS(30), 1, SPEED-10);
+		_delay_ms(200);
 
 		motor_dir(MOTOR_ELB, CLOCKWISE);
-		motor_step(MOTOR_ELB, DEGREES_TO_STEPS(30), 1, SPEED);
-		_delay_ms(100);
+		motor_step(MOTOR_ELB, DEGREES_TO_STEPS(30), 1, SPEED-10);
+		_delay_ms(200);
 	}
-
-	// Contact touch sensor
-	// Todo: touch sensor
 
 	// Fold arm into home position (from fully extended)
 	motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
@@ -99,5 +110,5 @@ int science(void) {
 }
 
 uint8_t inline is_calibrated(void) {
-	return get_calibration_status();
+	return get_calibration_status() & 1;
 }

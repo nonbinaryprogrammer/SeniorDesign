@@ -9,6 +9,7 @@
 #ifndef PHASES_H_
 #define PHASES_H_
 
+int inhibit(void);		// Phase 0
 int idle(void);			// Phase 1
 int observation(void);	// Phase 2
 int science(void);		// Phase 3

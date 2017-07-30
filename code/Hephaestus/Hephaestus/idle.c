@@ -10,7 +10,8 @@
 #include <avr/interrupt.h>
 #include "telemetry.h"
 
-uint8_t ready = 0;
+// If doesn't work, use volatile
+volatile uint8_t ready = 0;
 
 ISR(INT6_vect) {
 	ready = 1;

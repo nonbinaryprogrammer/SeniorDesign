@@ -9,14 +9,6 @@
 
 uint8_t plate_retracted_flg; // flag to keep track of plate's position
 
-ISR(INT5_vect){
-	
-	if(plate_retracted_flg == 0x00){
-		retract();
-	}
-
-}
-
 void retract(){
 
 	eeprom_log("Retracting deck plate");

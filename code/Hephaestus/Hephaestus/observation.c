@@ -18,7 +18,6 @@ int observation(){
 	  eeprom_log("Camera enabled");
 
 	  extend();
-	  eeprom_log("Arm extended.");
 
       motor_pwr(MOTOR_CAMERA, POWER_ON); // power on the motor for the camera
 
@@ -45,8 +44,6 @@ int observation(){
       eeprom_log("observation phase complete");
 
       return 0;
-
-
 }
 
 

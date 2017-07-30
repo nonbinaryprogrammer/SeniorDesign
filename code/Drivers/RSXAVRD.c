@@ -103,7 +103,7 @@ ISR(INT3_vect){
 
 //EXTERNAL INT 4: Calibration Interrupt function for motor 4
 ISR(INT4_vect){
-	calibration_flg |= 0x10;
+	while(1) {};
 }
 
 //TIMER COUNTER 1 INT: Time Keeping Interrupt - increments time variable every 0.1 sec

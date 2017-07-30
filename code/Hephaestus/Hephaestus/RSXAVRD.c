@@ -213,7 +213,7 @@ uint16_t temperature_probe_sample(uint8_t probe){
 
 /***********************************Motor Driver Functions***********************************/
 void motor_calibration_enable(uint8_t motor, uint8_t flag){
-	uint8_t motorCBID[6] = {MOT0_CALIB_INT, MOT1_CALIB_INT, MOT2_CALIB_INT, MOT3_CALIB_INT, MOT4_CALIB_INT};
+	uint8_t motorCBID[] = {MOT0_CALIB_INT, MOT1_CALIB_INT, MOT2_CALIB_INT, MOT3_CALIB_INT, MOT4_CALIB_INT};
 	cli();
 	if(flag == 0x01)
 		EIMSK |= (1<<motorCBID[motor]);
@@ -256,4 +256,6 @@ void motor_step(uint8_t motor, uint16_t steps, uint8_t mult, uint16_t speed){
 			break;
 		}
 	}
+
+	calibration_flg = 0x00;
 }
