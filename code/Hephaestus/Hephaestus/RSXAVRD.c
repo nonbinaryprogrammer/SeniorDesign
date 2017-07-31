@@ -101,9 +101,9 @@ ISR(INT3_vect){
 	calibration_flg |= 0x08;
 }
 
-//EXTERNAL INT 4: Calibration Interrupt function for motor 4
+//EXTERNAL INT 4: Inhibit
 ISR(INT4_vect){
-	calibration_flg |= 0x10;
+	//while(1) {};
 }
 
 //TIMER COUNTER 1 INT: Time Keeping Interrupt - increments time variable every 0.1 sec
@@ -256,6 +256,4 @@ void motor_step(uint8_t motor, uint16_t steps, uint8_t mult, uint16_t speed){
 			break;
 		}
 	}
-
-	calibration_flg = 0x00;
 }

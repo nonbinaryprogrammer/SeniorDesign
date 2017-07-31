@@ -14,8 +14,14 @@
 
 int observation(){
       camera_enable(POWER_ON); // turns on camera
-	  motor_pwr(MOTOR_CAMERA, POWER_ON); // turns on camera motor
-	  eeprom_log("Camera enabled");
+      eeprom_log("Camera enabled");
+	  
+	  // Turn on motors
+	  motor_pwr(MOTOR_CAMERA, POWER_ON);
+	  motor_pwr(MOTOR_DECK_ARM, 1);
+	  motor_pwr(MOTOR_PAN, 1);
+	  motor_pwr(MOTOR_SHOULD, 1);
+	  motor_pwr(MOTOR_ELB, 1);
 
 	  extend();
 
@@ -35,7 +41,7 @@ int observation(){
 
       motor_dir(MOTOR_CAMERA, CLOCKWISE);
 
-      motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(180), 1, 70);
+      motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(135), 1, 70);
 
       _delay_ms(500); 
 

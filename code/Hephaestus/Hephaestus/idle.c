@@ -24,7 +24,13 @@ ISR(INT6_vect) {
 
 	eeprom_log("Entered idle phase");
 
-	while (!ready) {}
+	DDRE |= (1<<4);
+
+	while (!ready || bit_is_set(PINE, 4)) {
+		if (bit_is_set(PINE, 4)) {
+			ready = 0;
+		}
+	}
 
 	eeprom_log("idle phase complete");
 

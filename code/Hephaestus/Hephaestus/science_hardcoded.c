@@ -26,15 +26,19 @@ int science(void) {
 	eeprom_log("Entered science mode");
 
 	// Turn on motors
+	motor_pwr(MOTOR_CAMERA, POWER_ON);
 	motor_pwr(MOTOR_DECK_ARM, 1);
 	motor_pwr(MOTOR_PAN, 1);
 	motor_pwr(MOTOR_SHOULD, 1);
 	motor_pwr(MOTOR_ELB, 1);
 
+	/*
+	// Enable interrupts on motors
 	motor_calibration_enable(MOTOR_DECK_ARM, 1);
 	motor_calibration_enable(MOTOR_PAN, 1);
 	motor_calibration_enable(MOTOR_SHOULD, 1);
 	motor_calibration_enable(MOTOR_ELB, 1);
+	*/
 
 	// Template
 	//motor_dir(motor, dir);
@@ -49,7 +53,7 @@ int science(void) {
 
 		motor_dir(MOTOR_ELB, CLOCKWISE);
 		motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED);
-		_delay_ms(2000); // Wait two seconds
+		_delay_ms(1000); // Wait one seconds
 
 		// Fold back to original position.
 		motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
@@ -62,8 +66,12 @@ int science(void) {
 
 
 		if (is_calibrated()) {
+			eeprom_log("Arm calibrated");
+			telemetry_send_code(CALIBRATION_SUCCESS);
 			break; // If we've retracted to the home position, continue to the next movement
-		}          // Otherwise, try again.
+		} else {   // Otherwise, try again.
+			eeprom_log("Arm not calibrated");
+		}
 	}
 
 	
@@ -77,6 +85,7 @@ int science(void) {
 	_delay_ms(1000); // Wait one second
 
 	
+	eeprom_log("Waving arm");
 	// Wave arm
 	while (!done) {
 		motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
@@ -87,6 +96,7 @@ int science(void) {
 		motor_step(MOTOR_ELB, DEGREES_TO_STEPS(30), 1, SPEED-10);
 		_delay_ms(200);
 	}
+	eeprom_log("Folding up");
 
 	// Fold arm into home position (from fully extended)
 	motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
@@ -97,16 +107,25 @@ int science(void) {
 	motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(180), 1, SPEED);
 	_delay_ms(1000); // Wait one second
 
-	// Power off motors
-	motor_pwr(MOTOR_DECK_ARM, POWER_OFF);
-	motor_pwr(MOTOR_PAN,      POWER_OFF);
-	motor_pwr(MOTOR_SHOULD,   POWER_OFF);
-	motor_pwr(MOTOR_ELB,      POWER_OFF);
+	// One more camera sweep
+	motor_pwr(MOTOR_CAMERA, POWER_ON); // power on the motor for the camera
+	motor_dir(MOTOR_CAMERA, CLOCKWISE); // set the camera to move clockwise
+	motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(225), 1, 70);
+	_delay_ms(500);
+
+	motor_dir(MOTOR_CAMERA, COUNTER_CLOCKWISE);
+	motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(360), 1, 70);
+	_delay_ms(500);
+
+	motor_dir(MOTOR_CAMERA, CLOCKWISE);
+	motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(180), 1, 70);
+	_delay_ms(500);
+
 
 	telemetry_send_code(SCIENCE_PHASE);
 	eeprom_log("Exiting science mode.");
 
-	return 0; // Return success
+	return 0; //is_calibrated(); // Return success
 }
 
 uint8_t inline is_calibrated(void) {

@@ -11,13 +11,10 @@
 #include "retract.h"
 #include "telemetry.h"
 
-
 int main(void)
 {
 	// Pin configuration
 	AVR_init();
-
-	motor_calibration_enable(4, 1);
 
 	uint8_t status = 0;
 
@@ -33,10 +30,10 @@ int main(void)
 	// the program to end, so the loop is for just in case
     while (1) 
     {
+	    //retract();
+		
 		// Phase 1: Idle
 		status = idle();
-
-		//retract();
 
 		// Phase 2: Observation
 		status = observation();
@@ -58,5 +55,6 @@ int main(void)
 
 		// Phase 5: Safety
 		status = safety();
+		
     }
 }

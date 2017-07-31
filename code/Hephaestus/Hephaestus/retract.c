@@ -14,25 +14,25 @@ void retract(){
 	eeprom_log("Retracting deck plate");
 
 	motor_pwr(MOTOR_DECK_PLATE, POWER_ON);
+	motor_pwr(MOTOR_CAMERA, POWER_ON);
 	
 	_delay_ms(500); // delay for motor after powering on
+	
+	motor_dir(MOTOR_DECK_PLATE, COUNTER_CLOCKWISE); // rotates the deck plate to 
 
-	 // turn off all other motors
+	motor_step(MOTOR_DECK_PLATE, 1650, 28, 97); // the amount of steps needed to pull the arm back in
+	
+	camera_enable(POWER_OFF);
+
+	// turn off all other motors
 	motor_pwr(MOTOR_DECK_ARM, POWER_OFF);
 	motor_pwr(MOTOR_PAN, POWER_OFF);
 	motor_pwr(MOTOR_SHOULD, POWER_OFF);
 	motor_pwr(MOTOR_ELB, POWER_OFF);
 
-	camera_enable(POWER_OFF); 
-	
-	motor_dir(MOTOR_DECK_PLATE, COUNTER_CLOCKWISE); // rotates the deck plate to 
-
-	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED + 19); // the amount of steps needed to pull the arm back in
-
 	// Finally, disable the camera motor.
 	motor_pwr(MOTOR_CAMERA, POWER_OFF);
 	motor_pwr(MOTOR_DECK_PLATE, POWER_OFF);
-
 
 	eeprom_log("deck plate has been retracted");
 
@@ -51,7 +51,7 @@ void extend(){
 
 	motor_dir(MOTOR_DECK_PLATE, CLOCKWISE); // push the deck plate out
 
-	motor_step(MOTOR_DECK_PLATE, 1650, 28, SPEED + 19); // the amount of steps needed to move the deck plate at a good speed
+	motor_step(MOTOR_DECK_PLATE, 1650, 28, 97); // the amount of steps needed to move the deck plate at a good speed
 
 	plate_retracted_flg = 0x00; // plate is NOT retracted
 
