@@ -42,7 +42,7 @@
 void telemetry_init(void);
 
 // Sends a code with the predefined TELEMETRY_TIME constant.
-void inline telemetry_send_code(uint8_t code) { /*send_code(code, TELEMTRY_TIME);*/ }
+void inline telemetry_send_code(uint8_t code) { send_code(code, TELEMTRY_TIME); }
 
 // Log a message to the EEPROM
 void eeprom_log(char* message);

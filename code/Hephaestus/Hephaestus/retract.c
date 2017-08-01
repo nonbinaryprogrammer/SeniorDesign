@@ -20,7 +20,7 @@ void retract(){
 	
 	motor_dir(MOTOR_DECK_PLATE, COUNTER_CLOCKWISE); // rotates the deck plate to 
 
-	motor_step(MOTOR_DECK_PLATE, 1650, 28, 97); // the amount of steps needed to pull the arm back in
+	motor_step(MOTOR_DECK_PLATE, 1650, 28, 99); // the amount of steps needed to pull the arm back in
 	
 	camera_enable(POWER_OFF);
 
@@ -51,9 +51,11 @@ void extend(){
 
 	motor_dir(MOTOR_DECK_PLATE, CLOCKWISE); // push the deck plate out
 
-	motor_step(MOTOR_DECK_PLATE, 1650, 28, 97); // the amount of steps needed to move the deck plate at a good speed
+	motor_step(MOTOR_DECK_PLATE, 1650, 28, 99); // the amount of steps needed to move the deck plate at a good speed
 
 	plate_retracted_flg = 0x00; // plate is NOT retracted
+
+	motor_pwr(MOTOR_DECK_PLATE, POWER_OFF);
 
 	eeprom_log("Deck plate extended");
 }

@@ -32,38 +32,25 @@ int science(void) {
 	motor_pwr(MOTOR_SHOULD, 1);
 	motor_pwr(MOTOR_ELB, 1);
 
-	/*
-	// Enable interrupts on motors
-	motor_calibration_enable(MOTOR_DECK_ARM, 1);
-	motor_calibration_enable(MOTOR_PAN, 1);
-	motor_calibration_enable(MOTOR_SHOULD, 1);
-	motor_calibration_enable(MOTOR_ELB, 1);
-	*/
-
-	// Template
-	//motor_dir(motor, dir);
-	//motor_step(motor, steps, mult, SPEED);
-
 	// Try this two times
 	for (int i=0; i<2; i++) {
-		// Fully extend arm (shoulder – 180, elbow – 180)
-		motor_dir(MOTOR_SHOULD, CLOCKWISE);
-		motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(180), 1, SPEED);
+		// Fully extend arm (pancake – 180, elbow – 180)
+		motor_dir(MOTOR_PAN, CLOCKWISE);
+		motor_step(MOTOR_PAN, DEGREES_TO_STEPS(180), 1, SPEED);
 		_delay_ms(100); // Pause .1 seconds
 
-		motor_dir(MOTOR_ELB, CLOCKWISE);
+		motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
 		motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED);
 		_delay_ms(1000); // Wait one seconds
 
 		// Fold back to original position.
-		motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
+		motor_dir(MOTOR_ELB, CLOCKWISE);
 		motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED);
-		_delay_ms(100);  // Pause .1 seconds
-
-		motor_dir(MOTOR_SHOULD, COUNTER_CLOCKWISE);
-		motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(180), 1, SPEED);
-		_delay_ms(1000); // Wait one second
-
+		_delay_ms(100); // Wait one second
+		
+		motor_dir(MOTOR_PAN, COUNTER_CLOCKWISE);
+		motor_step(MOTOR_PAN, DEGREES_TO_STEPS(180), 1, SPEED);
+		_delay_ms(1000); // Pause .1 seconds
 
 		if (is_calibrated()) {
 			eeprom_log("Arm calibrated");
@@ -75,14 +62,14 @@ int science(void) {
 	}
 
 	
-	// Fully extend arm (shoulder – 180, elbow – 180)
-	motor_dir(MOTOR_SHOULD, CLOCKWISE);
-	motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(180), 1, SPEED);
+	// Fully extend arm (pancake – 180, elbow – 180)
+	motor_dir(MOTOR_PAN, CLOCKWISE);
+	motor_step(MOTOR_PAN, DEGREES_TO_STEPS(180), 1, SPEED);
 	_delay_ms(100); // Pause .1 seconds
 
-	motor_dir(MOTOR_ELB, CLOCKWISE);
+	motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
 	motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED);
-	_delay_ms(1000); // Wait one second
+	_delay_ms(1000); // Wait one seconds
 
 	
 	eeprom_log("Waving arm");
@@ -97,16 +84,17 @@ int science(void) {
 		_delay_ms(200);
 	}
 	eeprom_log("Folding up");
-
-	// Fold arm into home position (from fully extended)
-	motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
+	
+	// Fold back to original position.
+	motor_dir(MOTOR_ELB, CLOCKWISE);
 	motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED);
-	_delay_ms(100);  // Pause .1 seconds
+	_delay_ms(100); // Wait one second
+	
+	motor_dir(MOTOR_PAN, COUNTER_CLOCKWISE);
+	motor_step(MOTOR_PAN, DEGREES_TO_STEPS(180), 1, SPEED);
+	_delay_ms(1000); // Pause .1 seconds
 
-	motor_dir(MOTOR_SHOULD, COUNTER_CLOCKWISE);
-	motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(180), 1, SPEED);
-	_delay_ms(1000); // Wait one second
-
+	
 	// One more camera sweep
 	motor_pwr(MOTOR_CAMERA, POWER_ON); // power on the motor for the camera
 	motor_dir(MOTOR_CAMERA, CLOCKWISE); // set the camera to move clockwise
@@ -120,7 +108,7 @@ int science(void) {
 	motor_dir(MOTOR_CAMERA, CLOCKWISE);
 	motor_step(MOTOR_CAMERA, DEGREES_TO_STEPS(180), 1, 70);
 	_delay_ms(500);
-
+	
 
 	telemetry_send_code(SCIENCE_PHASE);
 	eeprom_log("Exiting science mode.");

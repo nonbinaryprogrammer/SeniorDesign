@@ -15,7 +15,6 @@ int off (void) {
 	motor_pwr(MOTOR_PAN, POWER_OFF);
 	motor_pwr(MOTOR_SHOULD, POWER_OFF);
 	motor_pwr(MOTOR_ELB, POWER_OFF);
-	//motor_pwr(MOTOR_DECK_PLATE, POWER_OFF);
 	camera_enable(POWER_OFF); // turns on camera
 
 

@@ -11,7 +11,7 @@
 #define CLOCKWISE 0 
 #define COUNTER_CLOCKWISE 1
 
-#define SPEED 80
+#define SPEED 90
 
 #define DEGREES_PER_STEP .225
 

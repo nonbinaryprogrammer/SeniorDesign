@@ -13,8 +13,8 @@ MCU_TARGET     = atmega128
 
 F_CPU          = 16000000UL
 
-#PROGRAMMER_TARGET     = m64
-PROGRAMMER_TARGET     = m128
+PROGRAMMER_TARGET     = m64
+#PROGRAMMER_TARGET     = m128
 
 #agressive optimization
 OPTIMIZE       = -O2    # options are 1, 2, 3, s

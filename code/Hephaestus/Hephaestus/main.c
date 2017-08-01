@@ -6,10 +6,12 @@
  */ 
 
 #include <avr/io.h>
+#include <util/delay.h>
 #include "phases.h"
 #include "RSXAVRD.h"
 #include "retract.h"
 #include "telemetry.h"
+#include "MOTOR_DEF.h"
 
 int main(void)
 {
@@ -30,8 +32,6 @@ int main(void)
 	// the program to end, so the loop is for just in case
     while (1) 
     {
-	    //retract();
-		
 		// Phase 1: Idle
 		status = idle();
 
