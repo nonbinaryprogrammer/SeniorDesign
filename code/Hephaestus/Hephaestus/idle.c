@@ -21,16 +21,18 @@ ISR(INT6_vect) {
  int idle(void) {
 	
 	// Infinite loop until receive signal to start
+	
+	eeprom_log("Checking inhibit");
+	// Inhibit
+	while (bit_is_set(PINE, 4)) {
+		ready = 0;
+	}
 
 	eeprom_log("Entered idle phase");
 
 	DDRE |= (1<<4);
 
-	while (!ready || bit_is_set(PINE, 4)) {
-		if (bit_is_set(PINE, 4)) {
-			ready = 0;
-		}
-	}
+	while (!ready) {}
 
 	eeprom_log("idle phase complete");
 
