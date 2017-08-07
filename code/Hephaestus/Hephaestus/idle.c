@@ -22,11 +22,12 @@ ISR(INT6_vect) {
 	
 	// Infinite loop until receive signal to start
 	
+	/*
 	eeprom_log("Checking inhibit");
 	// Inhibit
 	while (bit_is_set(PINE, 4)) {
 		ready = 0;
-	}
+	}*/
 
 	eeprom_log("Entered idle phase");
 
