@@ -35,21 +35,21 @@ int science(void) {
 	// Try this two times
 	for (int i=0; i<2; i++) {
 		// Fully extend arm (pancake – 180, elbow – 180)
-		motor_dir(MOTOR_PAN, CLOCKWISE);
-		motor_step(MOTOR_PAN, DEGREES_TO_STEPS(180), 1, SPEED);
+		motor_dir(MOTOR_SHOULD, CLOCKWISE);
+		motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(180), 1, SPEED);
 		_delay_ms(100); // Pause .1 seconds
 
-		motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
+		motor_dir(MOTOR_ELB, CLOCKWISE);
 		motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED);
 		_delay_ms(1000); // Wait one seconds
 
 		// Fold back to original position.
-		motor_dir(MOTOR_ELB, CLOCKWISE);
+		motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
 		motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED);
 		_delay_ms(100); // Wait one second
 		
-		motor_dir(MOTOR_PAN, COUNTER_CLOCKWISE);
-		motor_step(MOTOR_PAN, DEGREES_TO_STEPS(180), 1, SPEED);
+		motor_dir(MOTOR_SHOULD, COUNTER_CLOCKWISE);
+		motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(180), 1, SPEED);
 		_delay_ms(1000); // Pause .1 seconds
 
 		if (is_calibrated()) {
@@ -63,11 +63,11 @@ int science(void) {
 
 	
 	// Fully extend arm (pancake – 180, elbow – 180)
-	motor_dir(MOTOR_PAN, CLOCKWISE);
-	motor_step(MOTOR_PAN, DEGREES_TO_STEPS(180), 1, SPEED);
+	motor_dir(MOTOR_SHOULD, CLOCKWISE);
+	motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(180), 1, SPEED);
 	_delay_ms(100); // Pause .1 seconds
 
-	motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
+	motor_dir(MOTOR_ELB, CLOCKWISE);
 	motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED);
 	_delay_ms(1000); // Wait one seconds
 
@@ -86,12 +86,12 @@ int science(void) {
 	eeprom_log("Folding up");
 	
 	// Fold back to original position.
-	motor_dir(MOTOR_ELB, CLOCKWISE);
+	motor_dir(MOTOR_ELB, COUNTER_CLOCKWISE);
 	motor_step(MOTOR_ELB, DEGREES_TO_STEPS(180), 1, SPEED);
 	_delay_ms(100); // Wait one second
 	
-	motor_dir(MOTOR_PAN, COUNTER_CLOCKWISE);
-	motor_step(MOTOR_PAN, DEGREES_TO_STEPS(180), 1, SPEED);
+	motor_dir(MOTOR_SHOULD, COUNTER_CLOCKWISE);
+	motor_step(MOTOR_SHOULD, DEGREES_TO_STEPS(180), 1, SPEED);
 	_delay_ms(1000); // Pause .1 seconds
 
 	
