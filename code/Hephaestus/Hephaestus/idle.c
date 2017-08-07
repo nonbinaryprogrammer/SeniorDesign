@@ -24,6 +24,7 @@ ISR(INT6_vect) {
 	
 	/*
 	eeprom_log("Checking inhibit");
+	DDRE |= (1<<4);
 	// Inhibit
 	while (bit_is_set(PINE, 4)) {
 		ready = 0;
@@ -31,7 +32,6 @@ ISR(INT6_vect) {
 
 	eeprom_log("Entered idle phase");
 
-	DDRE |= (1<<4);
 
 	while (!ready) {}
 
